@@ -1,34 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 👋 Olá, eu sou o Adriel L  
 
-## Getting Started
+💻 **Desenvolvedor Full Stack | Apaixonado por Tecnologia**  
+Construindo soluções escaláveis e eficientes em **frontend, backend e automação de processos**.  
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## 🚀 Tecnologias & Ferramentas  
+- **Frontend:** React, Next.js, React Native (Expo), TailwindCSS, shadcn/ui  
+- **Backend:** Node.js, Fastify, Express  
+- **Banco de Dados:** PostgreSQL, MongoDB, Firebase  
+- **Automação & Integração:** n8n, Make, Zapier, APIs REST/GraphQL, Webhooks  
+- **DevOps & Infra:** Docker 🐳, Docker Compose, Nginx, Git/GitHub  
+- **Outros:** Strapi (CMS), Google Sheets API, App Scripts  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## 📌 Projetos em Destaque  
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- 🔗 **[Portfólio Pessoal](#)** → Meu site de apresentação profissional  
+- ⚡ **[Sistema de Automação com n8n](#)** → Integrações e fluxos inteligentes para negócios  
+- 🛒 **[E-commerce Integrado](#)** → Integração entre Mercado Livre, WooCommerce e Nuvemshop  
+- 🔐 **[Mini Projetos SaaS - Auth](#)** → Estudos práticos sobre autenticação e arquitetura SaaS  
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+*(Substituí os `#` pelos links reais dos repositórios ou deploys depois)*  
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📊 Estatísticas  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=AdrielL&show_icons=true&theme=tokyonight)  
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=AdrielL&layout=compact&theme=tokyonight)  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🛠️ Roadmap de Aprendizado  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Atualmente estou me aprofundando em:  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- 🐳 **Docker & Docker Compose** → Conteinerização e orquestração de serviços  
+- ⚡ **Arquitetura SaaS** → Autenticação, escalabilidade e multi-tenant apps  
+- 🔗 **Integrações avançadas com n8n/Make** → Automação de processos complexos  
+- ☁️ **Infraestrutura & Deploy** → Nginx, CI/CD e hospedagem escalável  
+- 📊 **Análise de Dados** → SQL avançado e integração de bancos  
+
+---
+
+## 🌐 Conecte-se comigo  
+
+- [LinkedIn](#)  
+- [Portfólio Online](#)  
+- 📧 adriel@email.com  
+
+---
+
+🔹 Sempre em busca de novos desafios e aprendizados na área de **desenvolvimento e automação**.  

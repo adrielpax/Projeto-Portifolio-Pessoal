@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 460" width="1000" height="460" font-family="Inter, Segoe UI, sans-serif">
+  <rect width="1000" height="460" fill="#ffffff"/>
+  <text x="500" y="56" font-size="26" fill="#18181b" font-weight="800" text-anchor="middle">Como nasce um agente no Hermes</text>
+  <text x="500" y="86" font-size="16" fill="#71717a" text-anchor="middle">uma skill é só um arquivo SKILL.md — texto simples vira superpoder</text>
+
+  <!-- 4 passos -->
+  <g transform="translate(40 130)">
+    <!-- 1 -->
+    <rect x="0" y="0" width="210" height="240" rx="20" fill="#fafafa" stroke="#e4e4e7" stroke-width="2"/>
+    <circle cx="36" cy="40" r="20" fill="#18181b"/>
+    <text x="29" y="47" font-size="20" fill="#fff" font-weight="700">1</text>
+    <text x="24" y="100" font-size="18" fill="#18181b" font-weight="700">Descreva</text>
+    <text x="24" y="132" font-size="14" fill="#52525b">Crie a pasta</text>
+    <text x="24" y="154" font-size="13" fill="#7c3aed" font-family="monospace">skills/minha-skill/</text>
+    <text x="24" y="178" font-size="14" fill="#52525b">com um</text>
+    <text x="24" y="200" font-size="13" fill="#7c3aed" font-family="monospace">SKILL.md</text>
+
+    <text x="225" y="130" font-size="34" fill="#d4d4d8">→</text>
+
+    <!-- 2 -->
+    <rect x="260" y="0" width="210" height="240" rx="20" fill="#fafafa" stroke="#e4e4e7" stroke-width="2"/>
+    <circle cx="296" cy="40" r="20" fill="#18181b"/>
+    <text x="289" y="47" font-size="20" fill="#fff" font-weight="700">2</text>
+    <text x="284" y="100" font-size="18" fill="#18181b" font-weight="700">Instrua</text>
+    <text x="284" y="132" font-size="14" fill="#52525b">Frontmatter YAML</text>
+    <text x="284" y="154" font-size="14" fill="#52525b">(nome + descrição)</text>
+    <text x="284" y="184" font-size="14" fill="#52525b">e o passo a passo</text>
+    <text x="284" y="206" font-size="14" fill="#52525b">em markdown.</text>
+
+    <text x="485" y="130" font-size="34" fill="#d4d4d8">→</text>
+
+    <!-- 3 -->
+    <rect x="520" y="0" width="210" height="240" rx="20" fill="#fafafa" stroke="#e4e4e7" stroke-width="2"/>
+    <circle cx="556" cy="40" r="20" fill="#18181b"/>
+    <text x="549" y="47" font-size="20" fill="#fff" font-weight="700">3</text>
+    <text x="544" y="100" font-size="18" fill="#18181b" font-weight="700">Use</text>
+    <text x="544" y="132" font-size="14" fill="#52525b">Vira um comando:</text>
+    <text x="544" y="158" font-size="15" fill="#b45309" font-family="monospace" font-weight="700">/minha-skill</text>
+    <text x="544" y="190" font-size="14" fill="#52525b">O Hermes carrega</text>
+    <text x="544" y="212" font-size="14" fill="#52525b">só quando precisa.</text>
+
+    <text x="745" y="130" font-size="34" fill="#d4d4d8">→</text>
+
+    <!-- 4 -->
+    <rect x="780" y="0" width="180" height="240" rx="20" fill="#18181b"/>
+    <circle cx="816" cy="40" r="20" fill="#7c3aed"/>
+    <text x="809" y="47" font-size="20" fill="#fff" font-weight="700">4</text>
+    <text x="804" y="100" font-size="18" fill="#fafafa" font-weight="700">Evolui</text>
+    <text x="804" y="132" font-size="14" fill="#d4d4d8">O próprio agente</text>
+    <text x="804" y="154" font-size="14" fill="#d4d4d8">salva novas skills</text>
+    <text x="804" y="176" font-size="14" fill="#d4d4d8">após resolver</text>
+    <text x="804" y="198" font-size="14" fill="#d4d4d8">tarefas. ✨</text>
+  </g>
+</svg>

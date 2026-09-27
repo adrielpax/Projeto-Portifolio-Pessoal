@@ -1,0 +1,694 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* :root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+} */
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+  --radius: 0.375rem; /* militar: cantos contidos em toda a escala rounded-* */
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   AdrielDev — Design System "Vanguard" (Tactical HUD × Glassmorphism)
+   Fundos navy, azul tático #3b82f6 como primário, cyan de inteligência
+   em micro-detalhes, display monoespaçado. Semânticas: verde validado,
+   âmbar alerta, vermelho crítico.
+   O prefixo `hud-` é histórico e permanece para não quebrar as classes.
+   ══════════════════════════════════════════════════════════════════ */
+@theme inline {
+  --font-display: var(--font-geist-mono); /* Modo Guerra: display mono */
+  --color-hud-bg: var(--hud-bg);
+  --color-hud-surface: var(--hud-surface);
+  --color-hud-surface-2: var(--hud-surface-2);
+  --color-hud-elevated: var(--hud-elevated);
+  --color-hud-line: var(--hud-line);
+  --color-hud-text: var(--hud-text);
+  --color-hud-muted: var(--hud-muted);
+  --color-hud-accent: var(--hud-accent);
+  --color-hud-accent-2: var(--hud-accent-2);
+  --color-hud-accent-fg: var(--hud-accent-fg);
+  --color-hud-detail: var(--hud-detail);
+  --color-hud-steel: var(--hud-steel);
+}
+
+:root {
+  /* Modo Guerra v2.5.0 — ardósia espacial + ciano claro de assinatura */
+  --hud-bg: #0a0e17;
+  --hud-surface: #0f1523;
+  --hud-surface-2: #141c2e;
+  --hud-elevated: #19243a;
+  --hud-line: rgba(255, 255, 255, 0.1);
+  --hud-line-strong: rgba(255, 255, 255, 0.18);
+  --hud-text: #ffffff;
+  --hud-muted: rgba(255, 255, 255, 0.72);
+  --hud-accent: #22d3ee; /* ciano elétrico — cor de comando */
+  --hud-accent-2: #67e8f9;
+  --hud-accent-fg: #0a0e17; /* tinta escura sobre o ciano */
+  --hud-detail: #00f5ff; /* assinatura ultra-clara: micro-detalhes */
+  --hud-steel: rgba(255, 255, 255, 0.52);
+  --hud-glow: rgba(0, 245, 255, 0.35);
+  /* Semânticas do sistema */
+  --hud-critical: #ef4444;
+  --hud-success: #10b981;
+  --hud-warning: #f59e0b;
+  --hud-comms: #6366f1;
+}
+
+.hud {
+  background:
+    radial-gradient(1100px 560px at 100% -8%, rgba(0, 245, 255, 0.08), transparent 60%),
+    radial-gradient(950px 480px at -8% 8%, rgba(34, 211, 238, 0.05), transparent 55%),
+    var(--hud-bg);
+  /* Fundo fixo: o conteúdo rola sobre ele (parallax de camadas) */
+  background-attachment: fixed;
+  color: var(--hud-text);
+}
+
+.hud ::selection {
+  background: rgba(0, 245, 255, 0.35);
+  color: #0a0e17;
+}
+
+/* ── Botões ─────────────────────────────────────────────────────────
+   .btn-primary: bloco de vidro branco com relevo — o CTA da página.
+   .btn-ghost: vidro escuro com hairline — ação secundária. */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #22d3ee 0%, #0891b2 100%);
+  color: var(--hud-accent-fg);
+  border: 1px solid rgba(0, 245, 255, 0.5);
+  font-weight: 700;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 0 16px rgba(0, 245, 255, 0.3);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    0 0 26px rgba(0, 245, 255, 0.45);
+}
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--hud-text);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 6px 20px rgba(0, 0, 0, 0.4);
+  @apply backdrop-blur-xl;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-ghost:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 245, 255, 0.4);
+  background: rgba(0, 245, 255, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 16px rgba(0, 245, 255, 0.2),
+    0 14px 32px rgba(0, 0, 0, 0.5);
+}
+.btn-ghost:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Texto com gradiente tático (destaque do hero) */
+.text-silver {
+  background: linear-gradient(115deg, #ffffff 15%, #67e8f9 75%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Rótulo de sistema (mono, caixa alta, tracking largo) */
+.hud-label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 10px;
+  color: var(--hud-muted);
+}
+
+/* Painel de vidro (Apple-like): translúcido, hairline e sombra suave */
+.hud-panel {
+  /* Vidro Modo Guerra: ardósia translúcida + hairline ciano de assinatura */
+  background: linear-gradient(
+    180deg,
+    rgba(25, 36, 58, 0.78) 0%,
+    rgba(15, 21, 35, 0.72) 100%
+  );
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  outline: 1px solid var(--hud-line);
+  outline-offset: -1px;
+  border-radius: 6px;
+  @apply backdrop-blur-xl backdrop-saturate-150;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 4px 20px rgba(0, 0, 0, 0.35),
+    0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Card de grade.
+   Sem backdrop-filter de propósito: em uma grade com muitos cards cada
+   desfoque vira uma camada de composição own-layer e a rolagem engasga.
+   Como não há conteúdo rolando atrás deles, o grafite translúcido entrega
+   o mesmo resultado visual por uma fração do custo. */
+.card-glass {
+  background: linear-gradient(
+    180deg,
+    rgba(20, 28, 46, 0.92) 0%,
+    rgba(15, 21, 35, 0.9) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 10px 28px rgba(0, 0, 0, 0.4);
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.2s ease;
+}
+@media (hover: hover) {
+  .card-glass:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 245, 255, 0.4);
+    box-shadow:
+      0 4px 10px rgba(0, 0, 0, 0.4),
+      0 0 16px rgba(0, 245, 255, 0.3),
+      0 22px 48px rgba(0, 245, 255, 0.1);
+  }
+}
+
+/* Brackets de canto — a assinatura do sistema */
+.hud-brackets {
+  position: relative;
+}
+.hud-brackets::before,
+.hud-brackets::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--hud-accent); /* azul tático */
+  opacity: 0.75;
+  transition: all 0.3s ease;
+}
+.hud-brackets::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+.hud-brackets::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+.hud-brackets:hover::before,
+.hud-brackets:hover::after {
+  width: 20px;
+  height: 20px;
+}
+
+/* Grade sutil de fundo (blueprint) — fixa: rola em paralaxe com o conteúdo */
+.hud-grid {
+  background-image:
+    linear-gradient(var(--hud-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hud-line) 1px, transparent 1px);
+  background-size: 48px 48px; /* grade tática 48px (DS v2.5.0) */
+  background-attachment: fixed;
+}
+
+/* Fundo cinematográfico animado (mesh gradient).
+
+   Sem `filter: blur()`: desfocar um elemento que anima obriga o navegador a
+   recalcular o desfoque a cada quadro, e era a maior fonte de travamento na
+   rolagem. O gradiente radial já entrega a borda suave de graça, então resta
+   apenas animar `transform`/`opacity` — que a GPU resolve sozinha. */
+@keyframes hud-aurora {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.65; }
+  50% { transform: translate3d(4%, -5%, 0) scale(1.16); opacity: 0.9; }
+}
+@keyframes hud-aurora-alt {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.1); opacity: 0.8; }
+  50% { transform: translate3d(-5%, 4%, 0) scale(0.94); opacity: 0.55; }
+}
+.hud-aurora {
+  contain: paint;
+}
+.hud-aurora span {
+  position: absolute;
+  border-radius: 50%;
+  background-image: radial-gradient(
+    circle closest-side,
+    var(--blob, rgba(34, 211, 238, 0.3)),
+    transparent 72%
+  );
+  animation: hud-aurora 20s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+.hud-aurora span:nth-child(even) {
+  animation-name: hud-aurora-alt;
+  animation-duration: 27s;
+}
+
+/* Grão sutil (dá textura de filme sem pesar).
+   Em fundo escuro o blend precisa ser `screen` (multiply escurece → invisível)
+   e o rect do SVG precisa de fill branco explícito (o default é preto). */
+.hud-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.2;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' fill='%23ffffff' opacity='0.3'/%3E%3C/svg%3E");
+}
+
+/* Spotlight que segue o cursor (aplicado via <Spotlight>).
+   Só radial-gradient em pseudo-elemento — sem backdrop-filter, sem repaint
+   além do necessário; as coordenadas chegam por CSS vars via rAF. */
+.spotlight {
+  position: relative;
+}
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    240px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(0, 245, 255, 0.08),
+    transparent 70%
+  );
+}
+@media (hover: hover) {
+  .spotlight:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Sublinhado neon dos links de seção */
+.link-neon {
+  position: relative;
+}
+.link-neon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--hud-detail); /* micro-detalhe ciano de assinatura */
+  box-shadow: 0 0 8px rgba(0, 245, 255, 0.5);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-neon:hover::after {
+  transform: scaleX(1);
+}
+
+/* ── Jarvis — globo-mundo wireframe em CSS 3D (só transform/opacity) ── */
+.jarvis {
+  --jarvis-rx: 0deg;
+  --jarvis-ry: 0deg;
+  perspective: 900px;
+}
+.jarvis-scene {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(calc(14deg + var(--jarvis-rx))) rotateY(var(--jarvis-ry));
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Globo: meridianos giram em torno do próprio eixo */
+.jarvis-globe {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 230px;
+  width: 230px;
+  margin: -115px 0 0 -115px;
+  transform-style: preserve-3d;
+  animation: jarvis-globe-spin 22s linear infinite;
+  will-change: transform;
+}
+@keyframes jarvis-globe-spin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+.jarvis-meridian {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 245, 255, 0.4);
+}
+.jarvis-parallel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  border: 1px solid rgba(103, 232, 249, 0.35);
+}
+/* Anéis orbitais ao redor do globo */
+.jarvis-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+}
+.jarvis-orbit-a {
+  height: 300px;
+  width: 300px;
+  margin: -150px 0 0 -150px;
+  border: 1px solid rgba(0, 245, 255, 0.4);
+  box-shadow: 0 0 16px rgba(0, 245, 255, 0.3);
+  transform: rotateX(76deg);
+}
+.jarvis-orbit-b {
+  height: 330px;
+  width: 330px;
+  margin: -165px 0 0 -165px;
+  border: 1px dashed rgba(103, 232, 249, 0.35);
+  transform: rotateX(76deg) rotateY(18deg);
+}
+/* Brilho do núcleo no centro do globo */
+.jarvis-core-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 150px;
+  width: 150px;
+  margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(165, 243, 252, 0.5) 0%,
+    rgba(0, 245, 255, 0.2) 45%,
+    transparent 75%
+  );
+  animation: jarvis-pulse 3.2s ease-in-out infinite;
+}
+@keyframes jarvis-pulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+.modo-leitura .jarvis-meridian { border-color: rgba(29, 78, 216, 0.45); }
+.modo-leitura .jarvis-parallel { border-color: rgba(161, 98, 7, 0.45); }
+.modo-leitura .link-neon::after { box-shadow: 0 0 8px rgba(161, 98, 7, 0.5); }
+@media (prefers-reduced-motion: reduce) {
+  .jarvis-globe, .jarvis-core-glow { animation: none; }
+}
+
+/* Scanline tática — textura de monitor sobre o hero (transform-free, barata) */
+.hud-scanline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 245, 255, 0.03) 3px,
+    rgba(0, 245, 255, 0.03) 4px
+  );
+  mix-blend-mode: screen;
+}
+
+/* Scrollbar discreta no tema escuro */
+.hud ::-webkit-scrollbar { width: 10px; height: 10px; }
+.hud ::-webkit-scrollbar-thumb {
+  background: var(--hud-line-strong);
+  border-radius: 8px;
+}
+.hud ::-webkit-scrollbar-track { background: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hud-scanline::after,
+  .hud-aurora span { animation: none; }
+}
+
+/* Touch: background-attachment fixed é bugado no iOS Safari (jank/artefatos).
+   Em ponteiro grosso o fundo volta a rolar normal — o resto fica igual. */
+@media (hover: none) {
+  .hud,
+  .hud-grid,
+  .modo-leitura .hud {
+    background-attachment: scroll;
+  }
+}
+
+/* Navegação por teclado: anel de foco visível e consistente */
+.hud :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--hud-accent);
+  outline-offset: 2px;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   MODO LEITURA — tema claro para compartilhar/imprimir/ler.
+   Ativado pela classe `modo-leitura` no <html>, via toggle na topbar
+   ou pelo token de URL ?modo=leitura (fica fixo no link compartilhado).
+   ══════════════════════════════════════════════════════════════════ */
+.modo-leitura {
+  /* Papel ivory amarelado — leitura quente, tinta escura, azul de contraste */
+  --hud-bg: #f5f0e1;
+  --hud-surface: #fdfaf0;
+  --hud-surface-2: #ece5d2;
+  --hud-elevated: #fffdf6;
+  --hud-line: rgba(66, 54, 30, 0.13);
+  --hud-line-strong: rgba(66, 54, 30, 0.24);
+  --hud-text: #221c10;
+  --hud-muted: #6d6350;
+  --hud-accent: #1d4ed8;
+  --hud-accent-2: #2563eb;
+  --hud-accent-fg: #fffdf6;
+  --hud-detail: #a16207; /* âmbar-tinta: micro-detalhes no papel */
+  --hud-steel: #75695a;
+  --hud-glow: rgba(161, 98, 7, 0.22);
+  color-scheme: light;
+}
+.modo-leitura .hud {
+  /* Radiais quentes + fundo fixo: o parallax continua no papel */
+  background:
+    radial-gradient(1100px 560px at 100% -8%, rgba(217, 164, 65, 0.14), transparent 60%),
+    radial-gradient(950px 480px at -8% 8%, rgba(255, 251, 235, 0.7), transparent 55%),
+    var(--hud-bg);
+  background-attachment: fixed;
+}
+.modo-leitura .hud-panel {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 253, 246, 0.92) 0%,
+    rgba(250, 245, 230, 0.88) 100%
+  );
+  border-color: rgba(66, 54, 30, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 1px 2px rgba(66, 54, 30, 0.08),
+    0 10px 30px rgba(66, 54, 30, 0.1);
+}
+.modo-leitura .card-glass {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 253, 246, 0.96) 0%,
+    rgba(248, 242, 226, 0.94) 100%
+  );
+  border-color: rgba(66, 54, 30, 0.12);
+  box-shadow:
+    0 1px 2px rgba(66, 54, 30, 0.07),
+    0 10px 28px rgba(66, 54, 30, 0.09);
+}
+.modo-leitura .btn-ghost {
+  background: rgba(66, 54, 30, 0.05);
+  border-color: rgba(66, 54, 30, 0.16);
+  box-shadow: none;
+}
+.modo-leitura .text-silver {
+  background-image: linear-gradient(115deg, #1d4ed8 20%, #a16207 85%);
+}
+/* Leitura limpa: sem grão, sem scanline, aurora discreta e quente */
+.modo-leitura .hud-grain::before,
+.modo-leitura .hud-scanline::after {
+  display: none;
+}
+.modo-leitura .hud-aurora {
+  opacity: 0.35;
+}
+/* Superfícies utilitárias sépia no lugar dos vidros brancos-alfa */
+.modo-leitura [class*="bg-white/"] {
+  background-color: rgba(66, 54, 30, 0.05);
+}
+.modo-leitura [class*="hover:bg-white/"]:hover {
+  background-color: rgba(66, 54, 30, 0.09);
+}
+.modo-leitura ::selection {
+  background: rgba(161, 98, 7, 0.28);
+  color: #221c10;
+}
