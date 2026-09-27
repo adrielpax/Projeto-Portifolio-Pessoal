@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "site-dev",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": [
+        "/c",
+        "cd site && pnpm dev --port 3100"
+      ],
+      "port": 3100
+    },
+    {
+      "name": "site-prod",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": [
+        "/c",
+        "cd site && pnpm start --port 3200"
+      ],
+      "port": 3200
+    }
+  ]
+}
