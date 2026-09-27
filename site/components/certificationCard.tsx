@@ -2,6 +2,14 @@ import React from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { BadgeCheck } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function CertificationCards() {
   return (
@@ -12,7 +20,8 @@ export default function CertificationCards() {
       {[
         {
           icon: "/images/formacao/vercel.png",
-          title: "Certificado pela propria Vercel em NEXT JS App Router Fundamentals",
+          certified:"/images/project/certifiedNext.png",
+          title:"Certificado pela propria Vercel em NEXT JS App Router Fundamentals",
           description:
             "Curso official da Vercel Learn em vercel.com que ensina todos os fundamentos de desenvolvimento experiente com NextJS em Streaming loading, fetch de dados, client e server components, e mais estruturação com React",
         },
@@ -50,11 +59,35 @@ export default function CertificationCards() {
             >
               {card.description}
             </p>
-          <Button className="max-w-56 my-4 rounded-full 
-          bg-gradient-to-tr from-amber-500 to-amber-700 ring-1
-          shadow-lg shadow-amber-500"><BadgeCheck/> Certificado </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  className="max-w-56 my-4 rounded-full self-start
+                  bg-gradient-to-tr from-amber-500 to-amber-700 ring-1
+                  shadow-lg shadow-amber-500 cursor-pointer px-6"
+                >
+                  <BadgeCheck /> Ver Certificado{" "}
+                </Button>
+              </DialogTrigger>
+              <DialogContent showCloseButton={false}>
+                <DialogHeader className="gap-6">
+                  <DialogTitle>{card.title}</DialogTitle>
+                  <DialogDescription>
+                    <div className="flex justify-center items-center rounded-xl">
+                      {/* <Image
+                        src={card.icon}
+                        width={264}
+                        height={384}
+                        alt={card.title}
+                        className="rounded-xl"
+                      /> */}
+                      Estamos trabalhando para expor as credenciais, houve uma atualização no website da vercel, volte depois..
+                    </div>
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
           </div>
-
         </div>
       ))}
     </div>

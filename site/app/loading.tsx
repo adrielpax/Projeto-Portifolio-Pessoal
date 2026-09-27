@@ -1,8 +1,6 @@
 import BootSequence from "@/components/bootSequence";
 
 const loading = () => {
-
-
   return (
     <div className="fixed inset-0 z-40 bg-black flex items-center justify-center transition-opacity duration-500">
       <div className="text-center">
