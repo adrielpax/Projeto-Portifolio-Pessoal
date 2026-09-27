@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Check, Download, Github, Linkedin, MapPin, MessageSquare, Share2 } from "lucide-react";
 
 import Magnetic from "./Magnetic";
+import { LINKS, SITE_URL } from "@/lib/site";
 
 const PERFIL = {
   nome: "Adriel Silva",
@@ -13,10 +14,10 @@ const PERFIL = {
     "Do zero ao deploy: produto, código e automação — com IA onde ela gera resultado.",
   focos: ["SaaS", "Automação", "IA aplicada", "Next.js", "Node.js", "Python"],
   local: "Betim, MG · Brasil",
-  site: "https://adrieldev.vercel.app",
-  github: "https://github.com/adrielpax",
-  linkedin: "https://linkedin.com/in/adriel-lucas",
-  contato: "https://typebot.co/my-typebot-75c4uvl",
+  site: SITE_URL,
+  github: LINKS.github,
+  linkedin: LINKS.linkedin,
+  contato: LINKS.chat,
 };
 
 /** vCard 3.0 — permite salvar o contato direto na agenda do celular. */

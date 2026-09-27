@@ -7,6 +7,8 @@ import { ArrowLeft, ExternalLink, Github, Target, Wrench, TrendingUp } from "luc
 import Reveal from "@/components/os/Reveal";
 import StatusPill from "@/components/os/StatusPill";
 import { getProject, getProjectSlugs, resolveImage } from "@/lib/sanity/data";
+import { LINKS } from "@/lib/site";
+import { isRemoteImage } from "@/lib/format";
 
 export const revalidate = 60;
 
@@ -128,7 +130,8 @@ export default async function ProjectCasePage({ params }: Params) {
                 alt={p.title}
                 fill
                 priority
-                unoptimized
+                unoptimized={isRemoteImage(cover)}
+                sizes="(max-width: 1152px) 100vw, 1152px"
                 className="object-cover"
               />
             </div>
@@ -196,7 +199,7 @@ export default async function ProjectCasePage({ params }: Params) {
               Do MVP à produção — me conte o problema que você quer resolver.
             </p>
             <a
-              href="https://typebot.co/my-typebot-75c4uvl"
+              href={LINKS.chat}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary mt-3 px-6 py-3 font-display text-sm font-semibold"

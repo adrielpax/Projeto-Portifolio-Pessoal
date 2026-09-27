@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Jogos copiados de outros projetos (scripts/sync-jogo.mjs) — o código
+    // vive e é mantido lá.
+    "public/games/**",
   ]),
 ]);
 

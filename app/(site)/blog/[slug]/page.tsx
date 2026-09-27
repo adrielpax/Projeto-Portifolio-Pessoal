@@ -7,6 +7,7 @@ import { ArrowLeft } from "lucide-react";
 import { getPost, getPostSlugs, resolveImage } from "@/lib/sanity/data";
 import { formatDate } from "@/lib/format";
 import PortableBody from "@/components/blog/PortableBody";
+import { LINKS, SITE_URL } from "@/lib/site";
 
 export const revalidate = 60;
 
@@ -53,7 +54,7 @@ export default async function PostPage({ params }: Params) {
   if (!post) notFound();
 
   const cover = resolveImage(post.coverImage, 1200);
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://adriel.dev";
+  const siteUrl = SITE_URL;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -130,7 +131,7 @@ export default async function PostPage({ params }: Params) {
         </p>
         <p className="mt-1 text-xs text-hud-muted">Vamos construir algo juntos.</p>
         <a
-          href="https://typebot.co/my-typebot-75c4uvl"
+          href={LINKS.chat}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4 inline-block rounded-xl bg-hud-accent px-6 py-2.5 font-display text-xs font-semibold text-hud-bg transition-transform hover:scale-105"

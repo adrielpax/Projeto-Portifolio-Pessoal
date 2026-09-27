@@ -38,16 +38,20 @@ const components: PortableTextComponents = {
         {children}
       </code>
     ),
-    link: ({ children, value }) => (
-      <Link
-        href={value?.href ?? "#"}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-hud-accent underline underline-offset-2 hover:opacity-80"
-      >
-        {children}
-      </Link>
-    ),
+    link: ({ children, value }) => {
+      const href: string = value?.href ?? "#";
+      // Links internos (ex.: /jogo) continuam no site; externos abrem em nova aba.
+      const externo = /^https?:\/\//.test(href);
+      return (
+        <Link
+          href={href}
+          {...(externo ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          className="text-hud-accent underline underline-offset-2 hover:opacity-80"
+        >
+          {children}
+        </Link>
+      );
+    },
   },
   types: {
     code: ({ value }) => {

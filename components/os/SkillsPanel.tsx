@@ -117,7 +117,6 @@ export default function SkillsPanel() {
                             alt={s.name}
                             width={32}
                             height={32}
-                            unoptimized
                             className="h-8 w-8 rounded-md object-contain"
                           />
                           {s.ai && (

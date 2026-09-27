@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { ReactLenis } from "lenis/react";
 
 /**
@@ -10,35 +10,45 @@ import { ReactLenis } from "lenis/react";
  * casos o Lenis só adiciona atraso entre o dedo e a tela. Também respeitamos
  * quem pede menos movimento no sistema.
  */
+const QUERY =
+  "(pointer: fine) and (prefers-reduced-motion: no-preference)";
+
+function subscribe(onChange: () => void) {
+  const media = window.matchMedia(QUERY);
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
+}
+
 export default function SmoothScroll({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [suave, setSuave] = useState(false);
+  // No servidor não há mídia: começa com scroll nativo e liga no cliente.
+  const suave = useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(QUERY).matches,
+    () => false,
+  );
 
-  useEffect(() => {
-    const toque = window.matchMedia("(pointer: coarse)").matches;
-    const menosMovimento = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    setSuave(!toque && !menosMovimento);
-  }, []);
-
-  if (!suave) return <>{children}</>;
-
+  // O Lenis fica AO LADO da página, nunca em volta dela: trocar o elemento que
+  // envolve `children` depois da hidratação remontaria a árvore inteira e o
+  // React descartaria o HTML vindo do servidor.
   return (
-    <ReactLenis
-      root
-      options={{
-        // 0.09 deixava a rolagem "descolada" do mouse; 0.18 mantém o polimento
-        // sem a sensação de travamento.
-        lerp: 0.18,
-        smoothWheel: true,
-        syncTouch: false,
-      }}
-    >
+    <>
+      {suave && (
+        <ReactLenis
+          root
+          options={{
+            // 0.09 deixava a rolagem "descolada" do mouse; 0.18 mantém o
+            // polimento sem a sensação de travamento.
+            lerp: 0.18,
+            smoothWheel: true,
+            syncTouch: false,
+          }}
+        />
+      )}
       {children}
-    </ReactLenis>
+    </>
   );
 }

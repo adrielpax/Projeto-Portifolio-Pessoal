@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { Github, Linkedin, MessageSquare } from "lucide-react";
+import { LINKS } from "@/lib/site";
 
 const NAV = [
   { href: "/", label: "Sistema" },
   { href: "/projetos", label: "Projetos" },
   { href: "/blog", label: "Blog" },
   { href: "/certificacoes", label: "Certificações" },
+  { href: "/jogo", label: "Jogo" },
 ];
 
 /** Rodapé do sistema — navegação redundante (útil no mobile) + status. */
@@ -52,7 +54,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="https://github.com/adrielpax"
+                href={LINKS.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs text-hud-muted transition-colors hover:text-hud-text"
@@ -62,7 +64,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="https://linkedin.com/in/adriel-lucas"
+                href={LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs text-hud-muted transition-colors hover:text-hud-text"

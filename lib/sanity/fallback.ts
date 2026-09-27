@@ -1,4 +1,4 @@
-import type { Post, Project, Certification, ChampionProject } from "./types";
+import type { Post, Project, Certification } from "./types";
 
 /**
  * Conteúdo base do portfólio.
@@ -117,9 +117,6 @@ export const fallbackProjects: Project[] = [
       "Leads caindo direto na planilha do cliente, com custo zero de infraestrutura — sem servidor nem banco de dados para manter.",
   },
 ];
-
-/** Mantido por compatibilidade: os destaques agora vivem em `featured`. */
-export const fallbackChampions: ChampionProject[] = [];
 
 export const fallbackCertifications: Certification[] = [
   {

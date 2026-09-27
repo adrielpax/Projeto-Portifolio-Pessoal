@@ -7,18 +7,19 @@ import {
   FolderGit2,
   Newspaper,
   ShieldCheck,
+  Gamepad2,
   MessageSquare,
   ChevronsLeft,
   Terminal,
 } from "lucide-react";
-
-const CONTATO_URL = "https://typebot.co/my-typebot-75c4uvl";
+import { LINKS } from "@/lib/site";
 
 const nav = [
   { href: "/", label: "Sistema", code: "SYS", icon: LayoutDashboard, match: (p: string) => p === "/" },
   { href: "/projetos", label: "Projetos", code: "PRJ", icon: FolderGit2, match: (p: string) => p.startsWith("/projetos") },
   { href: "/blog", label: "Blog", code: "LOG", icon: Newspaper, match: (p: string) => p.startsWith("/blog") },
   { href: "/certificacoes", label: "Certificações", code: "CRT", icon: ShieldCheck, match: (p: string) => p.startsWith("/certificacoes") },
+  { href: "/jogo", label: "Jogo", code: "GME", icon: Gamepad2, match: (p: string) => p.startsWith("/jogo") },
 ] as const;
 
 export default function Sidebar({
@@ -91,7 +92,7 @@ export default function Sidebar({
       {/* Rodapé: contato + colapso */}
       <div className="border-t border-hud-line p-2.5">
         <a
-          href={CONTATO_URL}
+          href={LINKS.chat}
           target="_blank"
           rel="noopener noreferrer"
           title="Contato"

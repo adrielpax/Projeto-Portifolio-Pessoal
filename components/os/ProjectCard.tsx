@@ -6,6 +6,7 @@ import Spotlight from "./Spotlight";
 import StatusPill from "./StatusPill";
 import { resolveImage } from "@/lib/sanity/data";
 import type { Project } from "@/lib/sanity/types";
+import { isRemoteImage } from "@/lib/format";
 
 /**
  * Card de projeto do portfólio.
@@ -35,7 +36,8 @@ export default function ProjectCard({
             src={img}
             alt={p.title}
             fill
-            unoptimized
+            unoptimized={isRemoteImage(img)}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
         )}

@@ -170,9 +170,12 @@ for (const p of projects) {
     ? await uploadLocal(p.localImage, `${p.id}.png`)
     : await uploadCover(p, i);
 
-  const { id, localImage, ...rest } = p;
+  const { id, ...rest } = p;
+  delete rest.localImage;
+  // Sem ponto no _id: IDs com "." ficam privados no Sanity e o site (que lê
+  // sem token) deixaria de enxergar o documento.
   tx.createOrReplace({
-    _id: `project.${id}`,
+    _id: `project-${id}`,
     _type: "project",
     ...rest,
     slug: { _type: "slug", current: id },
@@ -185,9 +188,10 @@ for (const p of projects) {
 
 for (const c of certifications) {
   const logo = await uploadLocal(c.localImage, `${c.id}.png`);
-  const { id, localImage, ...rest } = c;
+  const { id, ...rest } = c;
+  delete rest.localImage;
   tx.createOrReplace({
-    _id: `certification.${id}`,
+    _id: `certification-${id}`,
     _type: "certification",
     ...rest,
     ...(logo ? { logo } : {}),

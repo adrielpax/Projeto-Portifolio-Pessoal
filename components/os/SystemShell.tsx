@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
 import SmoothScroll from "./SmoothScroll";
@@ -16,9 +16,13 @@ export default function SystemShell({
   const [collapsed, setCollapsed] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
   const pathname = usePathname();
+  const [navPath, setNavPath] = useState(pathname);
 
-  // Fecha o drawer ao navegar
-  useEffect(() => setMobileNav(false), [pathname]);
+  // Fecha o drawer ao navegar — ajustado no render, sem effect em cascata.
+  if (navPath !== pathname) {
+    setNavPath(pathname);
+    setMobileNav(false);
+  }
 
   return (
     <SmoothScroll>

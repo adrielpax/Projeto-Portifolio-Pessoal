@@ -1,7 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { BookOpen, MonitorCog } from "lucide-react";
+
+const CLASSE = "modo-leitura";
+
+/** Observa a classe do <html> — a fonte da verdade do Modo Leitura. */
+function subscribe(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+  return () => observer.disconnect();
+}
 
 /**
  * Alterna o Modo Leitura (tema claro). O estado vive na classe
@@ -10,19 +22,17 @@ import { BookOpen, MonitorCog } from "lucide-react";
  * o token viaja junto quando o link é compartilhado.
  */
 export default function ReadingModeToggle() {
-  const [on, setOn] = useState(false);
-
-  // Sincroniza com a classe que o script inline já aplicou antes do React.
-  useEffect(() => {
-    setOn(document.documentElement.classList.contains("modo-leitura"));
-  }, []);
+  const on = useSyncExternalStore(
+    subscribe,
+    () => document.documentElement.classList.contains(CLASSE),
+    () => false,
+  );
 
   const toggle = () => {
     const next = !on;
-    setOn(next);
-    document.documentElement.classList.toggle("modo-leitura", next);
+    document.documentElement.classList.toggle(CLASSE, next);
     try {
-      localStorage.setItem("modo-leitura", next ? "1" : "0");
+      localStorage.setItem(CLASSE, next ? "1" : "0");
     } catch {}
     const url = new URL(window.location.href);
     if (next) url.searchParams.set("modo", "leitura");

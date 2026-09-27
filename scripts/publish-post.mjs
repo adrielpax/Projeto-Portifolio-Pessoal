@@ -7,16 +7,20 @@
  *
  * Uso:
  *   node --env-file=.env.local scripts/publish-post.mjs <arquivo.md> [capa.png]
+ *   node scripts/publish-post.mjs <arquivo.md> --dry-run   (só converte e mostra)
  *
  * Requer no .env.local:
- *   NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET, SANITY_API_TOKEN
- *   (o token precisa de permissão de ESCRITA — role "Editor")
+ *   NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET e um token com
+ *   permissão de ESCRITA (role "Editor"): SANITY_WRITE_TOKEN — o mesmo do
+ *   formulário de contato — ou, na falta dele, SANITY_API_TOKEN.
  */
 
 import { readFileSync } from "node:fs";
 import { createClient } from "next-sanity";
 
-const [mdPath, coverPath] = process.argv.slice(2);
+const args = process.argv.slice(2);
+const dryRun = args.includes("--dry-run");
+const [mdPath, coverPath] = args.filter((a) => a !== "--dry-run");
 if (!mdPath) {
   console.error("Uso: node --env-file=.env.local scripts/publish-post.mjs <arquivo.md> [capa.png]");
   process.exit(1);
@@ -24,13 +28,13 @@ if (!mdPath) {
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
-const token = process.env.SANITY_API_TOKEN;
+const token = process.env.SANITY_WRITE_TOKEN || process.env.SANITY_API_TOKEN;
 
-if (!projectId) throw new Error("NEXT_PUBLIC_SANITY_PROJECT_ID ausente no .env.local");
-if (!token) throw new Error("SANITY_API_TOKEN ausente no .env.local (precisa de role Editor)");
+if (!projectId && !dryRun) throw new Error("NEXT_PUBLIC_SANITY_PROJECT_ID ausente no .env.local");
+if (!token && !dryRun) throw new Error("SANITY_WRITE_TOKEN ausente no .env.local (precisa de role Editor)");
 
 const client = createClient({
-  projectId,
+  projectId: projectId || "dry-run",
   dataset,
   apiVersion: "2025-01-01",
   token,
@@ -185,7 +189,8 @@ const { data, body } = parseFrontmatter(raw);
 if (!data.slug) throw new Error("Frontmatter sem 'slug'");
 
 const doc = {
-  _id: `post.${data.slug}`,
+  // Sem ponto no _id: IDs com "." ficam privados e o site não enxergaria o post.
+  _id: `post-${data.slug}`,
   _type: "post",
   title: data.title,
   slug: { _type: "slug", current: data.slug },
@@ -195,6 +200,18 @@ const doc = {
   publishedAt: new Date().toISOString(),
   body: toPortableText(body),
 };
+
+if (dryRun) {
+  const tipos = {};
+  for (const b of doc.body) {
+    const t = b._type === "block" ? (b.listItem ? `lista:${b.listItem}` : b.style) : b._type;
+    tipos[t] = (tipos[t] ?? 0) + 1;
+  }
+  console.log(`🔎 dry-run: "${doc.title}" → /blog/${data.slug}`);
+  console.log(`   ${doc.body.length} blocos:`, tipos);
+  console.log(`   links:`, doc.body.flatMap((b) => b.markDefs ?? []).map((m) => m.href));
+  process.exit(0);
+}
 
 if (coverPath) {
   const img = await uploadImage(coverPath);

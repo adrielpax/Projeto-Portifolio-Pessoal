@@ -47,9 +47,3 @@ export const certificationsQuery = groq`
     _id, title, issuer, logo, credentialUrl, issuedAt
   }
 `;
-
-export const championProjectsQuery = groq`
-  *[_type == "championProject"] | order(order asc, _createdAt desc) {
-    _id, title, image, description, protectionText, link
-  }
-`;

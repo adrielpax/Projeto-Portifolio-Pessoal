@@ -68,12 +68,3 @@ export interface Certification {
   credentialUrl?: string;
   issuedAt?: string;
 }
-
-export interface ChampionProject {
-  _id: string;
-  title: string;
-  image: ImageRef;
-  description: string;
-  protectionText?: string;
-  link?: string;
-}

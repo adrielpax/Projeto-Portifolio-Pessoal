@@ -7,6 +7,7 @@ import Reveal from "@/components/os/Reveal";
 import Spotlight from "@/components/os/Spotlight";
 import StatusPill from "@/components/os/StatusPill";
 import { getProjects, resolveImage } from "@/lib/sanity/data";
+import { isRemoteImage } from "@/lib/format";
 
 export const metadata: Metadata = {
   title: "Projetos",
@@ -61,7 +62,8 @@ export default async function ProjetosPage() {
                           src={img}
                           alt={p.title}
                           fill
-                          unoptimized
+                          unoptimized={isRemoteImage(img)}
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           className="object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                       )}

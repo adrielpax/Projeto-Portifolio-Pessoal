@@ -10,19 +10,16 @@ import {
   projectBySlugQuery,
   testimonialsQuery,
   certificationsQuery,
-  championProjectsQuery,
 } from "./queries";
 import {
   fallbackPosts,
   fallbackProjects,
   fallbackCertifications,
-  fallbackChampions,
 } from "./fallback";
 import type {
   Post,
   Project,
   Certification,
-  ChampionProject,
   Testimonial,
   ImageRef,
 } from "./types";
@@ -121,10 +118,4 @@ export async function getCertifications(): Promise<Certification[]> {
   const data = await sanityFetch<Certification[]>(certificationsQuery);
   // `?? ` não serve: uma lista vazia é "definida" e deixaria a página em branco.
   return data?.length ? data : fallbackCertifications;
-}
-
-export async function getChampionProjects(): Promise<ChampionProject[]> {
-  if (!hasSanity) return fallbackChampions;
-  const data = await sanityFetch<ChampionProject[]>(championProjectsQuery);
-  return data?.length ? data : fallbackChampions;
 }
