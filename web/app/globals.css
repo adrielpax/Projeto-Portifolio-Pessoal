@@ -1,0 +1,312 @@
+@import "tailwindcss";
+
+@theme {
+  --font-pixel: "Silkscreen", ui-monospace, monospace;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-ink: #050506;
+  --color-paper: #ededea;
+  --color-dim: #85858c;
+  --color-faint: #3a3a40;
+  --color-claude: #e07a52;
+  --color-codex: #8fa2ff;
+  --color-signal: #6dffb0;
+}
+
+/* ------------------------------------------------------------------ base */
+
+html {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+body {
+  background: var(--color-ink);
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none;
+}
+::selection {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+:focus-visible {
+  outline: 1px solid var(--color-claude);
+  outline-offset: 3px;
+}
+
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ------------------------------------------------------------- superfícies */
+
+.card-surface {
+  background: rgba(8, 8, 10, 0.78);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* cantoneiras estilo HUD */
+.brackets {
+  --b: 1px;
+  --l: 14px;
+  --c: rgba(237, 237, 234, 0.85);
+  background:
+    linear-gradient(var(--c) 0 0) top left / var(--l) var(--b),
+    linear-gradient(var(--c) 0 0) top left / var(--b) var(--l),
+    linear-gradient(var(--c) 0 0) top right / var(--l) var(--b),
+    linear-gradient(var(--c) 0 0) top right / var(--b) var(--l),
+    linear-gradient(var(--c) 0 0) bottom left / var(--l) var(--b),
+    linear-gradient(var(--c) 0 0) bottom left / var(--b) var(--l),
+    linear-gradient(var(--c) 0 0) bottom right / var(--l) var(--b),
+    linear-gradient(var(--c) 0 0) bottom right / var(--b) var(--l);
+  background-repeat: no-repeat;
+}
+
+/* área da moldura das seções (a mesma medida usada como alvo do card) */
+.frame-inset {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 64px;
+  bottom: 44px;
+}
+@media (min-width: 768px) {
+  .frame-inset {
+    left: 24px;
+    right: 24px;
+    top: 76px;
+    bottom: 52px;
+  }
+}
+
+.vignette {
+  background:
+    radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.75) 100%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 3px);
+}
+
+/* ----------------------------------------------------------------- seções */
+
+.sec {
+  pointer-events: none;
+}
+.sec a,
+.sec button,
+.sec input,
+.sec textarea,
+.sec .projects-grid {
+  pointer-events: auto;
+}
+
+.kicker {
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--color-dim);
+}
+
+.display {
+  font-family: var(--font-pixel);
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  font-size: 36px;
+}
+@media (min-width: 768px) {
+  .display {
+    font-size: 58px;
+  }
+}
+
+.btn-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(237, 237, 234, 0.22);
+  padding: 0.6rem 0.9rem;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+.btn-line:hover {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.tag {
+  border: 1px solid rgba(237, 237, 234, 0.14);
+  padding: 2px 6px;
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--color-dim);
+}
+
+.projects-grid {
+  scrollbar-width: none;
+}
+.projects-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.pixel-bars__col {
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+.project-card:hover .pixel-bars__col {
+  animation: eq 0.9s steps(4) infinite alternate;
+}
+@keyframes eq {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0.45);
+  }
+}
+
+.field {
+  display: block;
+  border-color: rgba(237, 237, 234, 0.12);
+  padding: 0.75rem 1rem;
+}
+.field > span {
+  display: block;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--color-dim);
+}
+.field input,
+.field textarea {
+  margin-top: 0.4rem;
+  width: 100%;
+  resize: none;
+  background: transparent;
+  font-size: 13px;
+  color: var(--color-paper);
+  outline: none;
+}
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--color-faint);
+}
+.field:focus-within > span {
+  color: var(--color-claude);
+}
+
+/* ---------------------------------------------------------------- agentes */
+
+.agent-pos {
+  pointer-events: auto;
+  will-change: transform;
+}
+.agent-float {
+  animation: bob var(--bob-dur, 6s) ease-in-out var(--bob-delay, 0s) infinite alternate;
+}
+@keyframes bob {
+  from {
+    transform: translate3d(0, -7px, 0) rotate(calc(var(--bob-rot, 1deg) * -1));
+  }
+  to {
+    transform: translate3d(0, 7px, 0) rotate(var(--bob-rot, 1deg));
+  }
+}
+
+.caret {
+  display: inline-block;
+  width: 6px;
+  height: 11px;
+  margin-left: 2px;
+  vertical-align: -1px;
+  animation: blink 1s steps(1) infinite;
+}
+.blink {
+  animation: blink 1.1s steps(1) infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ----------------------------------------------------- rótulos da cena 3D */
+
+.snippet {
+  white-space: nowrap;
+  border-left: 2px solid var(--color-claude);
+  background: rgba(5, 5, 6, 0.55);
+  padding: 2px 7px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(237, 237, 234, 0.85);
+  will-change: transform, opacity;
+}
+
+.layer-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+.layer-label__line {
+  display: block;
+  width: 44px;
+  height: 1px;
+  background: rgba(237, 237, 234, 0.5);
+}
+.layer-label__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.layer-label__title {
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--color-paper);
+}
+.layer-label__title em {
+  font-style: normal;
+  color: var(--color-claude);
+}
+.layer-label__items {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-dim);
+}
+
+/* ------------------------------------------------------------ acessível */
+
+@media (prefers-reduced-motion: reduce) {
+  .agent-float,
+  .blink,
+  .caret,
+  .project-card:hover .pixel-bars__col {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------- /links */
+
+.links-bg {
+  background:
+    radial-gradient(60% 40% at 50% 0%, rgba(224, 122, 82, 0.1), transparent 70%),
+    linear-gradient(rgba(237, 237, 234, 0.04) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, rgba(237, 237, 234, 0.04) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--color-ink);
+}
