@@ -68,7 +68,7 @@ export function A11yPanel() {
   };
 
   return (
-    <div className="fixed bottom-[52px] left-3 z-[60] md:bottom-[60px] md:left-6">
+    <div className="fixed bottom-4 left-3 z-[60] md:bottom-6 md:left-6">
       <div
         id={panelId}
         role="region"

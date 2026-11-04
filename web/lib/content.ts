@@ -55,6 +55,10 @@ export type Project = {
   tags: string[];
   href: string;
   seed: number;
+  /** captura do projeto em /public/images/projects (sem imagem, a capa é gerada) */
+  image?: string;
+  /** cor da capa gerada quando não há imagem */
+  tint?: string;
 };
 
 export const projects: Project[] = [
@@ -68,6 +72,7 @@ export const projects: Project[] = [
     tags: ["n8n", "Webhooks", "APIs REST"],
     href: "https://github.com/adrielpax", // TODO
     seed: 11,
+    tint: "#b99bff", // TODO: image: "/images/projects/n8n.jpg"
   },
   {
     code: "P-02",
@@ -79,6 +84,7 @@ export const projects: Project[] = [
     tags: ["Node.js", "Filas", "Integrações"],
     href: "https://github.com/adrielpax", // TODO
     seed: 23,
+    tint: "#86e3a0", // TODO: image
   },
   {
     code: "P-03",
@@ -90,6 +96,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "Fastify", "PostgreSQL"],
     href: "https://github.com/adrielpax", // TODO
     seed: 37,
+    tint: "#72d6ff", // TODO: image
   },
   {
     code: "P-04",
@@ -101,6 +108,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "Three.js", "GSAP"],
     href: "https://github.com/adrielpax/Projeto-Portifolio-Pessoal",
     seed: 52,
+    image: "/images/projects/portfolio-v3.jpg",
   },
 ];
 

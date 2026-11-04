@@ -34,6 +34,11 @@ A primeira versão caiu em padrões típicos de página gerada por IA (preto azu
 - **Navbar como IHM industrial de nova geração**: seletor de telas em vidro com thumb deslizante (mola), LED verde na tela ativa, barra de processo com marcações de escala (progresso do scroll) e status "Online em Betim" com relógio ao vivo.
 - **Acessibilidade**: painel com três chaves (reduzir movimento, alto contraste, texto maior) salvas no navegador e iniciadas pelas preferências do sistema; link "Pular para o conteúdo"; anúncio da seção atual para leitor de tela; Esc fecha chats e painel; títulos de seção focáveis; cena 3D e rodapé ocultos de leitores de tela.
 
+### Revisão 4: navegar como num Mac
+- A moldura translúcida virou uma **janela do macOS**: barra de título com os três botões (vermelho volta ao início, amarelo volta uma seção, verde tela cheia) e o nome da seção.
+- **Dock** no rodapé com ícones de app (Projetos, Stack, Blog, Contato, GitHub, Links), ampliação perto do ponteiro e ponto na seção aberta.
+- **Projetos com imagem**: cada card tem a captura do projeto (`image` em `lib/content.ts`, arquivos em `public/images/projects/`); sem captura, aparece uma capa gerada. Clicar abre um **Quick Look** com a imagem grande.
+
 ## 3. Arquitetura da experiência
 
 O scroll **não** rola a página. Ele move uma linha do tempo.

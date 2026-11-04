@@ -12,7 +12,7 @@ import { agents, type Pose } from "@/components/pixel/agents";
 import { Agent } from "@/components/pixel/Agent";
 import { HeroCard } from "./HeroCard";
 import { Navbar } from "./Navbar";
-import { Telemetry } from "./Telemetry";
+import { Dock } from "./Dock";
 import { Projects } from "@/components/sections/Projects";
 import { Stack } from "@/components/sections/Stack";
 import { Blog } from "@/components/sections/Blog";
@@ -30,6 +30,9 @@ const SECTION_NAMES: Record<SectionId, string> = {
   blog: "Blog",
   contact: "Contato",
 };
+
+const ORDER: SectionId[] = ["hero", "projects", "stack", "blog", "contact"];
+const prevSection = (s: SectionId) => ORDER[Math.max(0, ORDER.indexOf(s) - 1)];
 
 const PAPER = "#ffffff";
 const DIM = "#8c8c8c";
@@ -208,7 +211,7 @@ export default function Experience() {
 
       /* ---- 1 → 2: projetos saem, equipamento entra ---- */
       conceal(".sec-projects", 1.04);
-      tl.to(".frame-bg", { opacity: 0, duration: 0.3 }, 1.1);
+      tl.to(".frame-bg", { opacity: 0.12, duration: 0.3 }, 1.1);
       reveal(".sec-stack", 1.5);
 
       /* ---- 2 → 3: equipamento desmonta (na cena 3D) e a legenda aparece ---- */
@@ -349,6 +352,22 @@ export default function Experience() {
             <div className="frame invisible absolute left-0 top-0 opacity-0">
               <div className="frame-bg glass absolute inset-0" />
               <div className="frame-outline absolute inset-0" />
+              {/* barra de título de janela do macOS */}
+              <div className="nav-chrome window-bar invisible pointer-events-auto absolute inset-x-0 top-0 flex h-11 items-center px-4 opacity-0">
+                <div className="flex gap-2">
+                  <button type="button" className="traffic bg-[#ff5f57]" onClick={() => go("hero")} aria-label="Fechar janela e voltar ao início" />
+                  <button type="button" className="traffic bg-[#febc2e]" onClick={() => go(prevSection(active))} aria-label="Minimizar e voltar à seção anterior" />
+                  <button
+                    type="button"
+                    className="traffic bg-[#28c840]"
+                    onClick={() => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.())}
+                    aria-label="Tela cheia"
+                  />
+                </div>
+                <p className="absolute left-1/2 -translate-x-1/2 text-[13px] font-medium text-paper/70">
+                  {SECTION_NAMES[active]} <span className="text-dim">— Adriel Lucas</span>
+                </p>
+              </div>
             </div>
             <HeroCard go={go} />
           </div>
@@ -371,7 +390,7 @@ export default function Experience() {
       </div>
 
       <Navbar active={active} go={go} />
-      <Telemetry active={active} />
+      <Dock active={active} go={go} />
       <A11yPanel />
 
       {/* leitores de tela: avisa a seção atual a cada parada do scroll */}

@@ -75,14 +75,23 @@ body {
   left: 10px;
   right: 10px;
   top: 64px;
-  bottom: 44px;
+  bottom: 14px;
 }
 @media (min-width: 768px) {
   .frame-inset {
     left: 24px;
     right: 24px;
     top: 76px;
-    bottom: 52px;
+    bottom: 100px; /* espaço do Dock */
+  }
+}
+/* o conteúdo das seções começa abaixo da barra de título da janela */
+.sec.frame-inset {
+  top: 108px;
+}
+@media (min-width: 768px) {
+  .sec.frame-inset {
+    top: 120px;
   }
 }
 
@@ -443,4 +452,66 @@ body {
 .process-bar > .nav-progress {
   background: linear-gradient(90deg, rgba(61, 220, 132, 0.4), #3ddc84);
   box-shadow: 0 0 8px rgba(61, 220, 132, 0.6);
+}
+
+/* ---------------------------------------------------- janela e Dock (macOS) */
+
+.window-bar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.traffic {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.35);
+  transition: filter 0.2s;
+}
+.traffic:hover {
+  filter: brightness(1.15);
+}
+.dock {
+  --radius: 22px;
+}
+.dock-icon {
+  transform-origin: 50% 100%;
+  transition: transform 0.18s ease-out;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 6px 16px rgba(0, 0, 0, 0.45);
+}
+.dock-label {
+  position: absolute;
+  bottom: calc(100% + 18px);
+  white-space: nowrap;
+  padding: 4px 10px;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+.group:hover > .dock-label,
+.group:focus-visible > .dock-label {
+  opacity: 1;
+}
+
+/* Quick Look: a janela "nasce" do centro com mola, como no macOS */
+.quicklook-backdrop {
+  animation: ql-fade 0.25s ease-out;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.quicklook {
+  animation: ql-pop 0.55s var(--spring);
+  background-color: rgba(18, 18, 22, 0.72);
+}
+@keyframes ql-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes ql-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
 }
