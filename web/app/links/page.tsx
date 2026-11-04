@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { linktree, profile } from "@/lib/content";
-import { PixelAvatar } from "@/components/pixel/PixelAvatar";
+import { ProfilePhoto } from "@/components/ProfilePhoto";
 import { PixelSprite } from "@/components/pixel/PixelSprite";
 import { claudeSprite, codexSprite } from "@/components/pixel/sprites";
 
@@ -17,7 +17,7 @@ export default function LinksPage() {
       <div className="relative w-full max-w-[460px]">
         <header>
           <div className="flex items-end justify-between">
-            <PixelAvatar src={profile.avatar} crop={profile.avatarCrop} grid={32} interactive className="h-[96px] w-[96px]" alt={`Foto de ${profile.name}`} />
+            <ProfilePhoto className="h-[96px] w-[96px]" />
             <div className="flex items-end gap-3 pb-1" aria-hidden>
               <div className="agent-float" style={{ ["--bob-dur" as string]: "5.5s" }}>
                 <PixelSprite sprite={claudeSprite} px={3} />

@@ -5,7 +5,7 @@ export function Projects() {
     <section className="sec sec-projects frame-inset invisible opacity-0" aria-labelledby="projects-title">
       <div className="flex h-full flex-col overflow-hidden p-5 md:p-10">
         <div className="flex items-end justify-between gap-6">
-          <h2 id="projects-title" className="display">
+          <h2 id="projects-title" tabIndex={-1} className="display outline-none">
             Projetos
           </h2>
           <a href="https://github.com/adrielpax" target="_blank" rel="noreferrer" className="btn-line mb-2 hidden sm:inline-flex">

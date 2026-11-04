@@ -25,16 +25,18 @@ function toRects(rows: string[], palette: Record<string, string>): Rect[] {
   return out;
 }
 
-function useFrameCycle(sprite: SpriteDef, playing: boolean) {
+function useFrameCycle(sprite: SpriteDef, playing: boolean, waving: boolean) {
+  const seq = waving && sprite.waveSeq ? sprite.waveSeq : sprite.seq;
   const [step, setStep] = useState(0);
   useEffect(() => {
+    setStep(0);
     if (!playing) return;
     const id = window.setInterval(() => {
-      if (!document.hidden) setStep((s) => (s + 1) % sprite.seq.length);
+      if (!document.hidden) setStep((s) => (s + 1) % seq.length);
     }, sprite.ms);
     return () => window.clearInterval(id);
-  }, [sprite, playing]);
-  return sprite.seq[step] ?? 0;
+  }, [sprite, seq, playing]);
+  return playing ? (seq[step] ?? 0) : 0;
 }
 
 type Props = {
@@ -42,20 +44,21 @@ type Props = {
   /** tamanho de cada pixel em px de tela */
   px?: number;
   playing?: boolean;
+  /** toca a animação de aceno no lugar da de trabalho */
+  waving?: boolean;
   className?: string;
   title?: string;
 };
 
-function PixelSpriteBase({ sprite, px = 5, playing = true, className, title }: Props) {
-  const frame = useFrameCycle(sprite, playing);
+function PixelSpriteBase({ sprite, px = 5, playing = true, waving = false, className, title }: Props) {
+  const frame = useFrameCycle(sprite, playing, waving);
   const rects = useMemo(() => toRects(frameRows(sprite, frame), sprite.palette), [sprite, frame]);
   const h = sprite.rows.length;
   return (
     <svg
       width={sprite.width * px}
-      height={h * px * (sprite.aspect ?? 1)}
+      height={h * px}
       viewBox={`0 0 ${sprite.width} ${h}`}
-      preserveAspectRatio="none"
       shapeRendering="crispEdges"
       className={className}
       role={title ? "img" : undefined}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { PixelSprite } from "./PixelSprite";
 import type { AgentDef } from "./agents";
 
@@ -10,6 +10,10 @@ export function useTypewriter(text: string, active: boolean, speed = 18) {
   useEffect(() => {
     if (!active) {
       setOut("");
+      return;
+    }
+    if (document.documentElement.classList.contains("a11y-reduce-motion")) {
+      setOut(text);
       return;
     }
     let i = 0;
@@ -23,78 +27,26 @@ export function useTypewriter(text: string, active: boolean, speed = 18) {
   return out;
 }
 
-/** terminal flutuante em que o agente "programa" sozinho, em loop */
-function CodePanel({ def, visible }: { def: AgentDef; visible: boolean }) {
-  const [lines, setLines] = useState<string[]>([""]);
-  const state = useRef({ line: 0, ch: 0, pause: 0, clear: false });
-
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      if (document.hidden) return;
-      const s = state.current;
-      if (s.pause > 0) {
-        s.pause--;
-        return;
-      }
-      if (s.clear) {
-        s.clear = false;
-        setLines([""]);
-        return;
-      }
-      const target = def.code[s.line];
-      if (s.ch < target.length) {
-        s.ch++;
-        setLines((prev) => [...prev.slice(0, -1), target.slice(0, s.ch)]);
-        return;
-      }
-      // linha terminada: próxima linha, ou reinicia depois de uma pausa
-      s.line++;
-      s.ch = 0;
-      if (s.line >= def.code.length) {
-        s.line = 0;
-        s.pause = 50;
-        s.clear = true; // mantém o código na tela durante a pausa
-      } else {
-        s.pause = 6;
-        setLines((prev) => [...prev.slice(-4), ""]);
-      }
-    }, 45);
-    return () => window.clearInterval(id);
-  }, [def.code]);
-
-  return (
-    <div
-      className={`code-panel pointer-events-none absolute -top-6 hidden glass glass-sm w-[208px] p-3 font-[ui-monospace,Menlo,monospace] text-[10px] leading-[1.45] text-paper/75 backdrop-blur-sm transition-opacity duration-500 md:block ${
-        def.panelSide === "right" ? "left-full ml-3" : "right-full mr-3"
-      } ${visible ? "opacity-100" : "opacity-0"}`}
-      aria-hidden
-    >
-      <div className="mb-1.5 flex items-center gap-1.5 border-b border-white/10 pb-1.5 text-[11px] text-dim">
-        <span className="inline-block h-1.5 w-1.5" style={{ background: def.accent }} />
-        {def.name}
-      </div>
-      {lines.map((l, i) => (
-        <div key={i} className="truncate whitespace-pre">
-          {l}
-          {i === lines.length - 1 && <span className="caret" style={{ background: def.accent }} />}
-        </div>
-      ))}
-    </div>
-  );
-}
-
 type ConnectState = "idle" | "connecting" | "soon";
 
-function ChatBar({ def, open }: { def: AgentDef; open: boolean }) {
+/** mini chat em balão, sobre a cabeça do personagem */
+function MiniChat({ def, open, onClose, id }: { def: AgentDef; open: boolean; onClose: () => void; id: string }) {
   const text = useTypewriter(def.greeting, open);
   const [connect, setConnect] = useState<ConnectState>("idle");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (!open) setConnect("idle");
-  }, [open]);
+    if (!open) {
+      setConnect("idle");
+      return;
+    }
+    inputRef.current?.focus({ preventScroll: true });
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
 
-  const onConnect = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const onConnect = () => {
     if (connect !== "idle") return;
     setConnect("connecting");
     // gancho para a próxima fase: integração real com a API do agente
@@ -104,42 +56,50 @@ function ChatBar({ def, open }: { def: AgentDef; open: boolean }) {
 
   return (
     <div
-      className={`chat-bar absolute top-full z-10 mt-2 glass glass-sm w-[270px] origin-top overflow-hidden text-[14px] text-paper shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md transition-[opacity,transform] duration-500 ease-[cubic-bezier(.2,.9,.25,1.15)] ${
-        def.panelSide === "right" ? "left-0" : "right-0"
-      } ${open ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"}`}
-      onClick={(e) => e.stopPropagation()}
+      id={id}
       role="dialog"
-      aria-label={`Chat com ${def.name}`}
+      aria-label={`Conversa com ${def.name}`}
       aria-hidden={!open}
+      className={`glass glass-sm absolute bottom-full left-1/2 z-20 mb-4 w-[min(290px,80vw)] -translate-x-1/2 origin-bottom text-[14px] transition-[opacity,transform] duration-500 ease-[cubic-bezier(.2,.9,.25,1.15)] ${
+        open ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none translate-y-2 scale-90 opacity-0"
+      }`}
     >
-      <div className="flex items-center justify-between border-b border-white/10 px-3 py-2 text-[13px]">
-        <span className="flex items-center gap-2 font-pixel text-[15px]">
-          <span className="h-1.5 w-1.5 animate-pulse" style={{ background: def.accent }} />
+      <div className="flex items-center justify-between px-4 pb-1 pt-3">
+        <span className="flex items-center gap-2 font-pixel text-[16px]">
+          <span className="h-2 w-2 rounded-full" style={{ background: def.accent }} />
           {def.name}
         </span>
-        <span className="text-dim">online</span>
+        <button type="button" onClick={onClose} tabIndex={open ? 0 : -1} className="rounded-full px-2 text-dim hover:text-paper" aria-label="Fechar conversa">
+          ✕
+        </button>
       </div>
-      <p className="min-h-[60px] px-3 py-2.5 leading-snug text-paper/85">
+      <p className="min-h-[64px] px-4 pb-3 leading-snug text-paper/90" aria-live="polite">
         {text}
-        {open && text.length < def.greeting.length && <span className="caret" style={{ background: def.accent }} />}
       </p>
-      <div className="flex items-stretch gap-0 border-t border-white/10">
+      <form
+        className="flex items-center gap-2 p-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          onConnect();
+        }}
+      >
         <input
-          readOnly
+          ref={inputRef}
           tabIndex={open ? 0 : -1}
+          aria-label={`Mensagem para ${def.name}`}
           placeholder={`Escreva para ${def.name}`}
-          className="min-w-0 flex-1 bg-transparent px-3 py-2 text-[14px] text-paper placeholder:text-dim/70 focus:outline-none"
+          className="min-w-0 flex-1 rounded-full bg-white/10 px-4 py-2 text-[14px] text-paper placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-white/40"
         />
         <button
-          type="button"
+          type="submit"
           tabIndex={open ? 0 : -1}
-          onClick={onConnect}
-          className="border-l border-white/10 px-3 text-[14px] font-medium transition-colors hover:bg-paper hover:text-ink"
-          style={{ color: connect === "idle" ? def.accent : undefined }}
+          className="rounded-full bg-paper px-4 py-2 text-[14px] font-medium text-ink transition-transform active:scale-95"
         >
           {connect === "idle" ? "Conectar" : connect === "connecting" ? "…" : "Em breve"}
         </button>
-      </div>
+      </form>
+      {/* rabinho do balão */}
+      <span className="glass absolute -bottom-2 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 [--radius:3px]" aria-hidden />
     </div>
   );
 }
@@ -150,47 +110,62 @@ function hash(s: string) {
   return Math.abs(h);
 }
 
-export function Agent({ def, showPanel }: { def: AgentDef; showPanel: boolean }) {
+export function Agent({ def }: { def: AgentDef }) {
+  const [hover, setHover] = useState(false);
   const [open, setOpen] = useState(false);
-  const lastPointer = useRef<string>("mouse");
+  const chatId = useId();
   const h = hash(def.id);
   const floatStyle = {
     "--bob-dur": `${5 + (h % 30) / 10}s`,
     "--bob-delay": `-${(h % 50) / 10}s`,
-    "--bob-rot": `${h % 2 ? 1.5 : -1.5}deg`,
+    "--bob-rot": `${h % 2 ? 1.2 : -1.2}deg`,
   } as CSSProperties;
+  const W = def.sprite.width * def.px;
+  const showButton = hover || open;
 
   return (
     <div className="agent-pos absolute left-0 top-0" data-agent={def.id} style={{ zIndex: open ? 40 : 1 }}>
       <div className="agent-par">
         <div
           className="agent-intro relative"
-          onPointerEnter={(e) => e.pointerType === "mouse" && setOpen(true)}
-          onPointerLeave={(e) => e.pointerType === "mouse" && setOpen(false)}
-          onPointerDown={(e) => (lastPointer.current = e.pointerType)}
-          onClick={() => lastPointer.current !== "mouse" && setOpen((o) => !o)}
+          onPointerEnter={() => setHover(true)}
+          onPointerLeave={() => setHover(false)}
+          onFocus={() => setHover(true)}
+          onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node) && setHover(false)}
         >
-          <div className="agent-float" style={floatStyle}>
-            {def.panel && <CodePanel def={def} visible={showPanel && !open} />}
+          <MiniChat def={def} open={open} onClose={() => setOpen(false)} id={chatId} />
+          <div className="agent-float relative" style={floatStyle}>
+            {/* personagem + notebook na frente */}
+            <div className="relative" style={{ width: W }}>
+              <PixelSprite sprite={def.sprite} px={def.px} waving={hover && !open} title={`${def.name} programando`} />
+              <div className="absolute" style={{ left: def.laptop.x * def.px, top: def.laptop.y * def.px }}>
+                <PixelSprite sprite={def.laptop.sprite} px={def.px * def.laptop.scale} />
+              </div>
+              <span
+                className="pointer-events-none absolute inset-x-2 -bottom-3 h-3 rounded-full opacity-50 blur-lg"
+                style={{ background: def.accent }}
+                aria-hidden
+              />
+            </div>
+
+            {/* botão flutuante de chat */}
             <button
               type="button"
-              aria-label={`Abrir chat com ${def.name}`}
+              onClick={() => setOpen((o) => !o)}
               aria-expanded={open}
-              className="group relative block cursor-pointer"
-              onFocus={() => setOpen(true)}
+              aria-controls={chatId}
+              aria-label={open ? `Fechar conversa com ${def.name}` : `Conversar com ${def.name}`}
+              className={`glass glass-pill absolute top-0 flex h-11 w-11 items-center justify-center text-[18px] transition-[opacity,transform] duration-500 ease-[cubic-bezier(.2,.9,.25,1.15)] focus-visible:opacity-100 ${
+                def.side === "left" ? "-right-14" : "-left-14"
+              } ${showButton ? "scale-100 opacity-100" : "pointer-events-none scale-50 opacity-0 focus-visible:pointer-events-auto focus-visible:scale-100"}`}
             >
-              <span
-                className="pointer-events-none absolute inset-x-1 -bottom-2 h-2 opacity-60 blur-md transition-opacity group-hover:opacity-100"
-                style={{ background: def.accent }}
-              />
-              <PixelSprite sprite={def.sprite} px={def.px} className="relative drop-shadow-[0_6px_0_rgba(0,0,0,0.35)]" />
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+                <path d="M3 4.5A2.5 2.5 0 0 1 5.5 2h9A2.5 2.5 0 0 1 17 4.5v6a2.5 2.5 0 0 1-2.5 2.5H9l-4 4v-4h0.5A2.5 2.5 0 0 1 3 10.5z" fill="currentColor" />
+              </svg>
             </button>
-            <div className="mt-1.5 flex items-center justify-center gap-1.5 font-pixel text-[13px] text-dim">
-              <span className="h-1 w-1" style={{ background: def.accent }} />
-              {def.name}
-            </div>
+
+            <div className="mt-4 text-center font-pixel text-[14px] text-dim">{def.name}</div>
           </div>
-          <ChatBar def={def} open={open} />
         </div>
       </div>
     </div>

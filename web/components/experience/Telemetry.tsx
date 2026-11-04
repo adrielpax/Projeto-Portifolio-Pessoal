@@ -21,7 +21,7 @@ export function Telemetry({ active }: { active: string }) {
     return () => window.clearInterval(id);
   }, []);
   return (
-    <footer className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex h-[44px] items-center justify-between px-4 text-[13px] text-dim md:h-[52px] md:px-6">
+    <footer aria-hidden className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex h-[44px] items-center justify-between px-4 text-[13px] text-dim md:h-[52px] md:px-6">
       <span className="text-paper">{NAMES[active] ?? NAMES.hero}</span>
       <span className="tabular-nums">Betim, {time}</span>
     </footer>

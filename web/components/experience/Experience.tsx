@@ -17,10 +17,19 @@ import { Projects } from "@/components/sections/Projects";
 import { Stack } from "@/components/sections/Stack";
 import { Blog } from "@/components/sections/Blog";
 import { Contact } from "@/components/sections/Contact";
+import { A11yPanel } from "@/components/A11yPanel";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const Scene = dynamic(() => import("@/components/three/Scene"), { ssr: false });
+
+const SECTION_NAMES: Record<SectionId, string> = {
+  hero: "Início",
+  projects: "Projetos",
+  stack: "Stack",
+  blog: "Blog",
+  contact: "Contato",
+};
 
 const PAPER = "#ffffff";
 const DIM = "#8c8c8c";
@@ -72,9 +81,12 @@ export default function Experience() {
         }
       }, 180);
     };
+    const onA11y = () => setLayoutKey((k) => k + 1);
     window.addEventListener("resize", onResize);
+    window.addEventListener("a11y:change", onA11y);
     return () => {
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("a11y:change", onA11y);
       window.clearTimeout(id);
     };
   }, []);
@@ -309,13 +321,23 @@ export default function Experience() {
 
   return (
     <div ref={root} className="relative">
+      <button
+        type="button"
+        onClick={() => {
+          go("projects");
+          window.setTimeout(() => document.getElementById("projects-title")?.focus(), 900);
+        }}
+        className="glass glass-pill fixed left-3 top-3 z-[70] -translate-y-24 px-4 py-2 text-[14px] font-medium focus:translate-y-0"
+      >
+        Pular para o conteúdo
+      </button>
 
       {/* trilho que gera o scroll: 1 viewport por parada */}
       <div ref={track} className="track" style={{ height: `${(TIMELINE_UNITS + 1) * 100}vh` }} aria-hidden />
 
       <div className="fixed inset-0 overflow-hidden">
         {/* camada 0: cena 3D */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0" aria-hidden>
           <Scene />
         </div>
         <div className="vignette pointer-events-none absolute inset-0 z-[1]" />
@@ -339,7 +361,7 @@ export default function Experience() {
         {/* camada 2: agentes em pixel art */}
         <div className="agents-layer pointer-events-none absolute inset-0 z-30">
           {agents.map((a) => (
-            <Agent key={a.id} def={a} showPanel={active === "hero"} />
+            <Agent key={a.id} def={a} />
           ))}
         </div>
 
@@ -350,6 +372,12 @@ export default function Experience() {
 
       <Navbar active={active} go={go} />
       <Telemetry active={active} />
+      <A11yPanel />
+
+      {/* leitores de tela: avisa a seção atual a cada parada do scroll */}
+      <p className="sr-only" aria-live="polite">
+        Seção atual: {SECTION_NAMES[active]}
+      </p>
     </div>
   );
 }

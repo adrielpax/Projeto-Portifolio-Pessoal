@@ -28,6 +28,12 @@ A primeira versão caiu em padrões típicos de página gerada por IA (preto azu
 - **Movimento**: um único momento de palco, o card virando navbar. Seções trocam por fade. Sem tela de boot e sem texto embaralhando.
 - **Grafo de fundo no estilo graphify**: comunidades coloridas, nós nomeados com rótulo, satélites e pontes entre áreas (`lib/graph.ts`), layout por forças e pulsos percorrendo as ligações.
 
+### Revisão 3
+- **Personagens**: Clawd (pixels quadrados, olhos pretos, bracinhos, quatro perninhas) e Codex (robô-nuvem azul com `>_` no rosto), cada um com notebook. Animações de trabalho (digitar, piscar, cursor). No hover acenam e aparece um botão de chat flutuante; o mini chat abre num balão sobre a cabeça. As pessoas genéricas em pixel saíram.
+- **Foto**: redonda, sem pixelado (`components/ProfilePhoto.tsx`).
+- **Navbar como IHM industrial de nova geração**: seletor de telas em vidro com thumb deslizante (mola), LED verde na tela ativa, barra de processo com marcações de escala (progresso do scroll) e status "Online em Betim" com relógio ao vivo.
+- **Acessibilidade**: painel com três chaves (reduzir movimento, alto contraste, texto maior) salvas no navegador e iniciadas pelas preferências do sistema; link "Pular para o conteúdo"; anúncio da seção atual para leitor de tela; Esc fecha chats e painel; títulos de seção focáveis; cena 3D e rodapé ocultos de leitores de tela.
+
 ## 3. Arquitetura da experiência
 
 O scroll **não** rola a página. Ele move uma linha do tempo.

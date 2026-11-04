@@ -5,7 +5,7 @@ export function Stack() {
     <section className="sec sec-stack frame-inset invisible opacity-0" aria-labelledby="stack-title">
       <div className="flex h-full flex-col justify-between p-5 md:p-10 lg:max-w-[38%]">
         <div>
-          <h2 id="stack-title" className="display">
+          <h2 id="stack-title" tabIndex={-1} className="display outline-none">
             Stack
           </h2>
           <p className="stack-desc mt-5 max-w-[34ch] text-[17px] leading-snug text-dim md:text-[19px]">

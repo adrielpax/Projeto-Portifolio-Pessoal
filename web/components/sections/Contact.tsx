@@ -20,7 +20,7 @@ export function Contact() {
     <section className="sec sec-contact frame-inset invisible opacity-0" aria-labelledby="contact-title">
       <div className="flex h-full flex-col justify-center overflow-y-auto p-5 md:p-10 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16">
         <div>
-          <h2 id="contact-title" className="display">
+          <h2 id="contact-title" tabIndex={-1} className="display outline-none">
             Vamos conversar
           </h2>
           <p className="mt-5 max-w-[32ch] text-[17px] leading-snug text-dim md:text-[19px]">

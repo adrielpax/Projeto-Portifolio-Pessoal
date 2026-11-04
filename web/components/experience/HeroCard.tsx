@@ -1,7 +1,7 @@
 "use client";
 
 import { navLinks, profile, socials, type SectionId } from "@/lib/content";
-import { PixelAvatar } from "@/components/pixel/PixelAvatar";
+import { ProfilePhoto } from "@/components/ProfilePhoto";
 import { NavLinkText, navLinkClass } from "./NavLinkText";
 
 /**
@@ -18,14 +18,7 @@ export function HeroCard({ go }: { go: (id: SectionId) => void }) {
         <div className="flex flex-row items-end gap-5 sm:gap-7">
           <div className="hero-avatar relative h-[88px] w-[88px] shrink-0 origin-top-left sm:h-[132px] sm:w-[132px]">
             <div className="intro h-full w-full">
-              <PixelAvatar
-                src={profile.avatar}
-                crop={profile.avatarCrop}
-                grid={40}
-                interactive
-                className="h-full w-full"
-                alt={`Foto de ${profile.name}`}
-              />
+              <ProfilePhoto className="h-full w-full" />
             </div>
           </div>
           <div className="hero-copy min-w-0 pb-1">

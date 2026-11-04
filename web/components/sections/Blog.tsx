@@ -10,7 +10,7 @@ export function Blog() {
     <section className="sec sec-blog frame-inset invisible opacity-0" aria-labelledby="blog-title">
       <div className="flex h-full flex-col overflow-hidden p-5 md:p-10 lg:grid lg:grid-cols-[minmax(240px,0.7fr)_2fr] lg:gap-14">
         <div>
-          <h2 id="blog-title" className="display">
+          <h2 id="blog-title" tabIndex={-1} className="display outline-none">
             Blog
           </h2>
           <p className="mt-5 hidden max-w-[30ch] text-[17px] leading-snug text-dim sm:block">
