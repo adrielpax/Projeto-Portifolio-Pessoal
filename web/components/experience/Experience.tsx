@@ -8,12 +8,13 @@ import { useGSAP } from "@gsap/react";
 import { stage, TIMELINE_UNITS } from "@/lib/stage";
 import { seg } from "@/lib/math";
 import { timelineLabels, type SectionId } from "@/lib/content";
-import { agents, type Pose } from "@/components/pixel/agents";
+import { agents } from "@/components/pixel/agents";
 import { Agent } from "@/components/pixel/Agent";
 import { HeroCard } from "./HeroCard";
 import { Navbar } from "./Navbar";
 import { Dock } from "./Dock";
 import { Triangles } from "./Triangles";
+import { Intro } from "@/components/sections/Intro";
 import { Projects } from "@/components/sections/Projects";
 import { Stack } from "@/components/sections/Stack";
 import { Blog } from "@/components/sections/Blog";
@@ -26,13 +27,23 @@ const Scene = dynamic(() => import("@/components/three/Scene"), { ssr: false });
 
 const SECTION_NAMES: Record<SectionId, string> = {
   hero: "Início",
+  intro: "Sobre",
   projects: "Projetos",
   stack: "Stack",
   blog: "Log",
   contact: "Contato",
 };
 
-const ORDER: SectionId[] = ["hero", "projects", "stack", "blog", "contact"];
+const SECTION_SLUGS: Record<SectionId, string> = {
+  hero: "",
+  intro: "/sobre",
+  projects: "/projetos",
+  stack: "/stack",
+  blog: "/log",
+  contact: "/contato",
+};
+
+const ORDER: SectionId[] = ["hero", "intro", "projects", "stack", "blog", "contact"];
 const prevSection = (s: SectionId) => ORDER[Math.max(0, ORDER.indexOf(s) - 1)];
 
 const PAPER = "#ffffff";
@@ -117,7 +128,6 @@ export default function Experience() {
       const q = gsap.utils.selector(root);
       const one = (sel: string) => q(sel)[0] as HTMLElement;
       const rect = (el: Element) => el.getBoundingClientRect();
-      const isMobile = window.innerWidth < 768;
 
       // mede tudo sem a inclinação do card
       const tilt = one(".tilt");
@@ -209,7 +219,8 @@ export default function Experience() {
         { left: target.left, top: target.top, width: target.width, height: target.height, duration: 0.56, ease: "power3.inOut" },
         0.14,
       );
-      tl.to(".frame-bg", { opacity: 0.85, duration: 0.4 }, 0.3);
+      // no segundo hero a janela fica "aberta": sem vidro, o fundo aparece inteiro
+      tl.to(".frame-bg", { opacity: 0, duration: 0.4 }, 0.3);
 
       // seções só trocam por fade: o único movimento "de palco" é o card virando navbar
       const reveal = (sec: string, at: number) => {
@@ -219,40 +230,26 @@ export default function Experience() {
         tl.to(sec, { autoAlpha: 0, duration: 0.25, ease: "power1.in" }, at);
       };
 
-      reveal(".sec-projects", 0.56);
+      /* ---- 1: segundo hero, com a janela aberta e o fundo à mostra ---- */
+      reveal(".sec-intro", 0.56);
 
-      /* ---- 1 → 2: projetos saem, equipamento entra ---- */
-      conceal(".sec-projects", 1.04);
-      tl.to(".frame-bg", { opacity: 0.12, duration: 0.3 }, 1.1);
-      reveal(".sec-stack", 1.5);
+      /* ---- 1 → 2: projetos (vidro mais fechado para leitura) ---- */
+      conceal(".sec-intro", 1.04);
+      tl.to(".frame-bg", { opacity: 0.85, duration: 0.3 }, 1.1);
+      reveal(".sec-projects", 1.5);
 
-      /* ---- 2 → 3: equipamento desmonta (na cena 3D) e a legenda aparece ---- */
-      tl.to(".stack-hint", { autoAlpha: 0, y: -10, duration: 0.2 }, 2.04);
-      // no celular o texto sai para o equipamento desmontado caber
-      if (isMobile) tl.to(".stack-desc", { autoAlpha: 0, y: -10, duration: 0.2 }, 2.04);
-      tl.fromTo(".stack-legend", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 2.4);
+      /* ---- 2 → 3: stack ---- */
+      conceal(".sec-projects", 2.04);
+      reveal(".sec-stack", 2.5);
 
-      /* ---- 3 → 4: blog ---- */
+      /* ---- 3 → 4: log ---- */
       conceal(".sec-stack", 3.04);
-      tl.to(".frame-bg", { opacity: 0.88, duration: 0.3 }, 3.2);
       reveal(".sec-blog", 3.5);
 
       /* ---- 4 → 5: contato ---- */
       conceal(".sec-blog", 4.04);
       tl.to(".frame-bg", { opacity: 0.6, duration: 0.3 }, 4.2);
       reveal(".sec-contact", 4.5);
-
-      /* ---- agentes flutuam até a pose de cada parada ---- */
-      const poseVars = ([x, y, s, o]: Pose) => ({ x: `${x}vw`, y: `${y}vh`, scale: s, autoAlpha: o });
-      agents.forEach((a) => {
-        const el = q(`.agent-pos[data-agent="${a.id}"]`)[0];
-        if (!el) return;
-        const poses = isMobile ? a.poses.mobile : a.poses.desktop;
-        gsap.set(el, { transformOrigin: "0 0", ...poseVars(poses[0]) });
-        for (let i = 1; i < poses.length; i++) {
-          tl.to(el, { ...poseVars(poses[i]), duration: 0.8, ease: "power2.inOut" }, i - 1 + 0.12);
-        }
-      });
 
       tlRef.current = tl;
       if (process.env.NODE_ENV !== "production") (window as unknown as { __tl: gsap.core.Timeline }).__tl = tl;
@@ -379,13 +376,21 @@ export default function Experience() {
                     aria-label="Tela cheia"
                   />
                 </div>
-                <p className="absolute left-1/2 -translate-x-1/2 text-[13px] font-medium text-paper/70">
-                  {SECTION_NAMES[active]} <span className="text-dim">— Adriel Lucas</span>
+                {/* barra de endereço, como num navegador */}
+                <p className="url-pill absolute left-1/2 flex w-[min(420px,52%)] -translate-x-1/2 items-center justify-center gap-2 px-3 py-1 text-[12.5px] text-paper/75">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden>
+                    <rect x="5" y="11" width="14" height="10" rx="1.5" />
+                    <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+                  </svg>
+                  <span className="truncate">
+                    adrieldev.vercel.app<span className="text-paper/45">{SECTION_SLUGS[active]}</span>
+                  </span>
                 </p>
               </div>
             </div>
             <HeroCard go={go} />
           </div>
+          <Intro />
           <Projects />
           <Stack />
           <Blog />

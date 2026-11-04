@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { linktree, profile } from "@/lib/content";
 import { ProfilePhoto } from "@/components/ProfilePhoto";
-import { PixelSprite } from "@/components/pixel/PixelSprite";
-import { claudeSprite, codexSprite } from "@/components/pixel/sprites";
+import { ClaudeFigure, CodexFigure } from "@/components/agents/Figures";
 
 export const metadata: Metadata = {
   title: `Links de ${profile.name}`,
@@ -20,10 +19,10 @@ export default function LinksPage() {
             <ProfilePhoto className="h-[96px] w-[96px]" />
             <div className="flex items-end gap-3 pb-1" aria-hidden>
               <div className="agent-float" style={{ ["--bob-dur" as string]: "5.5s" }}>
-                <PixelSprite sprite={claudeSprite} px={3} />
+                <ClaudeFigure className="h-[56px] w-auto" />
               </div>
               <div className="agent-float" style={{ ["--bob-dur" as string]: "6.5s", ["--bob-delay" as string]: "-2s" }}>
-                <PixelSprite sprite={codexSprite} px={3} />
+                <CodexFigure className="h-[64px] w-auto" />
               </div>
             </div>
           </div>

@@ -269,19 +269,19 @@ export function NeuralGraph() {
     const grp = group.current;
     if (grp) {
       grp.position.set(
-        kf(t, narrow ? [0, 0, 0, 0, 0, 0] : [0, 2.6, 3.4, 3.4, -2.6, 0.4]),
-        kf(t, narrow ? [0.4, 0.3, 1.2, 1.2, 0.3, 0.4] : [0, -0.2, 0, 0, -0.2, -0.3]),
-        kf(t, [-0.5, -1.4, -9, -10, -2, -2.4]),
+        kf(t, narrow ? [0, 0, 0, 0, 0, 0] : [0, 3.1, 2.6, 2.6, -2.6, 0.4]),
+        kf(t, narrow ? [0.4, 0.4, 0.3, 0.3, 0.3, 0.4] : [0, 0, -0.2, -0.2, -0.2, -0.3]),
+        kf(t, [-0.5, -0.8, -1.6, -1.6, -2, -2.4]),
       );
-      grp.scale.setScalar(kf(t, narrow ? [0.6, 0.55, 0.5, 0.5, 0.55, 0.6] : [1.08, 0.9, 0.8, 0.8, 0.9, 1]));
+      grp.scale.setScalar(kf(t, narrow ? [0.6, 0.6, 0.55, 0.55, 0.55, 0.6] : [1.08, 1, 0.9, 0.9, 0.9, 1]));
       grp.rotation.y += dt * (stage.reducedMotion ? 0.01 : 0.04);
       grp.rotation.x = THREE.MathUtils.damp(grp.rotation.x, stage.mouseY * 0.12, 2, dt);
     }
-    const opacity = kf(t, [1, 0.7, 0.18, 0.12, 0.6, 0.8]);
+    const opacity = kf(t, [1, 0.8, 0.5, 0.5, 0.5, 0.8]);
     uniforms.points.uOpacity.value = opacity;
     uniforms.pulses.uOpacity.value = opacity;
     uniforms.lines.uOpacity.value = opacity;
-    const speedMul = (stage.reducedMotion ? 0.25 : 1) * kf(t, [1, 0.85, 0.4, 0.4, 1, 1.8]);
+    const speedMul = (stage.reducedMotion ? 0.25 : 1) * kf(t, [1, 1.3, 0.8, 0.8, 1, 1.8]);
 
     // pulsos percorrem o grafo de nó em nó
     const pPos = pulseGeo.attributes.position.array as Float32Array;

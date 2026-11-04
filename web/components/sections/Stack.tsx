@@ -14,16 +14,16 @@ export function Stack() {
             <>
               {stackLayers.length} camadas, {total} tecnologias
               <br />
-              role para desmontar
+              da interface à infraestrutura
             </>
           }
         />
-        <div className="mt-4 flex min-h-0 flex-1 flex-col justify-between lg:max-w-[34%]">
+        <div className="mt-4 flex min-h-0 flex-1 flex-col">
           <p className="stack-desc max-w-[38ch] text-[14px] leading-snug text-paper/70">
-            Cada camada do equipamento é uma parte do que eu construo, da interface à infraestrutura.
+            As ferramentas que uso no dia a dia, organizadas por camada.
           </p>
           {/* lista completa, sempre legível (os rótulos 3D são o reforço visual) */}
-          <ul className="mt-4 grid grid-cols-2 gap-x-4 lg:sr-only">
+          <ul className="mt-6 grid grid-cols-1 gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
             {stackLayers.map((l) => (
               <li key={l.code} className="flex items-baseline justify-between gap-3 border-t border-white/8 py-1.5 text-[12.5px]">
                 <span className="font-display text-[15px] font-semibold uppercase">{l.name}</span>
@@ -31,8 +31,6 @@ export function Stack() {
               </li>
             ))}
           </ul>
-          <p className="stack-hint sr-only">Role para desmontar</p>
-          <div className="stack-legend hidden" />
         </div>
       </div>
     </section>

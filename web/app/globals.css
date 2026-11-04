@@ -593,3 +593,106 @@ body {
     radial-gradient(35% 25% at 80% 80%, rgba(150, 199, 164, 0.08), transparent 70%),
     #000;
 }
+
+/* ------------------------------------------- personagens soltos + navegador */
+
+.agent-body {
+  transform-origin: 50% 55%;
+  will-change: transform;
+}
+.agent-bar {
+  animation: bar-pop 0.45s var(--spring);
+}
+@keyframes bar-pop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -8px) scale(0.92);
+  }
+}
+.agent-icon-btn {
+  display: inline-flex;
+  height: 36px;
+  width: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px 0 6px 0;
+  corner-shape: bevel;
+  transition: background-color 0.2s;
+}
+.agent-icon-btn:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+.url-pill {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px 0 8px 0;
+  corner-shape: bevel;
+}
+/* vidro das janelas grandes mais leve: menos desfoque = menos travamento */
+.frame-bg.glass {
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(12px) saturate(150%);
+}
+
+/* ------------------------------------------- personagens vetoriais: animações */
+
+.fig .fig-eyes,
+.fig .fig-arm-l,
+.fig .fig-arm-r,
+.fig .fig-cursor,
+.fig .fig-emblem {
+  transform-box: fill-box;
+}
+/* piscar */
+.fig .fig-eyes {
+  transform-origin: center;
+  animation: fig-blink 4.2s infinite;
+}
+@keyframes fig-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+/* digitando: braços sobem e descem alternados */
+.fig .fig-arm-l {
+  transform-origin: 100% 50%;
+  animation: fig-type 0.34s ease-in-out infinite alternate;
+}
+.fig .fig-arm-r {
+  transform-origin: 0% 50%;
+  animation: fig-type 0.34s ease-in-out -0.17s infinite alternate;
+}
+@keyframes fig-type {
+  to {
+    transform: translateY(4px);
+  }
+}
+/* aceno: o braço direito gira para cima */
+.fig.is-waving .fig-arm-r {
+  animation: fig-wave 0.42s ease-in-out infinite alternate;
+}
+@keyframes fig-wave {
+  from {
+    transform: rotate(-20deg) translateY(-6px);
+  }
+  to {
+    transform: rotate(-55deg) translateY(-10px);
+  }
+}
+.fig .fig-cursor {
+  animation: blink 1s steps(1) infinite;
+}
+.fig .fig-emblem {
+  transform-origin: center;
+  animation: fig-glow 2.4s ease-in-out infinite;
+}
+@keyframes fig-glow {
+  50% {
+    opacity: 0.55;
+  }
+}

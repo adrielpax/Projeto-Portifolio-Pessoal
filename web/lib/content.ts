@@ -25,14 +25,14 @@ export const profile = {
   email: "", // TODO: preencher
 };
 
-export type SectionId = "hero" | "projects" | "stack" | "blog" | "contact";
+export type SectionId = "hero" | "intro" | "projects" | "stack" | "blog" | "contact";
 
 /** Rótulos da timeline mestre: cada unidade = uma "parada" do scroll. */
 export const timelineLabels: { label: string; section: SectionId }[] = [
   { label: "hero", section: "hero" },
+  { label: "intro", section: "intro" },
   { label: "projects", section: "projects" },
   { label: "stack", section: "stack" },
-  { label: "stack-open", section: "stack" },
   { label: "blog", section: "blog" },
   { label: "contact", section: "contact" },
 ];

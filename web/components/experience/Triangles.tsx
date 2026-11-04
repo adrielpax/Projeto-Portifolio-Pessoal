@@ -3,7 +3,7 @@ import { mulberry32 } from "@/lib/math";
 
 /** poucos triângulos bem claros subindo devagar atrás do conteúdo */
 const rand = mulberry32(42);
-const TRIS = Array.from({ length: 6 }, (_, i) => {
+const TRIS = Array.from({ length: 8 }, (_, i) => {
   const size = 28 + rand() * 110;
   return {
     i,
@@ -15,7 +15,7 @@ const TRIS = Array.from({ length: 6 }, (_, i) => {
     r0: rand() * 360,
     r1: rand() * 360 + 120,
     filled: rand() > 0.7,
-    alpha: 0.012 + rand() * 0.02,
+    alpha: 0.03 + rand() * 0.035,
   };
 });
 
