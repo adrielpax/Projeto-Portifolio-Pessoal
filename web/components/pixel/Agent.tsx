@@ -27,31 +27,24 @@ export function useTypewriter(text: string, active: boolean, speed = 18) {
   return out;
 }
 
-type ConnectState = "idle" | "connecting" | "soon";
-
 /** mini chat em balão, sobre a cabeça do personagem */
 function MiniChat({ def, open, onClose, id }: { def: AgentDef; open: boolean; onClose: () => void; id: string }) {
   const text = useTypewriter(def.greeting, open);
-  const [connect, setConnect] = useState<ConnectState>("idle");
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (!open) {
-      setConnect("idle");
-      return;
-    }
+    if (!open) return;
     inputRef.current?.focus({ preventScroll: true });
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
+  // real: leva o recado para o formulário de contato e rola até lá
   const onConnect = () => {
-    if (connect !== "idle") return;
-    setConnect("connecting");
-    // gancho para a próxima fase: integração real com a API do agente
-    window.dispatchEvent(new CustomEvent("agent:connect", { detail: { id: def.id } }));
-    window.setTimeout(() => setConnect("soon"), 1100);
+    const message = inputRef.current?.value.trim() ?? "";
+    window.dispatchEvent(new CustomEvent("agent:connect", { detail: { id: def.id, message } }));
+    onClose();
   };
 
   return (
@@ -86,8 +79,8 @@ function MiniChat({ def, open, onClose, id }: { def: AgentDef; open: boolean; on
         <input
           ref={inputRef}
           tabIndex={open ? 0 : -1}
-          aria-label={`Mensagem para ${def.name}`}
-          placeholder={`Escreva para ${def.name}`}
+          aria-label="Recado para o Adriel"
+          placeholder="Seu recado (opcional)"
           className="min-w-0 flex-1 bg-white/10 px-4 py-2 text-[14px] text-paper placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-white/40"
         />
         <button
@@ -95,7 +88,7 @@ function MiniChat({ def, open, onClose, id }: { def: AgentDef; open: boolean; on
           tabIndex={open ? 0 : -1}
           className="para bg-paper px-5 py-2 text-[14px] font-medium text-ink transition-transform active:scale-95"
         >
-          {connect === "idle" ? "Conectar" : connect === "connecting" ? "…" : "Em breve"}
+          Falar com o Adriel
         </button>
       </form>
       {/* rabinho do balão */}

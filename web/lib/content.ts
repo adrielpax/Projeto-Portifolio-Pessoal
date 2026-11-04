@@ -17,7 +17,8 @@ export const profile = {
   avatar: "/images/perfil.jpeg",
   /** recorte do rosto na foto (frações da imagem) usado pelo avatar pixelado */
   avatarCrop: { x: 0.27, y: 0.1, size: 0.38 },
-  email: "contato@seudominio.dev", // TODO: email público de contato
+  /** email público de contato; vazio = formulário e link de email ficam ocultos */
+  email: "", // TODO: preencher
 };
 
 export type SectionId = "hero" | "projects" | "stack" | "blog" | "contact";
@@ -35,81 +36,113 @@ export const timelineLabels: { label: string; section: SectionId }[] = [
 export const navLinks: { id: SectionId; label: string; index: string }[] = [
   { id: "projects", label: "Projetos", index: "01" },
   { id: "stack", label: "Stack", index: "02" },
-  { id: "blog", label: "Blog", index: "03" },
+  { id: "blog", label: "Log", index: "03" },
   { id: "contact", label: "Contato", index: "04" },
 ];
 
 export const socials = [
   { id: "github", label: "GitHub", href: "https://github.com/adrielpax" },
-  { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/" }, // TODO: URL do perfil
-  { id: "email", label: "Email", href: `mailto:${profile.email}` },
+  { id: "linkedin", label: "LinkedIn", href: "" }, // TODO: URL do perfil
+  { id: "email", label: "Email", href: profile.email ? `mailto:${profile.email}` : "" },
   { id: "links", label: "Links", href: "/links" },
-];
+].filter((s) => s.href); // links sem URL não aparecem
 
 export type Project = {
-  code: string;
+  /** nome do repositório no GitHub */
+  repo: string;
   title: string;
   description: string;
-  year: string;
-  status: string;
+  /** último push no GitHub (AAAA-MM-DD) */
+  pushed: string;
+  language: string;
   tags: string[];
   href: string;
-  seed: number;
+  /** site publicado, quando existe */
+  demo?: string;
   /** captura do projeto em /public/images/projects (sem imagem, a capa é gerada) */
   image?: string;
   /** cor da capa gerada quando não há imagem */
   tint?: string;
 };
 
+const gh = (repo: string) => `https://github.com/adrielpax/${repo}`;
+
+/**
+ * Projetos reais, tirados dos repositórios públicos de github.com/adrielpax
+ * (descrições do próprio repositório). Atualize aqui quando subir algo novo.
+ */
 export const projects: Project[] = [
   {
-    code: "P-01",
-    title: "Automação com n8n",
-    description:
-      "Fluxos que conectam CRM, planilhas e WhatsApp e tiram trabalho manual do caminho do time.",
-    year: "2025",
-    status: "Em produção",
-    tags: ["n8n", "Webhooks", "APIs REST"],
-    href: "https://github.com/adrielpax", // TODO
-    seed: 11,
-    tint: "#b99bff", // TODO: image: "/images/projects/n8n.jpg"
+    repo: "project-orion",
+    title: "Projeto Orion",
+    description: "Site e landing page de SaaS com painéis de funil.",
+    pushed: "2025-10-04",
+    language: "JavaScript",
+    tags: ["Landing page", "SaaS", "Funis"],
+    href: gh("project-orion"),
+    demo: "https://orion-flax.vercel.app",
+    tint: "#ada2d6",
   },
   {
-    code: "P-02",
-    title: "E-commerce integrado",
-    description:
-      "Catálogo, estoque e pedidos sincronizados entre Mercado Livre, WooCommerce e Nuvemshop.",
-    year: "2025",
-    status: "Em produção",
-    tags: ["Node.js", "Filas", "Integrações"],
-    href: "https://github.com/adrielpax", // TODO
-    seed: 23,
-    tint: "#86e3a0", // TODO: image
-  },
-  {
-    code: "P-03",
-    title: "SaaS Auth Kit",
-    description:
-      "Base de autenticação multi-tenant: sessões, papéis e convites prontos para novos produtos.",
-    year: "2024",
-    status: "Estudo",
-    tags: ["Next.js", "Fastify", "PostgreSQL"],
-    href: "https://github.com/adrielpax", // TODO
-    seed: 37,
-    tint: "#72d6ff", // TODO: image
-  },
-  {
-    code: "P-04",
-    title: "Portfólio v3",
-    description:
-      "Este site: cena 3D, agentes em pixel art e uma timeline de scroll que monta a navegação.",
-    year: "2026",
-    status: "Protótipo",
+    repo: "Projeto-Portifolio-Pessoal",
+    title: "Portfólio pessoal",
+    description: "Este site: cena 3D, agentes em pixel art e navegação guiada pelo scroll.",
+    pushed: "2026-11-02",
+    language: "TypeScript",
     tags: ["Next.js", "Three.js", "GSAP"],
-    href: "https://github.com/adrielpax/Projeto-Portifolio-Pessoal",
-    seed: 52,
+    href: gh("Projeto-Portifolio-Pessoal"),
+    demo: "https://adrieldev.vercel.app",
     image: "/images/projects/portfolio-v3.jpg",
   },
+  {
+    repo: "spider-app",
+    title: "Spider App",
+    description: "Busca por geolocalização com chat em tempo real.",
+    pushed: "2026-07-31",
+    language: "Web",
+    tags: ["Geolocalização", "Tempo real"],
+    href: gh("spider-app"),
+    tint: "#d9a185",
+  },
+  {
+    repo: "ecommerce-optimize-nextjs",
+    title: "E-commerce otimizado",
+    description: "E-commerce em Next.js com foco em otimização.",
+    pushed: "2026-08-24",
+    language: "Next.js",
+    tags: ["Next.js", "E-commerce"],
+    href: gh("ecommerce-optimize-nextjs"),
+    tint: "#96c7a4",
+  },
+  {
+    repo: "Chat_app",
+    title: "Chat em tempo real",
+    description: "Chat com React, Node.js, Express e Socket.io.",
+    pushed: "2023-10-18",
+    language: "JavaScript",
+    tags: ["React", "Node.js", "Socket.io"],
+    href: gh("Chat_app"),
+    tint: "#8fc3db",
+  },
+  {
+    repo: "LandPage_ContactForm_Model-001",
+    title: "Landing page com captação",
+    description: "Landing page para negócio local que grava os contatos numa planilha do Google Sheets.",
+    pushed: "2023-06-05",
+    language: "JavaScript",
+    tags: ["Landing page", "Google Sheets"],
+    href: gh("LandPage_ContactForm_Model-001"),
+    tint: "#d8c58a",
+  },
+];
+
+/** Repositórios menores e estudos, mostrados no registro de atividade */
+export const archive = [
+  { repo: "fullstack-project", pushed: "2024-07-13", language: "JavaScript", note: "Projeto full stack" },
+  { repo: "simple_react_calculator", pushed: "2024-10-10", language: "React", note: "Calculadora em React (desafio DIO)" },
+  { repo: "React_app_nlw", pushed: "2021-09-07", language: "TypeScript", note: "App React do NLW" },
+  { repo: "Pygame_Space_game", pushed: "2021-09-07", language: "Python", note: "Jogo de nave em Pygame" },
+  { repo: "adrielpax", pushed: "2026-03-27", language: "Markdown", note: "Perfil do GitHub" },
 ];
 
 /** Camadas do equipamento que se desmonta na seção Stack (de cima para baixo). */
@@ -122,35 +155,12 @@ export const stackLayers = [
   { code: "L6", name: "Infra", part: "Base", items: ["Docker", "Nginx", "CI/CD", "Git"] },
 ];
 
-export const posts = [
-  {
-    date: "2026.10.18",
-    title: "Como uso Claude e Codex no meu fluxo de desenvolvimento",
-    tags: ["IA", "Workflow"],
-    read: "6 min",
-    href: "#", // TODO: /blog/slug
-  },
-  {
-    date: "2026.09.02",
-    title: "n8n em produção: o que aprendi automatizando processos reais",
-    tags: ["Automação"],
-    read: "8 min",
-    href: "#",
-  },
-  {
-    date: "2026.07.21",
-    title: "Do Figma ao deploy: o pipeline de um projeto full stack",
-    tags: ["Next.js", "DevOps"],
-    read: "5 min",
-    href: "#",
-  },
-];
 
 /** Página /links (estilo linktree). */
 export const linktree = [
   { label: "Portfólio", note: "site completo", href: "/" },
   { label: "GitHub", note: "código e projetos", href: "https://github.com/adrielpax" },
-  { label: "LinkedIn", note: "experiência", href: "https://www.linkedin.com/" }, // TODO
-  { label: "Blog", note: "notas de campo", href: "/#blog" },
-  { label: "Email", note: "orçamentos e parcerias", href: `mailto:${profile.email}` },
-];
+  { label: "Projeto Orion", note: "projeto publicado", href: "https://orion-flax.vercel.app" },
+  { label: "LinkedIn", note: "experiência", href: "" }, // TODO
+  { label: "Email", note: "orçamentos e parcerias", href: profile.email ? `mailto:${profile.email}` : "" },
+].filter((l) => l.href);

@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { projects, type Project } from "@/lib/content";
+import { SectionHeader, monthYear } from "./SectionHeader";
 
-/** imagem do projeto, ou uma capa gerada (cor + título) enquanto não há captura */
+/** imagem do projeto, ou uma capa gerada (cor + nome do repositório) enquanto não há captura */
 function Cover({ p, large = false }: { p: Project; large?: boolean }) {
   if (p.image) {
     // eslint-disable-next-line @next/next/no-img-element
@@ -12,12 +13,22 @@ function Cover({ p, large = false }: { p: Project; large?: boolean }) {
   }
   return (
     <div
-      className="flex h-full w-full items-end p-4"
-      style={{ background: `radial-gradient(120% 120% at 0% 0%, ${p.tint}55, transparent 60%), linear-gradient(160deg, #15161a, #0a0a0c)` }}
+      className="flex h-full w-full items-end p-3"
+      style={{ background: `radial-gradient(120% 140% at 0% 0%, ${p.tint}50, transparent 62%), linear-gradient(160deg, #15161a, #0a0a0c)` }}
       role="img"
       aria-label={`Capa do projeto ${p.title}`}
     >
-      <span className={`font-display font-semibold leading-none text-white/85 ${large ? "text-[56px]" : "text-[30px]"}`}>{p.title}</span>
+      <span className={`font-mono text-white/55 ${large ? "text-[15px]" : "text-[11px]"}`}>{p.repo}</span>
+    </div>
+  );
+}
+
+/** linhas "chave / valor" no estilo de painel industrial */
+function Spec({ k, v }: { k: string; v: React.ReactNode }) {
+  return (
+    <div className="flex justify-between gap-3 border-t border-white/8 py-1 text-[12px]">
+      <span className="text-dim">{k}</span>
+      <span className="truncate text-paper/85">{v}</span>
     </div>
   );
 }
@@ -47,23 +58,33 @@ function QuickLook({ p, onClose }: { p: Project; onClose: () => void }) {
             <span className="traffic bg-[#febc2e]" aria-hidden />
             <span className="traffic bg-[#28c840]" aria-hidden />
           </div>
-          <p className="absolute left-1/2 -translate-x-1/2 text-[13px] font-medium text-paper/70">{p.title}</p>
+          <p className="absolute left-1/2 -translate-x-1/2 font-mono text-[12px] text-paper/70">{p.repo}</p>
         </div>
-        <div className="h-[min(50vh,560px)] w-full shrink-0 overflow-hidden bg-black">
+        <div className="h-[min(48vh,540px)] w-full shrink-0 overflow-hidden bg-black">
           <Cover p={p} large />
         </div>
-        <div className="flex min-h-0 flex-col gap-4 overflow-y-auto p-6 md:flex-row md:items-end md:justify-between md:p-8">
+        <div className="grid min-h-0 gap-6 overflow-y-auto p-6 md:grid-cols-[1fr_280px] md:p-7">
           <div>
-            <p className="text-[14px] text-dim">
-              {p.status}, {p.year}
-            </p>
-            <h3 className="mt-2 font-display text-[34px] font-semibold leading-none">{p.title}</h3>
-            <p className="mt-3 max-w-[56ch] text-[16px] leading-snug text-dim">{p.description}</p>
-            <p className="mt-3 text-[14px] text-paper/70">{p.tags.join(", ")}</p>
+            <h3 className="font-display text-[30px] font-semibold uppercase leading-none">{p.title}</h3>
+            <p className="mt-3 max-w-[56ch] text-[15px] leading-snug text-paper/75">{p.description}</p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {p.demo && (
+                <a href={p.demo} target="_blank" rel="noreferrer" className="para bg-paper px-5 py-2 text-[14px] font-semibold text-ink">
+                  Abrir site
+                </a>
+              )}
+              <a href={p.href} target="_blank" rel="noreferrer" className="para bg-white/12 px-5 py-2 text-[14px] font-semibold">
+                Ver código
+              </a>
+            </div>
           </div>
-          <a href={p.href} target="_blank" rel="noreferrer" className="para shrink-0 bg-paper px-6 py-2.5 text-[15px] font-medium text-ink">
-            Abrir no GitHub
-          </a>
+          <div>
+            <Spec k="Repositório" v={p.repo} />
+            <Spec k="Linguagem" v={p.language} />
+            <Spec k="Último push" v={monthYear(p.pushed)} />
+            <Spec k="Publicado" v={p.demo ? new URL(p.demo).host : "não"} />
+            <Spec k="Tags" v={p.tags.join(", ")} />
+          </div>
         </div>
       </div>
     </div>
@@ -73,6 +94,7 @@ function QuickLook({ p, onClose }: { p: Project; onClose: () => void }) {
 export function Projects() {
   const [open, setOpen] = useState<Project | null>(null);
   const lastFocus = useRef<HTMLElement | null>(null);
+  const published = projects.filter((p) => p.demo).length;
 
   const close = () => {
     setOpen(null);
@@ -81,38 +103,49 @@ export function Projects() {
 
   return (
     <section className="sec sec-projects frame-inset invisible opacity-0" aria-labelledby="projects-title">
-      <div className="flex h-full flex-col overflow-hidden p-5 md:px-10 md:pb-8 md:pt-6">
-        <div className="flex items-end justify-between gap-6">
-          <h2 id="projects-title" tabIndex={-1} className="display outline-none">
-            Projetos
-          </h2>
-          <a href="https://github.com/adrielpax" target="_blank" rel="noreferrer" className="btn-line mb-2 hidden sm:inline-flex">
-            Ver tudo no GitHub
-          </a>
-        </div>
+      <div className="flex h-full flex-col overflow-hidden p-4 md:px-8 md:pb-6 md:pt-5">
+        <SectionHeader
+          code="Tela 01"
+          title="Projetos"
+          id="projects-title"
+          meta={
+            <>
+              {projects.length} repositórios em destaque, {published} publicados
+              <br />
+              <a href="https://github.com/adrielpax" target="_blank" rel="noreferrer" className="text-paper underline-offset-2 hover:underline">
+                github.com/adrielpax
+              </a>
+            </>
+          }
+        />
 
-        <div className="projects-grid -mx-5 mt-5 flex min-h-0 flex-1 snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:grid-rows-2 sm:overflow-visible sm:px-0 md:gap-5">
+        <div className="projects-grid -mx-4 mt-4 flex min-h-0 flex-1 snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-y-auto sm:px-0 lg:grid-cols-3 lg:grid-rows-2 lg:overflow-visible">
           {projects.map((p) => (
             <button
-              key={p.code}
+              key={p.repo}
               type="button"
               onClick={(e) => {
                 lastFocus.current = e.currentTarget;
                 setOpen(p);
               }}
-              aria-label={`Ver ${p.title}`}
-              className="glass glass-hover group relative flex min-h-0 min-w-[80vw] snap-start overflow-hidden text-left sm:min-w-0"
+              aria-label={`Detalhes de ${p.title}`}
+              className="glass glass-sm glass-hover group relative flex h-[min(52vh,400px)] min-h-0 min-w-[78vw] snap-start flex-col self-start overflow-hidden text-left sm:h-auto sm:min-w-0 sm:self-stretch"
             >
-              <div className="relative h-full w-[42%] shrink-0 overflow-hidden">
+              <div className="relative h-[42%] min-h-[96px] w-full shrink-0 overflow-hidden">
                 <Cover p={p} />
+                {p.demo && (
+                  <span className="para absolute right-2 top-2 bg-paper px-3 py-0.5 text-[11px] font-semibold text-ink">No ar</span>
+                )}
               </div>
-              <div className="flex min-w-0 flex-1 flex-col p-5 md:p-6">
-                <span className="text-[13px] text-dim">
-                  {p.status}, {p.year}
-                </span>
-                <h3 className="mt-2 font-display text-[22px] font-semibold leading-none md:text-[28px]">{p.title}</h3>
-                <p className="mt-2 line-clamp-3 text-[14px] leading-snug text-dim md:text-[15px]">{p.description}</p>
-                <span className="mt-auto pt-3 text-[13px] text-paper/70">{p.tags.join(", ")}</span>
+              <div className="flex min-h-0 flex-1 flex-col p-3.5">
+                <div className="flex items-baseline justify-between gap-2">
+                  <h3 className="truncate font-display text-[19px] font-semibold uppercase leading-none">{p.title}</h3>
+                  <span className="shrink-0 text-[11px] text-dim tabular-nums">{monthYear(p.pushed)}</span>
+                </div>
+                <p className="mt-1.5 line-clamp-2 text-[13px] leading-snug text-paper/65">{p.description}</p>
+                <div className="mt-auto pt-2">
+                  <Spec k={p.language} v={p.tags.join(", ")} />
+                </div>
               </div>
             </button>
           ))}

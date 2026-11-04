@@ -44,6 +44,12 @@ A primeira versão caiu em padrões típicos de página gerada por IA (preto azu
 - Cantos de 90° chanfrados em diagonal (`corner-shape: bevel`), formando paralelogramas; botões em paralelogramo (`.para`).
 - Poucos triângulos translúcidos, bem claros, subindo no fundo (`Triangles.tsx`); somem com "Reduzir movimento".
 
+### Densidade industrial e conteúdo real
+- Títulos gigantes saíram: cada tela tem um cabeçalho compacto (código da tela, título, metadados à direita).
+- **Nada inventado**: projetos e "Log de atividade" vêm dos repositórios públicos reais de github.com/adrielpax (`lib/content.ts`). O blog com posts fictícios saiu.
+- Contato real: o formulário abre o app de email com a mensagem pronta (aparece quando `profile.email` for preenchido; até lá, o contato aponta para o GitHub). Links sem URL (LinkedIn) ficam ocultos.
+- O mini chat do Claude/Codex leva o recado para o formulário de contato.
+
 ## 3. Arquitetura da experiência
 
 O scroll **não** rola a página. Ele move uma linha do tempo.

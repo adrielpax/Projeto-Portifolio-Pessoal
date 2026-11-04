@@ -28,7 +28,7 @@ const SECTION_NAMES: Record<SectionId, string> = {
   hero: "Início",
   projects: "Projetos",
   stack: "Stack",
-  blog: "Blog",
+  blog: "Log",
   contact: "Contato",
 };
 
@@ -86,11 +86,14 @@ export default function Experience() {
       }, 180);
     };
     const onA11y = () => setLayoutKey((k) => k + 1);
+    const onConnect = () => go("contact");
+    window.addEventListener("agent:connect", onConnect);
     window.addEventListener("resize", onResize);
     window.addEventListener("a11y:change", onA11y);
     return () => {
       window.removeEventListener("resize", onResize);
       window.removeEventListener("a11y:change", onA11y);
+      window.removeEventListener("agent:connect", onConnect);
       window.clearTimeout(id);
     };
   }, []);
@@ -200,7 +203,7 @@ export default function Experience() {
         { left: target.left, top: target.top, width: target.width, height: target.height, duration: 0.56, ease: "power3.inOut" },
         0.14,
       );
-      tl.to(".frame-bg", { opacity: 0.4, duration: 0.4 }, 0.3);
+      tl.to(".frame-bg", { opacity: 0.85, duration: 0.4 }, 0.3);
 
       // seções só trocam por fade: o único movimento "de palco" é o card virando navbar
       const reveal = (sec: string, at: number) => {
@@ -225,12 +228,12 @@ export default function Experience() {
 
       /* ---- 3 → 4: blog ---- */
       conceal(".sec-stack", 3.04);
-      tl.to(".frame-bg", { opacity: 0.4, duration: 0.3 }, 3.2);
+      tl.to(".frame-bg", { opacity: 0.88, duration: 0.3 }, 3.2);
       reveal(".sec-blog", 3.5);
 
       /* ---- 4 → 5: contato ---- */
       conceal(".sec-blog", 4.04);
-      tl.to(".frame-bg", { opacity: 0.25, duration: 0.3 }, 4.2);
+      tl.to(".frame-bg", { opacity: 0.6, duration: 0.3 }, 4.2);
       reveal(".sec-contact", 4.5);
 
       /* ---- agentes flutuam até a pose de cada parada ---- */

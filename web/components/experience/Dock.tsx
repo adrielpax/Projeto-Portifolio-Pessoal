@@ -39,7 +39,7 @@ const ITEMS: (Item | "divider")[] = [
   },
   {
     id: "blog",
-    label: "Blog",
+    label: "Log",
     section: "blog",
     tile: TILE,
     icon: <path d="M7 4h7l4 4v12H7zM14 4v4h4M9.5 12h6M9.5 15.5h6" {...stroke} />,

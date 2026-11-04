@@ -106,13 +106,14 @@ export function A11yPanel() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={panelId}
-        className="glass glass-pill relative flex h-11 items-center gap-2 px-4 text-[14px] font-medium"
+        aria-label="Acessibilidade"
+        className="glass glass-pill relative flex h-10 items-center gap-2 px-3 text-[14px] font-medium sm:h-11 sm:px-4"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
           <circle cx="12" cy="4.5" r="2" fill="currentColor" />
           <path d="M4 8.5l8 1.5 8-1.5M12 10v5m0 0l-3 6m3-6l3 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         </svg>
-        Acessibilidade
+        <span className="sr-only sm:not-sr-only">Acessibilidade</span>
       </button>
     </div>
   );

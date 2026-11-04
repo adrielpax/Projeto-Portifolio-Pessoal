@@ -1,32 +1,44 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { profile, socials } from "@/lib/content";
-
-type Status = "idle" | "sending" | "sent";
+import { SectionHeader } from "./SectionHeader";
 
 export function Contact() {
-  const [status, setStatus] = useState<Status>("idle");
+  const [opened, setOpened] = useState(false);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
-  const onSubmit = (e: FormEvent) => {
+  // recado escrito no mini chat do Claude/Codex chega aqui
+  useEffect(() => {
+    const onConnect = (e: Event) => {
+      const msg = (e as CustomEvent<{ message?: string }>).detail?.message;
+      if (msg && messageRef.current) messageRef.current.value = msg;
+    };
+    window.addEventListener("agent:connect", onConnect);
+    return () => window.removeEventListener("agent:connect", onConnect);
+  }, []);
+
+  // envio real: abre o app de email com a mensagem pronta (sem backend, sem fingir)
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (status !== "idle") return;
-    setStatus("sending");
-    // TODO (fase 3): POST /api/contact com validação, rate limit e envio por email
-    window.setTimeout(() => setStatus("sent"), 1200);
+    const f = new FormData(e.currentTarget);
+    const subject = `Projeto: contato de ${f.get("name")}`;
+    const body = `${f.get("message")}\n\n${f.get("name")} (${f.get("email")})`;
+    window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setOpened(true);
   };
 
   return (
     <section className="sec sec-contact frame-inset invisible opacity-0" aria-labelledby="contact-title">
-      <div className="flex h-full flex-col justify-center overflow-y-auto p-5 md:p-10 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16">
+      <div className="flex h-full flex-col overflow-y-auto p-4 md:px-8 md:pb-6 md:pt-5">
+        <SectionHeader code="Tela 04" title="Contato" id="contact-title" meta={<>{profile.location}<br />{profile.status}</>} />
+        <div className="mt-6 flex flex-1 flex-col justify-center gap-6 lg:grid lg:grid-cols-2 lg:items-center lg:gap-14">
         <div>
-          <h2 id="contact-title" tabIndex={-1} className="display outline-none">
-            Vamos conversar
-          </h2>
-          <p className="mt-5 max-w-[32ch] text-[17px] leading-snug text-dim md:text-[19px]">
+          <p className="max-w-[24ch] font-display text-[34px] font-semibold uppercase leading-[0.95] md:text-[44px]">Vamos construir algo que funcione.</p>
+          <p className="mt-4 max-w-[38ch] text-[15px] leading-snug text-paper/70">
             Tem um produto para tirar do papel ou um processo que come o dia do seu time? Me conta.
           </p>
-          <div className="mt-6 hidden flex-wrap gap-x-6 gap-y-2 text-[15px] lg:flex">
+          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-[14px]">
             {socials.map((s) => (
               <a
                 key={s.id}
@@ -41,7 +53,8 @@ export function Contact() {
           </div>
         </div>
 
-        <form onSubmit={onSubmit} className="contact-form glass relative mt-6 w-full overflow-hidden lg:mt-0">
+        {profile.email ? (
+        <form onSubmit={onSubmit} className="contact-form glass relative w-full overflow-hidden">
           <div className="grid grid-cols-1 sm:grid-cols-2">
             <label className="field sm:border-r">
               <span>Nome</span>
@@ -54,19 +67,23 @@ export function Contact() {
           </div>
           <label className="field border-t">
             <span>Sobre o projeto</span>
-            <textarea name="message" required rows={3} />
+            <textarea ref={messageRef} name="message" required rows={3} />
           </label>
           <button
             type="submit"
-            disabled={status !== "idle"}
-            className="para m-2 w-[calc(100%-1rem)] bg-paper px-6 py-4 text-left text-[16px] font-medium text-ink transition-opacity hover:opacity-85 disabled:opacity-70"
+            className="para m-2 w-[calc(100%-1rem)] bg-paper px-6 py-3.5 text-left text-[15px] font-semibold text-ink transition-opacity hover:opacity-85"
           >
-            {status === "idle" ? "Enviar mensagem" : status === "sending" ? "Enviando…" : "Mensagem enviada. Respondo por email."}
+            {opened ? "Seu app de email abriu com a mensagem. Só enviar." : "Escrever email"}
           </button>
         </form>
-        <p className="mt-4 text-[13px] text-faint lg:col-span-2">
-          {profile.location}. © {new Date().getFullYear()} {profile.name}
-        </p>
+        ) : (
+          <a href="https://github.com/adrielpax" target="_blank" rel="noreferrer" className="glass relative block p-6 text-[15px]">
+            <span className="font-display text-[22px] font-semibold uppercase">github.com/adrielpax</span>
+            <span className="mt-1 block text-paper/65">Enquanto o email público não está configurado, o contato é pelo GitHub.</span>
+          </a>
+        )}
+        </div>
+        <p className="mt-4 text-[12px] text-faint">© {new Date().getFullYear()} {profile.name}</p>
       </div>
     </section>
   );
