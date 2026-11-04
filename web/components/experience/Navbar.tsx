@@ -17,13 +17,13 @@ export function Navbar({ active, go }: { active: SectionId; go: (id: SectionId) 
           <div className="nav-avatar-slot invisible h-[34px] w-[34px] opacity-0 ring-1 ring-white/20">
             <PixelAvatar src={profile.avatar} crop={profile.avatarCrop} grid={24} className="h-full w-full" />
           </div>
-          <div className="nav-chrome invisible hidden text-left leading-tight opacity-0 lg:block">
-            <div className="font-pixel text-[11px] uppercase tracking-[0.14em]">{profile.name}</div>
-            <div className="mt-1 font-pixel text-[8px] uppercase tracking-[0.2em] text-dim">{profile.role}</div>
+          <div className="nav-chrome invisible hidden text-left opacity-0 lg:block">
+            <div className="font-pixel text-[20px] font-semibold leading-none">{profile.name}</div>
           </div>
         </button>
 
-        <nav className="flex items-center gap-3.5 sm:gap-5 md:gap-7" aria-label="Navegação principal">
+        <nav className="relative flex items-center gap-4 px-4 py-2.5 sm:gap-6 md:gap-8 md:px-6" aria-label="Navegação principal">
+          <span className="nav-chrome glass glass-pill invisible absolute inset-0 -z-10 opacity-0" aria-hidden />
           {navLinks.map((l) => (
             <button
               key={l.id}
@@ -34,22 +34,16 @@ export function Navbar({ active, go }: { active: SectionId; go: (id: SectionId) 
                 active === l.id ? "text-paper" : "text-dim hover:text-paper"
               }`}
             >
-              <NavLinkText index={l.index} label={l.label} />
-              <span
-                className={`absolute -bottom-2.5 left-0 h-px bg-claude transition-all duration-300 ${active === l.id ? "w-full" : "w-0"}`}
-              />
+              <NavLinkText label={l.label} />
             </button>
           ))}
           <Link
             href="/links"
-            className="nav-chrome pointer-events-auto invisible hidden border border-white/20 px-3 py-2 font-pixel text-[10px] uppercase tracking-[0.16em] opacity-0 transition-colors hover:bg-paper hover:text-ink md:inline-block"
+            className="nav-chrome pointer-events-auto invisible hidden rounded-full bg-paper px-4 py-1.5 text-[15px] font-medium text-ink opacity-0 transition-opacity hover:opacity-80 md:inline-block"
           >
-            Links ↗
+            Links
           </Link>
         </nav>
-      </div>
-      <div className="nav-chrome invisible absolute inset-x-0 bottom-0 h-px bg-white/10 opacity-0">
-        <div className="nav-progress h-px origin-left scale-x-0 bg-paper" />
       </div>
     </header>
   );

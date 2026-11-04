@@ -35,7 +35,7 @@ export const agents: AgentDef[] = [
     model: "opus",
     accent: "#e07a52",
     sprite: claudeSprite,
-    px: 5,
+    px: 6,
     code: [
       "const ctx = await memory.recall(task)",
       "const plan = think(ctx, { depth: 3 })",
@@ -51,11 +51,11 @@ export const agents: AgentDef[] = [
     poses: {
       desktop: [
         [6, 24, 1, 1],
-        [4, 66, 0.8, 1],
+        [42, 11, 0.7, 1],
         [33, 24, 0.8, 1],
         [31, 20, 0.8, 1],
-        [4, 66, 0.8, 1],
-        [6, 30, 1, 1],
+        [6, 62, 0.8, 1],
+        [8, 68, 0.8, 1],
       ],
       mobile: [
         [4, 8, 0.7, 1],
@@ -74,7 +74,7 @@ export const agents: AgentDef[] = [
     model: "cli",
     accent: "#8fa2ff",
     sprite: codexSprite,
-    px: 5,
+    px: 7,
     code: [
       "$ codex exec \"refactor auth\"",
       "> lendo 42 arquivos...",
@@ -88,11 +88,11 @@ export const agents: AgentDef[] = [
     poses: {
       desktop: [
         [82, 15, 1, 1],
-        [16, 72, 0.8, 1],
+        [55, 12, 0.7, 1],
         [24, 56, 0.8, 1],
         [26, 60, 0.8, 1],
-        [16, 72, 0.8, 1],
-        [83, 26, 1, 1],
+        [18, 68, 0.8, 1],
+        [22, 72, 0.8, 1],
       ],
       mobile: [
         [70, 7, 0.7, 1],
@@ -117,7 +117,7 @@ export const agents: AgentDef[] = [
     panelSide: "right",
     panel: false,
     poses: {
-      desktop: [[15, 66, 1, 1], HIDDEN_LEFT, HIDDEN_LEFT, HIDDEN_LEFT, HIDDEN_LEFT, [15, 68, 0.9, 1]],
+      desktop: [[15, 66, 1, 1], HIDDEN_LEFT, HIDDEN_LEFT, HIDDEN_LEFT, HIDDEN_LEFT, [-15, 80, 0.6, 0]],
       mobile: [[6, 79, 0.7, 1], HIDDEN_LEFT, HIDDEN_LEFT, HIDDEN_LEFT, HIDDEN_LEFT, [6, 88, 0.6, 0]],
     },
   },
@@ -134,7 +134,7 @@ export const agents: AgentDef[] = [
     panelSide: "left",
     panel: false,
     poses: {
-      desktop: [[78, 64, 1, 1], HIDDEN_RIGHT, HIDDEN_RIGHT, HIDDEN_RIGHT, HIDDEN_RIGHT, [78, 66, 0.9, 1]],
+      desktop: [[78, 64, 1, 1], HIDDEN_RIGHT, HIDDEN_RIGHT, HIDDEN_RIGHT, HIDDEN_RIGHT, [110, 80, 0.6, 0]],
       mobile: [[72, 79, 0.7, 1], HIDDEN_RIGHT, HIDDEN_RIGHT, HIDDEN_RIGHT, HIDDEN_RIGHT, [74, 88, 0.6, 0]],
     },
   },

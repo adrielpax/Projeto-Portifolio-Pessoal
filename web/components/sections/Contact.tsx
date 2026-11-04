@@ -2,11 +2,10 @@
 
 import { useState, type FormEvent } from "react";
 import { profile, socials } from "@/lib/content";
-import { Scramble } from "@/components/experience/Scramble";
 
 type Status = "idle" | "sending" | "sent";
 
-export function Contact({ active }: { active: boolean }) {
+export function Contact() {
   const [status, setStatus] = useState<Status>("idle");
 
   const onSubmit = (e: FormEvent) => {
@@ -19,57 +18,55 @@ export function Contact({ active }: { active: boolean }) {
 
   return (
     <section className="sec sec-contact frame-inset invisible opacity-0" aria-labelledby="contact-title">
-      <div className="flex h-full flex-col items-center justify-center overflow-y-auto p-4 text-center md:p-8">
-        <div className="reveal kicker">04 // canal aberto</div>
-        <h2 id="contact-title" className="reveal display mt-3 !text-[30px] sm:!text-[44px] md:!text-[60px]">
-          <Scramble text="Vamos construir" play={active} />
-          <br />
-          algo juntos?
-        </h2>
-        <p className="reveal mt-4 max-w-[46ch] text-[13px] leading-relaxed text-dim">
-          Um produto, uma automação ou aquele sistema que ninguém quis encarar. Me conta o que você precisa.
-        </p>
+      <div className="flex h-full flex-col justify-center overflow-y-auto p-5 md:p-10 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div>
+          <h2 id="contact-title" className="display">
+            Vamos conversar
+          </h2>
+          <p className="mt-5 max-w-[32ch] text-[17px] leading-snug text-dim md:text-[19px]">
+            Tem um produto para tirar do papel ou um processo que come o dia do seu time? Me conta.
+          </p>
+          <div className="mt-6 hidden flex-wrap gap-x-6 gap-y-2 text-[15px] lg:flex">
+            {socials.map((s) => (
+              <a
+                key={s.id}
+                href={s.href}
+                target={s.href.startsWith("http") ? "_blank" : undefined}
+                rel="noreferrer"
+                className="text-dim transition-colors hover:text-paper"
+              >
+                {s.label}
+              </a>
+            ))}
+          </div>
+        </div>
 
-        <form onSubmit={onSubmit} className="reveal contact-form mt-6 w-full max-w-[560px] border border-white/12 bg-ink/85 text-left backdrop-blur-sm md:mt-8">
+        <form onSubmit={onSubmit} className="contact-form glass relative mt-6 w-full overflow-hidden lg:mt-0">
           <div className="grid grid-cols-1 sm:grid-cols-2">
             <label className="field sm:border-r">
               <span>Nome</span>
-              <input name="name" required autoComplete="name" placeholder="Seu nome" />
+              <input name="name" required autoComplete="name" />
             </label>
-            <label className="field">
+            <label className="field border-t sm:border-t-0">
               <span>Email</span>
-              <input name="email" type="email" required autoComplete="email" placeholder="voce@empresa.com" />
+              <input name="email" type="email" required autoComplete="email" />
             </label>
           </div>
           <label className="field border-t">
-            <span>Mensagem</span>
-            <textarea name="message" required rows={3} placeholder="Conte sobre o projeto…" />
+            <span>Sobre o projeto</span>
+            <textarea name="message" required rows={3} />
           </label>
           <button
             type="submit"
-            className="flex w-full items-center justify-between border-t border-white/12 px-4 py-3.5 font-pixel text-[10px] uppercase tracking-[0.2em] transition-colors hover:bg-paper hover:text-ink"
+            disabled={status !== "idle"}
+            className="m-2 w-[calc(100%-1rem)] rounded-[20px] bg-paper px-5 py-4 text-left text-[16px] font-medium text-ink transition-opacity hover:opacity-85 disabled:opacity-70"
           >
-            <span>{status === "idle" ? "Transmitir mensagem" : status === "sending" ? "Transmitindo…" : "Mensagem recebida ✓"}</span>
-            <span>{status === "sent" ? "" : "→"}</span>
+            {status === "idle" ? "Enviar mensagem" : status === "sending" ? "Enviando…" : "Mensagem enviada. Respondo por email."}
           </button>
         </form>
-
-        <div className="reveal mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2">
-          {socials.map((s) => (
-            <a
-              key={s.id}
-              href={s.href}
-              target={s.href.startsWith("http") ? "_blank" : undefined}
-              rel="noreferrer"
-              className="font-pixel text-[9px] uppercase tracking-[0.16em] text-dim transition-colors hover:text-paper"
-            >
-              {s.label} ↗
-            </a>
-          ))}
-        </div>
-        <div className="reveal mt-3 font-pixel text-[8px] uppercase tracking-[0.2em] text-faint">
-          {profile.location} · © {new Date().getFullYear()} {profile.name}
-        </div>
+        <p className="mt-4 text-[13px] text-faint lg:col-span-2">
+          {profile.location}. © {new Date().getFullYear()} {profile.name}
+        </p>
       </div>
     </section>
   );

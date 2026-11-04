@@ -13,7 +13,6 @@ import { Agent } from "@/components/pixel/Agent";
 import { HeroCard } from "./HeroCard";
 import { Navbar } from "./Navbar";
 import { Telemetry } from "./Telemetry";
-import { Boot } from "./Boot";
 import { Projects } from "@/components/sections/Projects";
 import { Stack } from "@/components/sections/Stack";
 import { Blog } from "@/components/sections/Blog";
@@ -23,8 +22,8 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const Scene = dynamic(() => import("@/components/three/Scene"), { ssr: false });
 
-const PAPER = "#ededea";
-const DIM = "#85858c";
+const PAPER = "#ffffff";
+const DIM = "#8c8c8c";
 
 /**
  * Arquitetura:
@@ -52,7 +51,10 @@ export default function Experience() {
     window.scrollTo(0, 0);
     stage.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     ScrollTrigger.config({ ignoreMobileResize: true });
-    document.fonts.ready.then(() => setFontsReady(true));
+    document.fonts.ready.then(() => {
+      setFontsReady(true);
+      setBooted(true);
+    });
   }, []);
 
   // reconstrói a timeline quando o layout muda de verdade (ignora a barra do navegador mobile)
@@ -139,7 +141,6 @@ export default function Experience() {
 
       /* ---- 0 → 1: o card vira navbar + moldura da seção de projetos ---- */
       tl.to(".scroll-hint", { autoAlpha: 0, duration: 0.12 }, 0);
-      tl.to(".hero-meta", { autoAlpha: 0, duration: 0.12 }, 0.02);
       tl.to(".hero-copy", { autoAlpha: 0, y: -24, filter: "blur(8px)", duration: 0.28, ease: "power1.in" }, 0.03);
       tl.to(".hero-socials", { autoAlpha: 0, y: 12, duration: 0.2 }, 0.03);
       tl.to(".hero-links-rule", { scaleX: 0, duration: 0.2 }, 0.03);
@@ -183,18 +184,12 @@ export default function Experience() {
       );
       tl.to(".frame-bg", { opacity: 0.4, duration: 0.4 }, 0.3);
 
+      // seções só trocam por fade: o único movimento "de palco" é o card virando navbar
       const reveal = (sec: string, at: number) => {
-        tl.fromTo(sec, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.04 }, at);
-        tl.fromTo(
-          `${sec} .reveal`,
-          { autoAlpha: 0, y: 34 },
-          { autoAlpha: 1, y: 0, duration: 0.3, stagger: { amount: 0.14 }, ease: "power2.out" },
-          at + 0.02,
-        );
+        tl.fromTo(sec, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: "power1.out" }, at);
       };
       const conceal = (sec: string, at: number) => {
-        tl.to(`${sec} .reveal`, { autoAlpha: 0, y: -28, duration: 0.24, stagger: { amount: 0.08 }, ease: "power1.in" }, at);
-        tl.to(sec, { autoAlpha: 0, duration: 0.04 }, at + 0.34);
+        tl.to(sec, { autoAlpha: 0, duration: 0.25, ease: "power1.in" }, at);
       };
 
       reveal(".sec-projects", 0.56);
@@ -208,15 +203,9 @@ export default function Experience() {
       tl.to(".stack-hint", { autoAlpha: 0, y: -10, duration: 0.2 }, 2.04);
       // no celular o texto sai para o equipamento desmontado caber
       if (isMobile) tl.to(".stack-desc", { autoAlpha: 0, y: -10, duration: 0.2 }, 2.04);
-      tl.fromTo(
-        ".stack-legend .reveal-2",
-        { autoAlpha: 0, y: 14 },
-        { autoAlpha: 1, y: 0, duration: 0.3, stagger: { amount: 0.25 }, ease: "power2.out" },
-        2.4,
-      );
+      tl.fromTo(".stack-legend", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 2.4);
 
       /* ---- 3 → 4: blog ---- */
-      tl.to(".stack-legend .reveal-2", { autoAlpha: 0, duration: 0.2 }, 3.04);
       conceal(".sec-stack", 3.04);
       tl.to(".frame-bg", { opacity: 0.4, duration: 0.3 }, 3.2);
       reveal(".sec-blog", 3.5);
@@ -262,9 +251,9 @@ export default function Experience() {
         { clipPath: "inset(50% 0% 50% 0%)" },
         { clipPath: "inset(0% 0% 0% 0%)", duration: 0.7, ease: "expo.inOut", clearProps: "clipPath" },
       );
-      intro.from(".tilt .intro", { autoAlpha: 0, y: 14, duration: 0.5, stagger: 0.05, ease: "power2.out" }, 0.35);
+      intro.from(".tilt .intro", { autoAlpha: 0, duration: 0.6, stagger: 0.06, ease: "power1.out" }, 0.3);
       intro.from(".agent-intro", { autoAlpha: 0, scale: 0.4, duration: 0.6, stagger: 0.08, ease: "back.out(2)" }, 0.6);
-      intro.from(".scroll-hint .intro", { autoAlpha: 0, duration: 0.4 }, 1.1);
+      intro.from(".scroll-hint .intro", { autoAlpha: 0, duration: 0.4 }, 0.9);
     },
     { scope: root, dependencies: [booted] },
   );
@@ -284,6 +273,8 @@ export default function Experience() {
       const onMove = (e: PointerEvent) => {
         stage.mouseX = (e.clientX / window.innerWidth) * 2 - 1;
         stage.mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+        document.documentElement.style.setProperty("--mx", `${e.clientX}px`);
+        document.documentElement.style.setProperty("--my", `${e.clientY}px`);
         if (stage.reducedMotion || e.pointerType !== "mouse") return;
         movers.forEach((m) => {
           m.x(-stage.mouseX * m.depth);
@@ -315,11 +306,9 @@ export default function Experience() {
     { scope: root },
   );
 
-  const onBootDone = useCallback(() => setBooted(true), []);
 
   return (
     <div ref={root} className="relative">
-      <Boot onDone={onBootDone} />
 
       {/* trilho que gera o scroll: 1 viewport por parada */}
       <div ref={track} className="track" style={{ height: `${(TIMELINE_UNITS + 1) * 100}vh` }} aria-hidden />
@@ -336,15 +325,15 @@ export default function Experience() {
           <div className="frame-target frame-inset invisible" aria-hidden />
           <div className="tilt absolute inset-0 flex items-center justify-center">
             <div className="frame invisible absolute left-0 top-0 opacity-0">
-              <div className="frame-bg card-surface absolute inset-0" />
-              <div className="brackets absolute inset-0 border border-white/12" />
+              <div className="frame-bg glass absolute inset-0" />
+              <div className="frame-outline absolute inset-0" />
             </div>
             <HeroCard go={go} />
           </div>
-          <Projects active={active === "projects"} />
-          <Stack active={active === "stack"} />
-          <Blog active={active === "blog"} />
-          <Contact active={active === "contact"} />
+          <Projects />
+          <Stack />
+          <Blog />
+          <Contact />
         </div>
 
         {/* camada 2: agentes em pixel art */}
@@ -354,10 +343,8 @@ export default function Experience() {
           ))}
         </div>
 
-        <div className="scroll-hint pointer-events-none absolute bottom-[60px] left-1/2 z-30 -translate-x-1/2 font-pixel text-[9px] uppercase tracking-[0.3em] text-dim md:bottom-[72px]">
-          <div className="intro">
-            <span className="blink">▼</span> role
-          </div>
+        <div className="scroll-hint pointer-events-none absolute bottom-[60px] left-1/2 z-30 -translate-x-1/2 text-[14px] text-dim md:bottom-[72px]">
+          <div className="intro">Role para ver os projetos</div>
         </div>
       </div>
 

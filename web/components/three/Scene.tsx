@@ -6,7 +6,8 @@ import { stage } from "@/lib/stage";
 import { kf } from "@/lib/math";
 import { NeuralGraph } from "./NeuralGraph";
 import { Device } from "./Device";
-import { overlay, SNIPPETS } from "@/lib/overlay";
+import { overlay } from "@/lib/overlay";
+import { namedNodes } from "@/lib/graph";
 import { stackLayers } from "@/lib/content";
 
 /** câmera acompanha o mouse e faz um leve dolly entre as seções */
@@ -28,16 +29,16 @@ function CameraRig() {
 function Overlay() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-      {SNIPPETS.map((s, i) => (
+      {namedNodes.map((n, i) => (
         <div
-          key={s}
+          key={n.name}
           ref={(el) => {
-            overlay.snippets[i] = el;
+            overlay.nodeLabels[i] = el;
           }}
-          className="snippet absolute left-0 top-0"
-          style={{ opacity: 0 }}
+          className="node-label absolute left-0 top-0"
+          style={{ opacity: 0, color: n.color }}
         >
-          {s}
+          {n.name}
         </div>
       ))}
       {stackLayers.map((layer, i) => (
@@ -54,7 +55,7 @@ function Overlay() {
             <span className="layer-label__title">
               <em>{layer.code}</em> {layer.name}
             </span>
-            <span className="layer-label__items">{layer.items.join(" · ")}</span>
+            <span className="layer-label__items">{layer.items.join(", ")}</span>
           </span>
         </div>
       ))}

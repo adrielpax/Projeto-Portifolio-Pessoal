@@ -53,8 +53,9 @@ function PixelSpriteBase({ sprite, px = 5, playing = true, className, title }: P
   return (
     <svg
       width={sprite.width * px}
-      height={h * px}
+      height={h * px * (sprite.aspect ?? 1)}
       viewBox={`0 0 ${sprite.width} ${h}`}
+      preserveAspectRatio="none"
       shapeRendering="crispEdges"
       className={className}
       role={title ? "img" : undefined}

@@ -6,58 +6,43 @@ import { PixelSprite } from "@/components/pixel/PixelSprite";
 import { claudeSprite, codexSprite } from "@/components/pixel/sprites";
 
 export const metadata: Metadata = {
-  title: `Links · ${profile.name}`,
+  title: `Links de ${profile.name}`,
   description: `Todos os links de ${profile.name} num só lugar.`,
 };
 
 /** Página estilo "linktree": leve (sem WebGL) e pensada para o link da bio. */
 export default function LinksPage() {
   return (
-    <main className="links-bg relative flex min-h-[100svh] justify-center px-4 py-10 sm:py-16">
-      <div className="relative w-full max-w-[440px]">
-        <div className="pointer-events-none absolute -left-2 -top-4 hidden sm:block">
-          <div className="agent-float" style={{ ["--bob-dur" as string]: "5.5s" }}>
-            <PixelSprite sprite={claudeSprite} px={3} />
+    <main className="relative flex min-h-[100svh] justify-center bg-ink px-5 py-12 sm:py-20">
+      <div className="relative w-full max-w-[460px]">
+        <header>
+          <div className="flex items-end justify-between">
+            <PixelAvatar src={profile.avatar} crop={profile.avatarCrop} grid={32} interactive className="h-[96px] w-[96px]" alt={`Foto de ${profile.name}`} />
+            <div className="flex items-end gap-3 pb-1" aria-hidden>
+              <div className="agent-float" style={{ ["--bob-dur" as string]: "5.5s" }}>
+                <PixelSprite sprite={claudeSprite} px={3} />
+              </div>
+              <div className="agent-float" style={{ ["--bob-dur" as string]: "6.5s", ["--bob-delay" as string]: "-2s" }}>
+                <PixelSprite sprite={codexSprite} px={3} />
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="pointer-events-none absolute -right-2 top-24 hidden sm:block">
-          <div className="agent-float" style={{ ["--bob-dur" as string]: "6.5s", ["--bob-delay" as string]: "-2s" }}>
-            <PixelSprite sprite={codexSprite} px={3} />
-          </div>
-        </div>
-
-        <header className="flex flex-col items-center text-center">
-          <div className="brackets p-2">
-            <PixelAvatar src={profile.avatar} crop={profile.avatarCrop} grid={32} interactive className="h-[104px] w-[104px]" alt={`Foto de ${profile.name}`} />
-          </div>
-          <h1 className="mt-5 font-pixel text-[22px] uppercase tracking-[0.04em]">{profile.name}</h1>
-          <p className="mt-2 font-pixel text-[9px] uppercase tracking-[0.22em] text-dim">
-            {profile.role} · {profile.focus.join(" · ")}
-          </p>
-          <p className="mt-4 max-w-[34ch] text-[13px] leading-relaxed text-paper/80">{profile.headline}</p>
-          <span className="mt-4 flex items-center gap-2 font-pixel text-[9px] uppercase tracking-[0.18em] text-signal">
-            <span className="h-1.5 w-1.5 animate-pulse bg-signal" />
-            {profile.status}
-          </span>
+          <h1 className="mt-6 font-pixel text-[40px] font-semibold leading-none">{profile.name}</h1>
+          <p className="mt-3 text-[18px] leading-snug text-dim">{profile.headline}</p>
         </header>
 
-        <ul className="mt-9 flex flex-col gap-2.5">
-          {linktree.map((l, i) => {
+        <ul className="mt-10 border-t border-white/20">
+          {linktree.map((l) => {
             const external = l.href.startsWith("http") || l.href.startsWith("mailto");
             const inner = (
               <>
-                <span className="font-pixel text-[9px] text-dim group-hover:text-ink/50">{String(i + 1).padStart(2, "0")}</span>
-                <span className="flex-1">
-                  <span className="block font-pixel text-[13px] uppercase tracking-[0.1em]">{l.label}</span>
-                  <span className="mt-1 block text-[11px] text-dim group-hover:text-ink/60">{l.note}</span>
-                </span>
-                <span className="font-pixel text-[11px] transition-transform group-hover:translate-x-1">{external ? "↗" : "→"}</span>
+                <span className="font-pixel text-[24px] font-semibold leading-none">{l.label}</span>
+                <span className="text-[15px] text-dim">{l.note}</span>
               </>
             );
-            const cls =
-              "group flex items-center gap-4 border border-white/12 bg-ink/70 px-4 py-4 backdrop-blur-sm transition-colors duration-200 hover:bg-paper hover:text-ink";
+            const cls = "flex items-baseline justify-between gap-4 py-5 transition-opacity hover:opacity-60";
             return (
-              <li key={l.label}>
+              <li key={l.label} className="border-b border-white/20">
                 {external ? (
                   <a href={l.href} target="_blank" rel="noreferrer" className={cls}>
                     {inner}
@@ -72,10 +57,9 @@ export default function LinksPage() {
           })}
         </ul>
 
-        <footer className="mt-10 flex items-center justify-between font-pixel text-[8px] uppercase tracking-[0.2em] text-faint">
-          <span>adriel.sys / links</span>
-          <span>{profile.location}</span>
-        </footer>
+        <p className="mt-8 text-[14px] text-dim">
+          {profile.status}. Betim, MG.
+        </p>
       </div>
     </main>
   );

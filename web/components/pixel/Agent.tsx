@@ -64,14 +64,14 @@ function CodePanel({ def, visible }: { def: AgentDef; visible: boolean }) {
 
   return (
     <div
-      className={`code-panel pointer-events-none absolute -top-6 hidden w-[208px] border border-white/10 bg-black/70 p-2 font-mono text-[10px] leading-[1.45] text-paper/80 backdrop-blur-sm transition-opacity duration-500 md:block ${
+      className={`code-panel pointer-events-none absolute -top-6 hidden glass glass-sm w-[208px] p-3 font-[ui-monospace,Menlo,monospace] text-[10px] leading-[1.45] text-paper/75 backdrop-blur-sm transition-opacity duration-500 md:block ${
         def.panelSide === "right" ? "left-full ml-3" : "right-full mr-3"
       } ${visible ? "opacity-100" : "opacity-0"}`}
       aria-hidden
     >
-      <div className="mb-1.5 flex items-center gap-1.5 border-b border-white/10 pb-1.5 font-pixel text-[8px] uppercase tracking-[0.18em] text-dim">
+      <div className="mb-1.5 flex items-center gap-1.5 border-b border-white/10 pb-1.5 text-[11px] text-dim">
         <span className="inline-block h-1.5 w-1.5" style={{ background: def.accent }} />
-        {def.name.toLowerCase()}.session
+        {def.name}
       </div>
       {lines.map((l, i) => (
         <div key={i} className="truncate whitespace-pre">
@@ -104,7 +104,7 @@ function ChatBar({ def, open }: { def: AgentDef; open: boolean }) {
 
   return (
     <div
-      className={`chat-bar absolute top-full z-10 mt-2 w-[260px] origin-top border border-white/15 bg-ink/90 font-mono text-[11px] text-paper shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md transition-[opacity,transform] duration-200 ${
+      className={`chat-bar absolute top-full z-10 mt-2 glass glass-sm w-[270px] origin-top overflow-hidden text-[14px] text-paper shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md transition-[opacity,transform] duration-500 ease-[cubic-bezier(.2,.9,.25,1.15)] ${
         def.panelSide === "right" ? "left-0" : "right-0"
       } ${open ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"}`}
       onClick={(e) => e.stopPropagation()}
@@ -112,14 +112,14 @@ function ChatBar({ def, open }: { def: AgentDef; open: boolean }) {
       aria-label={`Chat com ${def.name}`}
       aria-hidden={!open}
     >
-      <div className="flex items-center justify-between border-b border-white/10 px-3 py-2 font-pixel text-[9px] uppercase tracking-[0.16em]">
-        <span className="flex items-center gap-2">
+      <div className="flex items-center justify-between border-b border-white/10 px-3 py-2 text-[13px]">
+        <span className="flex items-center gap-2 font-pixel text-[15px]">
           <span className="h-1.5 w-1.5 animate-pulse" style={{ background: def.accent }} />
           {def.name}
         </span>
-        <span className="text-dim">{def.model} · online</span>
+        <span className="text-dim">online</span>
       </div>
-      <p className="min-h-[54px] px-3 py-2.5 leading-relaxed text-paper/85">
+      <p className="min-h-[60px] px-3 py-2.5 leading-snug text-paper/85">
         {text}
         {open && text.length < def.greeting.length && <span className="caret" style={{ background: def.accent }} />}
       </p>
@@ -127,17 +127,17 @@ function ChatBar({ def, open }: { def: AgentDef; open: boolean }) {
         <input
           readOnly
           tabIndex={open ? 0 : -1}
-          placeholder={`mensagem para ${def.name.toLowerCase()}…`}
-          className="min-w-0 flex-1 bg-transparent px-3 py-2 text-[11px] text-paper placeholder:text-dim/70 focus:outline-none"
+          placeholder={`Escreva para ${def.name}`}
+          className="min-w-0 flex-1 bg-transparent px-3 py-2 text-[14px] text-paper placeholder:text-dim/70 focus:outline-none"
         />
         <button
           type="button"
           tabIndex={open ? 0 : -1}
           onClick={onConnect}
-          className="border-l border-white/10 px-3 font-pixel text-[9px] uppercase tracking-[0.14em] transition-colors hover:bg-paper hover:text-ink"
+          className="border-l border-white/10 px-3 text-[14px] font-medium transition-colors hover:bg-paper hover:text-ink"
           style={{ color: connect === "idle" ? def.accent : undefined }}
         >
-          {connect === "idle" ? "Conectar" : connect === "connecting" ? "···" : "Em breve"}
+          {connect === "idle" ? "Conectar" : connect === "connecting" ? "…" : "Em breve"}
         </button>
       </div>
     </div>
@@ -185,7 +185,7 @@ export function Agent({ def, showPanel }: { def: AgentDef; showPanel: boolean })
               />
               <PixelSprite sprite={def.sprite} px={def.px} className="relative drop-shadow-[0_6px_0_rgba(0,0,0,0.35)]" />
             </button>
-            <div className="mt-2 flex items-center justify-center gap-1.5 font-pixel text-[8px] uppercase tracking-[0.2em] text-dim">
+            <div className="mt-1.5 flex items-center justify-center gap-1.5 font-pixel text-[13px] text-dim">
               <span className="h-1 w-1" style={{ background: def.accent }} />
               {def.name}
             </div>

@@ -10,22 +10,23 @@ Estética minimalista de controle de missão (preto, branco, tipografia larga, t
 O objetivo da primeira dobra é responder em menos de 5 segundos:
 **quem é** (nome + foto), **o que faz** (full stack · automação · IA) e **por que importa** (frase de impacto), com os links ao alcance.
 
-## 2. Direção de arte
+## 2. Direção de arte (revisão 2)
+
+A primeira versão caiu em padrões típicos de página gerada por IA (preto azulado + verde-ácido, rótulos em caixa alta espaçada, "A · B · C", setas em todo link, cantoneiras de HUD, animação de entrada em toda seção). A revisão segue a skill `frontend-design` (em `.claude/skills/`):
 
 | Token | Valor | Uso |
 | --- | --- | --- |
-| `ink` | `#050506` | fundo |
-| `paper` | `#ededea` | texto principal, linhas |
-| `dim` | `#85858c` | texto secundário |
-| `faint` | `#3a3a40` | detalhes apagados |
-| `claude` | `#e07a52` | acento principal (laranja), pulsos, CTA ativos |
-| `codex` | `#8fa2ff` | acento secundário (azul), pulsos |
-| `signal` | `#6dffb0` | status "online", LEDs |
+| Vácuo | `#000000` | fundo |
+| Branco | `#ffffff` | texto, botões principais |
+| Cinza | `#8c8c8c` | texto secundário |
+| Clawd | `#d97757` | só no Clawd e nas coisas dele |
+| Codex | `#8fa2ff` | só no Codex |
+| Comunidades do grafo | laranja, amarelo, ciano, verde, lilás | IA, Python, Frontend, Backend, Automação industrial |
 
-- **Monocromático por padrão**; cor só onde há significado (agente, status, ação).
-- **Tipografia**: `Silkscreen` (pixel) para títulos, rótulos e navegação, sempre em caixa alta com tracking largo; `JetBrains Mono` para leitura.
-- **Grid**: moldura fixa com cantoneiras (HUD), margem de 24px no desktop e 10px no mobile. Barra de telemetria embaixo (seção, hora de Brasília, coordenadas de Betim).
-- **Movimento**: tudo é guiado pelo scroll; nada anima "à toa", exceto os elementos vivos (pulsos neurais, agentes respirando/digitando).
+- **Vidro estilo Apple (Liquid Glass)**: `.glass` em `app/globals.css`. Desfoque + saturação, aro de refração, brilho especular que segue o ponteiro e hover com mola. Usado no card do hero, na moldura, na navbar (pílula), nos cards, no blog, no formulário e nos chats dos agentes.
+- **Tipografia**: Pixelify Sans (pixel com minúsculas reais) nos títulos em caixa normal; Barlow (família DIN, sinalização industrial) no texto.
+- **Movimento**: um único momento de palco, o card virando navbar. Seções trocam por fade. Sem tela de boot e sem texto embaralhando.
+- **Grafo de fundo no estilo graphify**: comunidades coloridas, nós nomeados com rótulo, satélites e pontes entre áreas (`lib/graph.ts`), layout por forças e pulsos percorrendo as ligações.
 
 ## 3. Arquitetura da experiência
 
@@ -71,7 +72,7 @@ A navbar faz `scrollTo` para o rótulo; links `/#blog` funcionam vindos de outra
 
 ## 5. Agentes em pixel art
 
-- **Claude**: criatura laranja com notebook e brilho na tampa. **Codex**: robô claro com rosto de terminal `>_`. **Usuários de IA**: 3 devs de moletom (variações de cor, um com fone).
+- **Claude**: o **Clawd**, mascote do Claude Code, reproduzido pixel a pixel a partir do logo em blocos do terminal (pixels 2× mais altos que largos, como no terminal), com um notebook ao lado. **Codex**: não existe mascote oficial em pixel; usamos o prompt `>_` que abre o Codex CLI, numa caixa de terminal. **Usuários de IA**: 3 devs de moletom (variações de cor, um com fone).
 - Desenhados como texto (`components/pixel/sprites.ts`): fácil criar novos personagens e frames.
 - Animações: piscar, digitar (mãos alternando), flutuar, parallax com o mouse.
 - Claude e Codex têm terminal flutuante digitando código em loop (só no hero).
@@ -97,7 +98,7 @@ A navbar faz `scrollTo` para o rótulo; links `/#blog` funcionam vindos de outra
 | Estilo | Tailwind CSS 4 | tokens no `@theme`, sem arquivo de config |
 | 3D | three + @react-three/fiber 9 | cena declarativa; shaders próprios |
 | Animação | GSAP 3 + ScrollTrigger + @gsap/react | timeline única com scrub/snap e rótulos |
-| Fontes | @fontsource (Silkscreen, JetBrains Mono) | self-hosted, sem depender de rede no build |
+| Fontes | @fontsource (Pixelify Sans, Barlow) | self-hosted, sem depender de rede no build |
 
 ## 8. Performance e acessibilidade
 

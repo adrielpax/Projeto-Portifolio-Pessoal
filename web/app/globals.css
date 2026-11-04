@@ -1,16 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --font-pixel: "Silkscreen", ui-monospace, monospace;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* display em pixel (com minúsculas reais) + texto em Barlow (família DIN, sinalização industrial) */
+  --font-pixel: "Pixelify Sans", system-ui, sans-serif;
+  --font-mono: "Barlow", system-ui, sans-serif;
 
-  --color-ink: #050506;
-  --color-paper: #ededea;
-  --color-dim: #85858c;
-  --color-faint: #3a3a40;
-  --color-claude: #e07a52;
+  /* preto e branco puros; as únicas cores pertencem aos personagens */
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+  --color-dim: #8c8c8c;
+  --color-faint: #333333;
+  --color-claude: #d97757;
   --color-codex: #8fa2ff;
-  --color-signal: #6dffb0;
+  --color-signal: #ffffff;
 }
 
 /* ------------------------------------------------------------------ base */
@@ -47,9 +49,7 @@ body {
 /* ------------------------------------------------------------- superfícies */
 
 .card-surface {
-  background: rgba(8, 8, 10, 0.78);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background: #000;
 }
 
 /* cantoneiras estilo HUD */
@@ -87,9 +87,7 @@ body {
 }
 
 .vignette {
-  background:
-    radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.75) 100%),
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 3px);
+  background: radial-gradient(120% 90% at 50% 45%, transparent 60%, rgba(0, 0, 0, 0.8) 100%);
 }
 
 /* ----------------------------------------------------------------- seções */
@@ -106,50 +104,38 @@ body {
 }
 
 .kicker {
-  font-family: var(--font-pixel);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
+  font-size: 15px;
   color: var(--color-dim);
 }
 
 .display {
   font-family: var(--font-pixel);
-  text-transform: uppercase;
-  line-height: 0.92;
-  letter-spacing: 0.01em;
-  font-size: 36px;
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  font-size: 44px;
 }
 @media (min-width: 768px) {
   .display {
-    font-size: 58px;
+    font-size: 88px;
   }
 }
 
 .btn-line {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  border: 1px solid rgba(237, 237, 234, 0.22);
-  padding: 0.6rem 0.9rem;
-  font-family: var(--font-pixel);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: opacity 0.2s;
 }
 .btn-line:hover {
-  background: var(--color-paper);
-  color: var(--color-ink);
+  opacity: 0.6;
 }
 
 .tag {
-  border: 1px solid rgba(237, 237, 234, 0.14);
-  padding: 2px 6px;
-  font-size: 10px;
-  line-height: 1.4;
+  font-size: 13px;
   color: var(--color-dim);
 }
 
@@ -164,9 +150,7 @@ body {
   transform-box: fill-box;
   transform-origin: bottom;
 }
-.project-card:hover .pixel-bars__col {
-  animation: eq 0.9s steps(4) infinite alternate;
-}
+
 @keyframes eq {
   from {
     transform: scaleY(1);
@@ -183,10 +167,7 @@ body {
 }
 .field > span {
   display: block;
-  font-family: var(--font-pixel);
-  font-size: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
+  font-size: 13px;
   color: var(--color-dim);
 }
 .field input,
@@ -195,7 +176,7 @@ body {
   width: 100%;
   resize: none;
   background: transparent;
-  font-size: 13px;
+  font-size: 17px;
   color: var(--color-paper);
   outline: none;
 }
@@ -246,12 +227,9 @@ body {
 
 .snippet {
   white-space: nowrap;
-  border-left: 2px solid var(--color-claude);
-  background: rgba(5, 5, 6, 0.55);
-  padding: 2px 7px;
-  font-family: var(--font-mono);
+  font-family: ui-monospace, Menlo, monospace;
   font-size: 11px;
-  color: rgba(237, 237, 234, 0.85);
+  color: rgba(255, 255, 255, 0.45);
   will-change: transform, opacity;
 }
 
@@ -275,18 +253,14 @@ body {
 }
 .layer-label__title {
   font-family: var(--font-pixel);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+  font-size: 18px;
   color: var(--color-paper);
 }
 .layer-label__title em {
-  font-style: normal;
-  color: var(--color-claude);
+  display: none;
 }
 .layer-label__items {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 14px;
   color: var(--color-dim);
 }
 
@@ -305,8 +279,95 @@ body {
 
 .links-bg {
   background:
-    radial-gradient(60% 40% at 50% 0%, rgba(224, 122, 82, 0.1), transparent 70%),
-    linear-gradient(rgba(237, 237, 234, 0.04) 1px, transparent 1px) 0 0 / 24px 24px,
-    linear-gradient(90deg, rgba(237, 237, 234, 0.04) 1px, transparent 1px) 0 0 / 24px 24px,
     var(--color-ink);
+}
+
+/* rótulos dos nós do grafo (estilo graphify) */
+.node-label {
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+  will-change: transform, opacity;
+}
+
+/* ------------------------------------------------ vidro (estilo Liquid Glass) */
+
+:root {
+  --mx: 50vw;
+  --my: 0px;
+  --spring: cubic-bezier(0.2, 0.9, 0.25, 1.15);
+}
+
+/* sem `position` aqui: o elemento usa a classe `relative` ou `absolute` do Tailwind */
+.glass {
+  isolation: isolate;
+  border-radius: var(--radius, 28px);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.045) 45%, rgba(255, 255, 255, 0.07) 100%);
+  -webkit-backdrop-filter: blur(24px) saturate(185%);
+  backdrop-filter: blur(24px) saturate(185%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 0 24px rgba(255, 255, 255, 0.04),
+    0 30px 80px -24px rgba(0, 0, 0, 0.75);
+}
+/* brilho especular que segue o ponteiro (coordenadas da viewport) */
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(520px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.13), transparent 45%) fixed;
+}
+/* aro de refração: borda clara nos cantos de luz, quase some no meio */
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.12) 30%,
+    rgba(255, 255, 255, 0.04) 60%,
+    rgba(255, 255, 255, 0.35)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.glass-sm {
+  --radius: 18px;
+}
+.glass-pill {
+  --radius: 999px;
+}
+
+/* resposta ao toque/hover com mola, como nos controles da Apple */
+.glass-hover {
+  transition:
+    transform 0.5s var(--spring),
+    background-color 0.3s,
+    box-shadow 0.4s;
+}
+.glass-hover:hover {
+  transform: translateY(-3px) scale(1.012);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.glass-hover:active {
+  transform: scale(0.985);
+  transition-duration: 0.15s;
+}
+
+.frame-outline {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
 }

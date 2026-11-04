@@ -15,6 +15,8 @@ export type SpriteDef = {
   seq: number[];
   /** ms por passo da sequência */
   ms: number;
+  /** altura de cada pixel em relação à largura (2 = pixel de meio caractere do terminal) */
+  aspect?: number;
 };
 
 const W = 16;
@@ -37,90 +39,68 @@ function typing(rows: string[], handRow: number, hand: string): Patch[] {
 }
 
 /* ------------------------------------------------------------------ */
-/* Claude: criatura laranja com notebook (emblema de brilho na tampa) */
+/* Claude: o Clawd, mascote do Claude Code, pixel a pixel a partir do  */
+/* logo do terminal ( ▐▛███▜▌ / ▝▜█████▛▘ /  ▘▘ ▝▝ ), com um notebook   */
+/* ao lado. O corpo do Clawd fica intacto.                             */
 /* ------------------------------------------------------------------ */
 const claudeRows = [
-  c(""),
-  c(r("o", 10)),
-  c(r("o", 12)),
-  c("ooo" + "kk" + "oo" + "kk" + "ooo"),
-  c("ooo" + "kk" + "oo" + "kk" + "ooo"),
-  c(r("o", 12)),
-  c("ooooo" + "OO" + "ooooo"),
-  c("o" + r("G", 12) + "o"),
-  c("oo" + r("g", 12) + "oo"),
-  c(r("g", 4) + "s" + "gg" + "s" + r("g", 4)),
-  c(r("g", 5) + "ss" + r("g", 5)),
-  c(r("g", 5) + "ss" + r("g", 5)),
-  c(r("g", 4) + "s" + "gg" + "s" + r("g", 4)),
-  c(r("g", 12)),
-  c(r("G", 14)),
-  c("oo" + r(".", 6) + "oo"),
+  "...oooooooooooo....GGGGGGGGG.",
+  "...ookooooookoo....GcccbbbbG.",
+  ".oooooooooooooooo..GbbccccbG.",
+  "...oooooooooooo....GGGGGGGGG.",
+  "....o.o....o.o....GGGGGGGGGGG",
 ];
 
 export const claudeSprite: SpriteDef = {
-  width: W,
+  width: 29,
   rows: claudeRows,
   palette: {
-    o: "#e07a52",
-    O: "#a9512f",
-    k: "#16110f",
-    g: "#1c1d21",
+    o: "#d97757",
+    k: "#000000",
     G: "#5b5d64",
-    s: "#ffb08a",
+    b: "#1c1d21",
+    c: "#ffb08a",
   },
   frames: [
     {},
-    { 3: c(r("o", 12)) }, // piscar
-    ...typing(claudeRows, 8, "o"),
+    { 1: "...oooooooooooo....GcccbbbbG." }, // piscar
+    { 1: "...ookooooookoo....GbbccccbG.", 2: ".oooooooooooooooo..GcccccbbG."}, // código rolando na tela
   ],
-  seq: [0, 2, 3, 2, 3, 0, 0, 1, 0, 2, 3, 2, 3, 2, 3, 0],
-  ms: 170,
+  seq: [0, 2, 0, 2, 0, 1, 0, 2, 0, 2, 2, 0],
+  ms: 260,
+  aspect: 2,
 };
 
 /* ------------------------------------------------------------------ */
-/* Codex: robô claro com rosto de terminal ">_"                        */
+/* Codex: o Codex não tem mascote oficial em pixel; usamos o prompt     */
+/* ">_" que abre o Codex CLI, numa caixa de terminal, com notebook.    */
 /* ------------------------------------------------------------------ */
 const codexRows = [
-  c("a"),
-  c("W"),
-  c(r("w", 12)),
-  c("w" + r("b", 10) + "w"),
-  c("w" + "b" + "c" + r("b", 8) + "w"),
-  c("w" + "bb" + "c" + r("b", 7) + "w"),
-  c("w" + "b" + "c" + "b" + "ccc" + r("b", 4) + "w"),
-  c("w" + r("b", 10) + "w"),
-  c(r("w", 12)),
-  c("w" + r("G", 12) + "w"),
-  c("ww" + r("g", 12) + "ww"),
-  c(r("g", 4) + "e" + r("g", 7)),
-  c(r("g", 5) + "e" + r("g", 6)),
-  c(r("g", 4) + "e" + "g" + "ee" + r("g", 4)),
-  c(r("g", 12)),
-  c(r("G", 14)),
-  c("WW" + r(".", 6) + "WW"),
+  ".wwwwwwwww.............",
+  "wbbbbbbbbbw............",
+  "wbwbbbbbbbw..GGGGGGGGG.",
+  "wbbwbbbbbbw..GeeebbbbG.",
+  "wbwbbwwwbbw..GbbeeeebG.",
+  "wbbbbbbbbbw..GGGGGGGGG.",
+  ".wwwwwwwww..GGGGGGGGGGG",
 ];
 
 export const codexSprite: SpriteDef = {
-  width: W,
+  width: 23,
   rows: codexRows,
   palette: {
-    w: "#e9e9e6",
-    W: "#9c9ca3",
-    b: "#0b0c10",
-    c: "#8fa2ff",
-    a: "#8fa2ff",
-    g: "#1c1d21",
+    w: "#ffffff",
+    b: "#000000",
     G: "#5b5d64",
     e: "#8fa2ff",
   },
   frames: [
     {},
-    { 0: c("W"), 6: c("w" + "b" + "c" + r("b", 8) + "w") }, // cursor e antena apagados
-    ...typing(codexRows, 10, "w"),
+    { 4: "wbwbbbbbbbw..GbbeeeebG." }, // cursor piscando
+    { 3: "wbbwbbbbbbw..GbbeeeebG.", 4: "wbwbbwwwbbw..GeeeeebbG."},
   ],
-  seq: [0, 2, 3, 2, 3, 1, 1, 0, 2, 3, 2, 3, 1, 0],
-  ms: 190,
+  seq: [0, 1, 0, 1, 2, 1, 2, 0, 1, 0],
+  ms: 380,
 };
 
 /* ------------------------------------------------------------------ */

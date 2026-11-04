@@ -1,17 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource/silkscreen/400.css";
-import "@fontsource/silkscreen/700.css";
-import "@fontsource-variable/jetbrains-mono";
+import "@fontsource/pixelify-sans/400.css";
+import "@fontsource/pixelify-sans/600.css";
+import "@fontsource/barlow/400.css";
+import "@fontsource/barlow/500.css";
+import "@fontsource/barlow/600.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Adriel Lucas · Full Stack, Automação e IA",
+  title: "Adriel Lucas, desenvolvedor full stack",
   description:
     "Portfólio de Adriel Lucas, desenvolvedor full stack focado em produtos web, automação e agentes de IA.",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050506",
+  themeColor: "#000000",
   width: "device-width",
   initialScale: 1,
 };

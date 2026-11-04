@@ -11,7 +11,7 @@ export const profile = {
   focus: ["Produtos web", "Automação", "Agentes de IA"],
   headline: "Código que trabalha enquanto você dorme.",
   sub: "Full stack, automações e agentes de IA. Do pixel ao pipeline, rodando em produção.",
-  location: "Betim · MG · BR",
+  location: "Betim, MG",
   coords: { lat: -19.968, lon: -44.198 },
   status: "Disponível para projetos",
   avatar: "/images/perfil.jpeg",
@@ -107,9 +107,9 @@ export const projects: Project[] = [
 /** Camadas do equipamento que se desmonta na seção Stack (de cima para baixo). */
 export const stackLayers = [
   { code: "L1", name: "Frontend", part: "Tampa", items: ["React", "Next.js", "React Native", "Tailwind"] },
-  { code: "L2", name: "IA & Agentes", part: "Processador", items: ["Claude", "Codex", "MCP", "RAG"] },
-  { code: "L3", name: "Backend", part: "Placa", items: ["Node.js", "Fastify", "Express", "REST/GraphQL"] },
-  { code: "L4", name: "Automação", part: "Cooler", items: ["n8n", "Make", "Zapier", "Apps Script"] },
+  { code: "L2", name: "IA & Agentes", part: "Processador", items: ["Claude", "Codex", "MCP", "RAG", "Python"] },
+  { code: "L3", name: "Backend", part: "Placa", items: ["Node.js", "FastAPI", "Fastify", "REST/GraphQL"] },
+  { code: "L4", name: "Automação", part: "Cooler", items: ["n8n", "CLP", "SCADA", "MQTT", "Modbus"] },
   { code: "L5", name: "Dados", part: "Baterias", items: ["PostgreSQL", "MongoDB", "Firebase"] },
   { code: "L6", name: "Infra", part: "Base", items: ["Docker", "Nginx", "CI/CD", "Git"] },
 ];
@@ -141,7 +141,7 @@ export const posts = [
 /** Página /links (estilo linktree). */
 export const linktree = [
   { label: "Portfólio", note: "site completo", href: "/" },
-  { label: "GitHub", note: "@adrielpax", href: "https://github.com/adrielpax" },
+  { label: "GitHub", note: "código e projetos", href: "https://github.com/adrielpax" },
   { label: "LinkedIn", note: "experiência", href: "https://www.linkedin.com/" }, // TODO
   { label: "Blog", note: "notas de campo", href: "/#blog" },
   { label: "Email", note: "orçamentos e parcerias", href: `mailto:${profile.email}` },

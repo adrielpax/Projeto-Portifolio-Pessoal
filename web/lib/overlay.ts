@@ -6,32 +6,26 @@ import * as THREE from "three";
  * sem criar raízes React extras.
  */
 export const overlay = {
-  snippets: [] as (HTMLDivElement | null)[],
+  nodeLabels: [] as (HTMLDivElement | null)[],
   labels: [] as (HTMLDivElement | null)[],
 };
 
-export const SNIPPETS = [
-  "memory.recall(k=8)",
-  "attention(q, k, v)",
-  "if (goal) plan()",
-  "Σ w·x + b",
-  "tool_use: deploy",
-  "await agent.think()",
-];
-
 const v = new THREE.Vector3();
 
-/** posiciona `el` sobre o ponto de mundo de `obj`; devolve false se estiver atrás da câmera */
-export function place(
-  el: HTMLElement,
-  obj: THREE.Object3D,
-  camera: THREE.Camera,
-  size: { width: number; height: number },
-  extra = "",
-) {
-  v.setFromMatrixPosition(obj.matrixWorld).project(camera);
+function toScreen(el: HTMLElement, p: THREE.Vector3, camera: THREE.Camera, size: { width: number; height: number }, extra: string) {
+  v.copy(p).project(camera);
   const x = (v.x * 0.5 + 0.5) * size.width;
   const y = (-v.y * 0.5 + 0.5) * size.height;
   el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) ${extra}`;
   return v.z < 1;
+}
+
+/** posiciona `el` sobre o ponto de mundo de `obj` */
+export function place(el: HTMLElement, obj: THREE.Object3D, camera: THREE.Camera, size: { width: number; height: number }, extra = "") {
+  return toScreen(el, new THREE.Vector3().setFromMatrixPosition(obj.matrixWorld), camera, size, extra);
+}
+
+/** posiciona `el` sobre um ponto em coordenadas de mundo */
+export function placePoint(el: HTMLElement, p: THREE.Vector3, camera: THREE.Camera, size: { width: number; height: number }, extra = "") {
+  return toScreen(el, p, camera, size, extra);
 }
