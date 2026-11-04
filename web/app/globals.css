@@ -583,3 +583,13 @@ body {
 .a11y-reduce-motion .tri {
   display: none;
 }
+
+/* fundo da versão leve (sem 3D): manchas suaves nas cores das áreas do grafo */
+.lite-bg {
+  background:
+    radial-gradient(40% 30% at 20% 25%, rgba(217, 161, 133, 0.12), transparent 70%),
+    radial-gradient(35% 28% at 85% 30%, rgba(143, 195, 219, 0.1), transparent 70%),
+    radial-gradient(45% 30% at 30% 85%, rgba(173, 162, 214, 0.1), transparent 70%),
+    radial-gradient(35% 25% at 80% 80%, rgba(150, 199, 164, 0.08), transparent 70%),
+    #000;
+}

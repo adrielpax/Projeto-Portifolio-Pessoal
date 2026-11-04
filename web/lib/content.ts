@@ -9,13 +9,17 @@ export const profile = {
   handle: "adrielpax",
   role: "Desenvolvedor Full Stack",
   focus: ["Produtos web", "Automação", "Agentes de IA"],
-  headline: "Código que trabalha enquanto você dorme.",
-  sub: "Full stack, automações e agentes de IA. Do pixel ao pipeline, rodando em produção.",
+  /** posicionamento: para quem e qual resultado, numa frase */
+  headline: "Automatizo operações com software e IA.",
+  sub: "Integrações, agentes de IA e painéis que tiram trabalho manual do caminho, do chão de fábrica ao dashboard. Desenvolvedor full stack em Betim, MG.",
+  /** chamada principal do site; sem href, o botão leva à tela de contato */
+  cta: { label: "Agendar uma conversa", href: "" }, // TODO: link do WhatsApp ou Calendly
+  site: "https://adrieldev.vercel.app",
   location: "Betim, MG",
   coords: { lat: -19.968, lon: -44.198 },
   status: "Disponível para projetos",
   avatar: "/images/perfil.jpeg",
-  /** recorte do rosto na foto (frações da imagem) usado pelo avatar pixelado */
+  /** recorte do rosto na foto (frações da imagem) */
   avatarCrop: { x: 0.27, y: 0.1, size: 0.38 },
   /** email público de contato; vazio = formulário e link de email ficam ocultos */
   email: "", // TODO: preencher
@@ -114,30 +118,29 @@ export const projects: Project[] = [
     href: gh("ecommerce-optimize-nextjs"),
     tint: "#96c7a4",
   },
-  {
-    repo: "Chat_app",
-    title: "Chat em tempo real",
-    description: "Chat com React, Node.js, Express e Socket.io.",
-    pushed: "2023-10-18",
-    language: "JavaScript",
-    tags: ["React", "Node.js", "Socket.io"],
-    href: gh("Chat_app"),
-    tint: "#8fc3db",
-  },
-  {
-    repo: "LandPage_ContactForm_Model-001",
-    title: "Landing page com captação",
-    description: "Landing page para negócio local que grava os contatos numa planilha do Google Sheets.",
-    pushed: "2023-06-05",
-    language: "JavaScript",
-    tags: ["Landing page", "Google Sheets"],
-    href: gh("LandPage_ContactForm_Model-001"),
-    tint: "#d8c58a",
-  },
 ];
+
+/**
+ * Estudos de caso: trabalhos reais (inclusive de clientes, com dados borrados).
+ * Preencha com fatos e números verdadeiros; enquanto vazio, a vitrine mostra só os repositórios.
+ */
+export type CaseStudy = {
+  client: string; // ex.: "Indústria de autopeças (NDA)"
+  title: string;
+  problem: string;
+  solution: string;
+  /** resultado mensurável e verdadeiro, ex.: "-12 h/semana de digitação" */
+  result: string;
+  stack: string[];
+  image?: string;
+};
+
+export const cases: CaseStudy[] = [];
 
 /** Repositórios menores e estudos, mostrados no registro de atividade */
 export const archive = [
+  { repo: "Chat_app", pushed: "2023-10-18", language: "JavaScript", note: "Chat com React, Node.js, Express e Socket.io" },
+  { repo: "LandPage_ContactForm_Model-001", pushed: "2023-06-05", language: "JavaScript", note: "Landing page que grava contatos no Google Sheets" },
   { repo: "fullstack-project", pushed: "2024-07-13", language: "JavaScript", note: "Projeto full stack" },
   { repo: "simple_react_calculator", pushed: "2024-10-10", language: "React", note: "Calculadora em React (desafio DIO)" },
   { repo: "React_app_nlw", pushed: "2021-09-07", language: "TypeScript", note: "App React do NLW" },

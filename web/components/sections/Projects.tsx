@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { projects, type Project } from "@/lib/content";
+import { cases, projects, type CaseStudy, type Project } from "@/lib/content";
 import { SectionHeader, monthYear } from "./SectionHeader";
 
 /** imagem do projeto, ou uma capa gerada (cor + nome do repositório) enquanto não há captura */
@@ -91,10 +91,34 @@ function QuickLook({ p, onClose }: { p: Project; onClose: () => void }) {
   );
 }
 
+/** estudo de caso: problema, solução e resultado mensurável */
+function CaseCard({ c }: { c: CaseStudy }) {
+  return (
+    <article className="glass glass-sm relative flex min-w-[78vw] snap-start flex-col overflow-hidden sm:min-w-0">
+      {c.image && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={c.image} alt="" className="h-28 w-full object-cover object-top" />
+      )}
+      <div className="flex flex-1 flex-col p-3.5">
+        <span className="text-[11px] uppercase tracking-[0.06em] text-dim">{c.client}</span>
+        <h3 className="mt-1 font-display text-[19px] font-semibold uppercase leading-none">{c.title}</h3>
+        <p className="mt-2 font-display text-[22px] font-semibold leading-none text-[#3ddc84]">{c.result}</p>
+        <div className="mt-auto pt-2">
+          <Spec k="Problema" v={c.problem} />
+          <Spec k="Solução" v={c.solution} />
+          <Spec k="Stack" v={c.stack.join(", ")} />
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export function Projects() {
   const [open, setOpen] = useState<Project | null>(null);
   const lastFocus = useRef<HTMLElement | null>(null);
   const published = projects.filter((p) => p.demo).length;
+  const shown = projects.slice(0, Math.max(0, 6 - cases.length));
+  const many = cases.length + shown.length > 4;
 
   const close = () => {
     setOpen(null);
@@ -110,6 +134,7 @@ export function Projects() {
           id="projects-title"
           meta={
             <>
+              {cases.length > 0 && <>{cases.length} estudos de caso, </>}
               {projects.length} repositórios em destaque, {published} publicados
               <br />
               <a href="https://github.com/adrielpax" target="_blank" rel="noreferrer" className="text-paper underline-offset-2 hover:underline">
@@ -119,8 +144,11 @@ export function Projects() {
           }
         />
 
-        <div className="projects-grid -mx-4 mt-4 flex min-h-0 flex-1 snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-y-auto sm:px-0 lg:grid-cols-3 lg:grid-rows-2 lg:overflow-visible">
-          {projects.map((p) => (
+        <div className={`projects-grid -mx-4 mt-4 flex min-h-0 flex-1 snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-y-auto sm:px-0 lg:grid-rows-2 lg:overflow-visible ${many ? "lg:grid-cols-3" : ""}`}>
+          {cases.map((c) => (
+            <CaseCard key={c.title} c={c} />
+          ))}
+          {shown.map((p) => (
             <button
               key={p.repo}
               type="button"

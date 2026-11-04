@@ -57,6 +57,12 @@ export default function Experience() {
   const [booted, setBooted] = useState(false);
   const [fontsReady, setFontsReady] = useState(false);
   const [layoutKey, setLayoutKey] = useState(0);
+  // versão leve: sem WebGL no celular ou com economia de dados ligada
+  const [lite, setLite] = useState(false);
+  useEffect(() => {
+    const nav = navigator as Navigator & { connection?: { saveData?: boolean } };
+    setLite(window.innerWidth < 768 || Boolean(nav.connection?.saveData));
+  }, []);
 
   /* ----------------------------- preparação ------------------------------ */
   useEffect(() => {
@@ -347,7 +353,7 @@ export default function Experience() {
       <div className="fixed inset-0 overflow-hidden">
         {/* camada 0: cena 3D */}
         <div className="absolute inset-0 z-0" aria-hidden>
-          <Scene />
+          {lite ? <div className="lite-bg absolute inset-0" /> : <Scene />}
         </div>
         <div className="vignette pointer-events-none absolute inset-0 z-[1]" />
         <div className="absolute inset-0 z-[2]">

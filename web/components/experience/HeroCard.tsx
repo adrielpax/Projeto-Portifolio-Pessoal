@@ -36,13 +36,26 @@ export function HeroCard({ go }: { go: (id: SectionId) => void }) {
           <h1 className="intro font-display text-[46px] font-semibold uppercase leading-[0.86] sm:text-[68px] md:text-[84px]">
             {profile.name}
           </h1>
-          <p className="intro mt-6 max-w-[22ch] text-[22px] font-medium leading-[1.12] sm:text-[27px]">{profile.headline}</p>
-          <p className="intro mt-3 max-w-[40ch] text-[15px] leading-relaxed text-paper/65">
-            Desenvolvedor full stack em Betim, MG. Produtos web, automações com n8n e agentes de IA em produção.
-          </p>
+          <p className="intro mt-6 max-w-[20ch] text-[24px] font-semibold leading-[1.08] sm:text-[30px]">{profile.headline}</p>
+          <p className="intro mt-3 max-w-[42ch] text-[15px] leading-relaxed text-paper/70">{profile.sub}</p>
+          <div className="intro mt-6 flex flex-wrap items-center gap-4">
+            {profile.cta.href ? (
+              <a href={profile.cta.href} target="_blank" rel="noreferrer" className="para bg-paper px-6 py-2.5 text-[15px] font-semibold text-ink transition-opacity hover:opacity-85">
+                {profile.cta.label}
+              </a>
+            ) : (
+              <button type="button" onClick={() => go("contact")} className="para bg-paper px-6 py-2.5 text-[15px] font-semibold text-ink transition-opacity hover:opacity-85">
+                {profile.cta.label}
+              </button>
+            )}
+            <span className="flex items-center gap-2 text-[13px] text-paper/70">
+              <span className="led" style={{ ["--led" as string]: "#3ddc84" }} aria-hidden />
+              {profile.status}
+            </span>
+          </div>
         </div>
 
-        <div className="intro mt-9">
+        <div className="intro mt-8">
           <div className="hero-links-rule h-px origin-left bg-white/20" />
           <nav className="mt-5 flex flex-wrap gap-x-7 gap-y-3" aria-label="Seções">
             {navLinks.map((l) => (
@@ -68,10 +81,6 @@ export function HeroCard({ go }: { go: (id: SectionId) => void }) {
                 </a>
               ))}
             </div>
-            <span className="para flex items-center gap-2 bg-paper px-4 py-1.5 text-[14px] font-semibold text-ink">
-              <span className="h-2 w-2 animate-pulse bg-ink" />
-              {profile.status}
-            </span>
           </div>
         </div>
       </div>

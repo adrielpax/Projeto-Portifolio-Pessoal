@@ -50,6 +50,14 @@ A primeira versão caiu em padrões típicos de página gerada por IA (preto azu
 - Contato real: o formulário abre o app de email com a mensagem pronta (aparece quando `profile.email` for preenchido; até lá, o contato aponta para o GitHub). Links sem URL (LinkedIn) ficam ocultos.
 - O mini chat do Claude/Codex leva o recado para o formulário de contato.
 
+### Posicionamento e profissionalização
+- Hero: "Automatizo operações com software e IA." + subtítulo com o nicho (integrações, agentes, chão de fábrica ao dashboard) + **um CTA principal** ("Agendar uma conversa"; leva ao contato até `profile.cta.href` ter WhatsApp/Calendly).
+- Vitrine com só os 4 projetos recentes; estudos antigos ficam no Log.
+- **Estudos de caso** (`cases` em `lib/content.ts`): problema, solução, resultado mensurável e stack. Aparecem antes dos repositórios assim que houver dados reais.
+- **Versão leve**: no celular e com economia de dados não carrega WebGL (fundo estático).
+- **SEO**: título e descrição com o posicionamento, Open Graph/Twitter, imagem de compartilhamento gerada (`app/opengraph-image.tsx`), `robots.txt`, `sitemap.xml` e dados estruturados `Person`.
+- **Falta (depende do Adriel)**: 2 a 3 estudos de caso reais, link de WhatsApp/Calendly, email público, LinkedIn e depoimentos.
+
 ## 3. Arquitetura da experiência
 
 O scroll **não** rola a página. Ele move uma linha do tempo.
