@@ -104,7 +104,7 @@ export function Dock({ active, go }: { active: SectionId; go: (id: SectionId) =>
             ref={(el) => {
               icons.current[idx] = el;
             }}
-            className="dock-icon flex h-12 w-12 items-center justify-center rounded-[13px]"
+            className="dock-icon flex h-12 w-12 items-center justify-center cut-sm"
             style={{ background: it.tile }}
           >
             <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden>
@@ -113,7 +113,7 @@ export function Dock({ active, go }: { active: SectionId; go: (id: SectionId) =>
           </span>
         );
         const label = <span className="dock-label glass glass-sm">{it.label}</span>;
-        const dot = <span className={`mt-1 h-1 w-1 rounded-full ${isActive ? "bg-paper" : "bg-transparent"}`} aria-hidden />;
+        const dot = <span className={`mt-1 h-1 w-3 ${isActive ? "bg-paper" : "bg-transparent"}`} aria-hidden />;
         const cls = "group relative flex flex-col items-center outline-none";
         return it.section ? (
           <button key={it.id} type="button" className={cls} onClick={() => go(it.section!)} aria-label={it.label} aria-current={isActive ? "true" : undefined}>

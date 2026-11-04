@@ -66,10 +66,10 @@ function MiniChat({ def, open, onClose, id }: { def: AgentDef; open: boolean; on
     >
       <div className="flex items-center justify-between px-4 pb-1 pt-3">
         <span className="flex items-center gap-2 font-display text-[16px]">
-          <span className="h-2 w-2 rounded-full" style={{ background: def.accent }} />
+          <span className="h-2 w-2" style={{ background: def.accent }} />
           {def.name}
         </span>
-        <button type="button" onClick={onClose} tabIndex={open ? 0 : -1} className="rounded-full px-2 text-dim hover:text-paper" aria-label="Fechar conversa">
+        <button type="button" onClick={onClose} tabIndex={open ? 0 : -1} className="px-2 text-dim hover:text-paper" aria-label="Fechar conversa">
           ✕
         </button>
       </div>
@@ -88,12 +88,12 @@ function MiniChat({ def, open, onClose, id }: { def: AgentDef; open: boolean; on
           tabIndex={open ? 0 : -1}
           aria-label={`Mensagem para ${def.name}`}
           placeholder={`Escreva para ${def.name}`}
-          className="min-w-0 flex-1 rounded-full bg-white/10 px-4 py-2 text-[14px] text-paper placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-white/40"
+          className="min-w-0 flex-1 bg-white/10 px-4 py-2 text-[14px] text-paper placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-white/40"
         />
         <button
           type="submit"
           tabIndex={open ? 0 : -1}
-          className="rounded-full bg-paper px-4 py-2 text-[14px] font-medium text-ink transition-transform active:scale-95"
+          className="para bg-paper px-5 py-2 text-[14px] font-medium text-ink transition-transform active:scale-95"
         >
           {connect === "idle" ? "Conectar" : connect === "connecting" ? "…" : "Em breve"}
         </button>

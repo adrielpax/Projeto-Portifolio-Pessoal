@@ -50,7 +50,7 @@ export function Navbar({ active, go }: { active: SectionId; go: (id: SectionId) 
       <div className="flex h-full items-center justify-between gap-4 px-3 md:px-6">
         {/* identificação + status do sistema */}
         <button type="button" onClick={() => go("hero")} className="pointer-events-auto flex items-center gap-3" aria-label="Voltar ao início">
-          <div className="nav-avatar-slot invisible h-[38px] w-[38px] rounded-full opacity-0">
+          <div className="nav-avatar-slot invisible h-[38px] w-[38px] opacity-0">
             <ProfilePhoto className="h-full w-full" alt="" />
           </div>
           <div className="nav-chrome invisible hidden text-left opacity-0 lg:block">
@@ -64,11 +64,11 @@ export function Navbar({ active, go }: { active: SectionId; go: (id: SectionId) 
 
         {/* seletor de telas */}
         <nav className="relative flex items-center gap-5 px-5 py-3 sm:gap-7 md:gap-9 md:px-7" aria-label="Navegação principal">
-          <span className="nav-chrome glass glass-pill invisible absolute inset-0 -z-10 opacity-0" aria-hidden />
+          <span className="nav-chrome glass cut invisible absolute inset-0 -z-10 opacity-0" aria-hidden />
           {thumb && (
             <span
               aria-hidden
-              className="nav-chrome nav-thumb invisible absolute top-1.5 bottom-1.5 -z-[5] rounded-full opacity-0"
+              className="nav-chrome nav-thumb invisible absolute top-1.5 bottom-1.5 -z-[5] para opacity-0"
               style={{ left: thumb.left - 16, width: thumb.width + 26 }}
             />
           )}
@@ -98,13 +98,13 @@ export function Navbar({ active, go }: { active: SectionId; go: (id: SectionId) 
           })}
           <Link
             href="/links"
-            className="nav-chrome pointer-events-auto invisible ml-1 hidden rounded-full bg-paper px-4 py-1.5 text-[15px] font-medium text-ink opacity-0 transition-opacity hover:opacity-80 md:inline-block"
+            className="nav-chrome pointer-events-auto invisible para ml-1 hidden bg-paper px-5 py-1.5 text-[15px] font-medium text-ink opacity-0 transition-opacity hover:opacity-80 md:inline-block"
           >
             Links
           </Link>
           {/* barra de processo: progresso do scroll com marcações de escala */}
           <span className="nav-chrome process-bar invisible absolute inset-x-6 bottom-[5px] h-[2px] opacity-0" aria-hidden>
-            <span className="nav-progress block h-full origin-left scale-x-0 rounded-full" />
+            <span className="nav-progress block h-full origin-left scale-x-0" />
           </span>
         </nav>
       </div>

@@ -4,7 +4,7 @@ import { profile } from "@/lib/content";
 export function ProfilePhoto({ className = "", alt = `Foto de ${profile.name}` }: { className?: string; alt?: string }) {
   const c = profile.avatarCrop;
   return (
-    <div className={`relative overflow-hidden rounded-full bg-faint ring-1 ring-white/25 ${className}`}>
+    <div className={`cut-sm relative overflow-hidden bg-faint ring-1 ring-white/25 ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={profile.avatar}

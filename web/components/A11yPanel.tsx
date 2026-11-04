@@ -83,7 +83,7 @@ export function A11yPanel() {
             role="switch"
             aria-checked={prefs[o.key]}
             onClick={() => toggle(o.key)}
-            className="flex w-full items-center justify-between gap-3 rounded-[12px] px-3 py-2.5 text-left hover:bg-white/10"
+            className="flex w-full items-center justify-between gap-3 px-3 py-2.5 text-left hover:bg-white/10"
           >
             <span>
               <span className="block text-[15px] font-medium">{o.label}</span>
@@ -91,10 +91,10 @@ export function A11yPanel() {
             </span>
             <span
               aria-hidden
-              className={`relative h-6 w-10 shrink-0 rounded-full transition-colors ${prefs[o.key] ? "bg-paper" : "bg-white/20"}`}
+              className={`relative h-6 w-10 shrink-0 transition-colors ${prefs[o.key] ? "bg-paper" : "bg-white/20"}`}
             >
               <span
-                className={`absolute top-0.5 h-5 w-5 rounded-full transition-[left] duration-300 ${prefs[o.key] ? "left-[18px] bg-ink" : "left-0.5 bg-paper"}`}
+                className={`absolute top-0.5 h-5 w-5 transition-[left] duration-300 ${prefs[o.key] ? "left-[18px] bg-ink" : "left-0.5 bg-paper"}`}
               />
             </span>
           </button>

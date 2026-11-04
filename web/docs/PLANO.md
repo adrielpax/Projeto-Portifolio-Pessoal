@@ -39,6 +39,11 @@ A primeira versão caiu em padrões típicos de página gerada por IA (preto azu
 - **Dock** no rodapé com ícones de app (Projetos, Stack, Blog, Contato, GitHub, Links), ampliação perto do ponteiro e ponto na seção aberta.
 - **Projetos com imagem**: cada card tem a captura do projeto (`image` em `lib/content.ts`, arquivos em `public/images/projects/`); sem captura, aparece uma capa gerada. Clicar abre um **Quick Look** com a imagem grande.
 
+### Variante agressiva (branch `claude/sleepy-feynman-qgsako-agressivo`)
+- Card do hero com a foto inteira, revelada por um degradê; texto sobre vidro escuro à esquerda. O recorte do rosto voa para a navbar ao rolar.
+- Cantos de 90° chanfrados em diagonal (`corner-shape: bevel`), formando paralelogramas; botões em paralelogramo (`.para`).
+- Poucos triângulos translúcidos, bem claros, subindo no fundo (`Triangles.tsx`); somem com "Reduzir movimento".
+
 ## 3. Arquitetura da experiência
 
 O scroll **não** rola a página. Ele move uma linha do tempo.

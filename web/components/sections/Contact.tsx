@@ -59,7 +59,7 @@ export function Contact() {
           <button
             type="submit"
             disabled={status !== "idle"}
-            className="m-2 w-[calc(100%-1rem)] rounded-[20px] bg-paper px-5 py-4 text-left text-[16px] font-medium text-ink transition-opacity hover:opacity-85 disabled:opacity-70"
+            className="para m-2 w-[calc(100%-1rem)] bg-paper px-6 py-4 text-left text-[16px] font-medium text-ink transition-opacity hover:opacity-85 disabled:opacity-70"
           >
             {status === "idle" ? "Enviar mensagem" : status === "sending" ? "Enviando…" : "Mensagem enviada. Respondo por email."}
           </button>

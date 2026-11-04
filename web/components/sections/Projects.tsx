@@ -61,7 +61,7 @@ function QuickLook({ p, onClose }: { p: Project; onClose: () => void }) {
             <p className="mt-3 max-w-[56ch] text-[16px] leading-snug text-dim">{p.description}</p>
             <p className="mt-3 text-[14px] text-paper/70">{p.tags.join(", ")}</p>
           </div>
-          <a href={p.href} target="_blank" rel="noreferrer" className="shrink-0 rounded-full bg-paper px-5 py-2.5 text-[15px] font-medium text-ink">
+          <a href={p.href} target="_blank" rel="noreferrer" className="para shrink-0 bg-paper px-6 py-2.5 text-[15px] font-medium text-ink">
             Abrir no GitHub
           </a>
         </div>
@@ -103,7 +103,7 @@ export function Projects() {
               aria-label={`Ver ${p.title}`}
               className="glass glass-hover group relative flex min-h-0 min-w-[80vw] snap-start overflow-hidden text-left sm:min-w-0"
             >
-              <div className="relative h-full w-[42%] shrink-0 overflow-hidden rounded-l-[27px]">
+              <div className="relative h-full w-[42%] shrink-0 overflow-hidden">
                 <Cover p={p} />
               </div>
               <div className="flex min-w-0 flex-1 flex-col p-5 md:p-6">

@@ -515,3 +515,71 @@ body {
     transform: scale(0.85) translateY(20px);
   }
 }
+
+/* ======================================================================
+   VERSÃO AGRESSIVA: ângulos de 90°, cantos chanfrados (paralelogramas)
+   ====================================================================== */
+
+/* cantos opostos cortados em diagonal; navegadores sem corner-shape
+   mostram cantos retos de 90°, que também servem */
+.glass,
+.cut,
+.frame-outline {
+  border-radius: var(--cut, 22px) 0 var(--cut, 22px) 0;
+  corner-shape: bevel;
+}
+.glass::before,
+.glass::after {
+  border-radius: inherit;
+  corner-shape: bevel;
+}
+.glass-sm,
+.cut-sm {
+  --cut: 10px;
+}
+.cut-sm {
+  border-radius: var(--cut) 0 var(--cut) 0;
+  corner-shape: bevel;
+}
+.glass-pill {
+  --cut: 12px;
+}
+.dock {
+  --cut: 16px;
+}
+
+/* botões em paralelogramo */
+.para {
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  border-radius: 0;
+}
+
+/* aro do vidro mais duro, mais "industrial" */
+.glass::after {
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.14) 22%,
+    rgba(255, 255, 255, 0.05) 60%,
+    rgba(255, 255, 255, 0.45)
+  );
+}
+
+/* triângulos translúcidos subindo, como um efeito de tela */
+.tri {
+  position: absolute;
+  bottom: -20vh;
+  animation: tri-rise var(--dur) linear var(--delay) infinite;
+  will-change: transform;
+}
+@keyframes tri-rise {
+  from {
+    transform: translate3d(0, 0, 0) rotate(var(--r0));
+  }
+  to {
+    transform: translate3d(var(--dx), -140vh, 0) rotate(var(--r1));
+  }
+}
+.a11y-reduce-motion .tri {
+  display: none;
+}

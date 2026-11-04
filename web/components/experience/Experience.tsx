@@ -13,6 +13,7 @@ import { Agent } from "@/components/pixel/Agent";
 import { HeroCard } from "./HeroCard";
 import { Navbar } from "./Navbar";
 import { Dock } from "./Dock";
+import { Triangles } from "./Triangles";
 import { Projects } from "@/components/sections/Projects";
 import { Stack } from "@/components/sections/Stack";
 import { Blog } from "@/components/sections/Blog";
@@ -161,7 +162,9 @@ export default function Experience() {
       tl.to(".hero-links-rule", { scaleX: 0, duration: 0.2 }, 0.03);
       tl.set(".hero-card", { pointerEvents: "none" }, 0.08);
 
-      // avatar → ícone de perfil na navbar
+      // a foto do card se apaga e o recorte do rosto voa até a navbar
+      tl.to(".hero-photo", { autoAlpha: 0, duration: 0.3 }, 0.06);
+      tl.set(avatar, { autoAlpha: 1 }, 0.1);
       tl.to(
         avatar,
         {
@@ -344,6 +347,9 @@ export default function Experience() {
           <Scene />
         </div>
         <div className="vignette pointer-events-none absolute inset-0 z-[1]" />
+        <div className="absolute inset-0 z-[2]">
+          <Triangles />
+        </div>
 
         {/* camada 1: card do hero (vira moldura) + seções */}
         <div className="pointer-events-none absolute inset-0 z-20 [perspective:1400px]">
