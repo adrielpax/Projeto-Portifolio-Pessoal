@@ -24,7 +24,7 @@ A primeira versão caiu em padrões típicos de página gerada por IA (preto azu
 | Comunidades do grafo | laranja, amarelo, ciano, verde, lilás | IA, Python, Frontend, Backend, Automação industrial |
 
 - **Vidro estilo Apple (Liquid Glass)**: `.glass` em `app/globals.css`. Desfoque + saturação, aro de refração, brilho especular que segue o ponteiro e hover com mola. Usado no card do hero, na moldura, na navbar (pílula), nos cards, no blog, no formulário e nos chats dos agentes.
-- **Tipografia**: Pixelify Sans (pixel com minúsculas reais) nos títulos em caixa normal; Barlow (família DIN, sinalização industrial) no texto.
+- **Tipografia**: Barlow Condensed nos títulos (o pixel fica só nos personagens); Barlow (família DIN, sinalização industrial) no texto.
 - **Movimento**: um único momento de palco, o card virando navbar. Seções trocam por fade. Sem tela de boot e sem texto embaralhando.
 - **Grafo de fundo no estilo graphify**: comunidades coloridas, nós nomeados com rótulo, satélites e pontes entre áreas (`lib/graph.ts`), layout por forças e pulsos percorrendo as ligações.
 
@@ -109,7 +109,7 @@ A navbar faz `scrollTo` para o rótulo; links `/#blog` funcionam vindos de outra
 | Estilo | Tailwind CSS 4 | tokens no `@theme`, sem arquivo de config |
 | 3D | three + @react-three/fiber 9 | cena declarativa; shaders próprios |
 | Animação | GSAP 3 + ScrollTrigger + @gsap/react | timeline única com scrub/snap e rótulos |
-| Fontes | @fontsource (Pixelify Sans, Barlow) | self-hosted, sem depender de rede no build |
+| Fontes | @fontsource (Barlow Condensed, Barlow) | self-hosted, sem depender de rede no build |
 
 ## 8. Performance e acessibilidade
 

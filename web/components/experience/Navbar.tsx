@@ -54,7 +54,7 @@ export function Navbar({ active, go }: { active: SectionId; go: (id: SectionId) 
             <ProfilePhoto className="h-full w-full" alt="" />
           </div>
           <div className="nav-chrome invisible hidden text-left opacity-0 lg:block">
-            <div className="font-pixel text-[18px] font-semibold leading-none">{profile.name}</div>
+            <div className="font-display text-[18px] font-semibold leading-none">{profile.name}</div>
             <div className="mt-1 flex items-center gap-1.5 text-[12px] text-dim">
               <span className="led" style={{ ["--led" as string]: LED_ON }} aria-hidden />
               Online em Betim <span className="tabular-nums text-paper/80">{time}</span>

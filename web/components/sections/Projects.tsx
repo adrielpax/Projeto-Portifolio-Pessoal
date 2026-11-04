@@ -17,7 +17,7 @@ function Cover({ p, large = false }: { p: Project; large?: boolean }) {
       role="img"
       aria-label={`Capa do projeto ${p.title}`}
     >
-      <span className={`font-pixel font-semibold leading-none text-white/85 ${large ? "text-[56px]" : "text-[30px]"}`}>{p.title}</span>
+      <span className={`font-display font-semibold leading-none text-white/85 ${large ? "text-[56px]" : "text-[30px]"}`}>{p.title}</span>
     </div>
   );
 }
@@ -57,7 +57,7 @@ function QuickLook({ p, onClose }: { p: Project; onClose: () => void }) {
             <p className="text-[14px] text-dim">
               {p.status}, {p.year}
             </p>
-            <h3 className="mt-2 font-pixel text-[34px] font-semibold leading-none">{p.title}</h3>
+            <h3 className="mt-2 font-display text-[34px] font-semibold leading-none">{p.title}</h3>
             <p className="mt-3 max-w-[56ch] text-[16px] leading-snug text-dim">{p.description}</p>
             <p className="mt-3 text-[14px] text-paper/70">{p.tags.join(", ")}</p>
           </div>
@@ -110,7 +110,7 @@ export function Projects() {
                 <span className="text-[13px] text-dim">
                   {p.status}, {p.year}
                 </span>
-                <h3 className="mt-2 font-pixel text-[22px] font-semibold leading-none md:text-[28px]">{p.title}</h3>
+                <h3 className="mt-2 font-display text-[22px] font-semibold leading-none md:text-[28px]">{p.title}</h3>
                 <p className="mt-2 line-clamp-3 text-[14px] leading-snug text-dim md:text-[15px]">{p.description}</p>
                 <span className="mt-auto pt-3 text-[13px] text-paper/70">{p.tags.join(", ")}</span>
               </div>

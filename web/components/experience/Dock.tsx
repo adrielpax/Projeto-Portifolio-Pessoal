@@ -13,21 +13,23 @@ type Item = {
   href?: string;
 };
 
-const stroke = { stroke: "white", strokeWidth: 1.8, fill: "none", strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+const TILE = "linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05))";
+
+const stroke = { stroke: "rgba(255,255,255,0.92)", strokeWidth: 1.5, fill: "none", strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
 
 const ITEMS: (Item | "divider")[] = [
   {
     id: "projects",
     label: "Projetos",
     section: "projects",
-    tile: "linear-gradient(180deg,#6fc3ff,#2a7de1)",
+    tile: TILE,
     icon: <path d="M3 7.5A1.5 1.5 0 0 1 4.5 6H9l2 2h8.5A1.5 1.5 0 0 1 21 9.5v8a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z" {...stroke} />,
   },
   {
     id: "stack",
     label: "Stack",
     section: "stack",
-    tile: "linear-gradient(180deg,#5a5d68,#23252b)",
+    tile: TILE,
     icon: (
       <g {...stroke}>
         <rect x="7" y="7" width="10" height="10" rx="1.5" />
@@ -39,14 +41,14 @@ const ITEMS: (Item | "divider")[] = [
     id: "blog",
     label: "Blog",
     section: "blog",
-    tile: "linear-gradient(180deg,#ffd66b,#f29a2e)",
+    tile: TILE,
     icon: <path d="M7 4h7l4 4v12H7zM14 4v4h4M9.5 12h6M9.5 15.5h6" {...stroke} />,
   },
   {
     id: "contact",
     label: "Contato",
     section: "contact",
-    tile: "linear-gradient(180deg,#7be495,#2fb35a)",
+    tile: TILE,
     icon: <path d="M4 7h16v10H4zM4 7l8 6 8-6" {...stroke} />,
   },
   "divider",
@@ -54,15 +56,15 @@ const ITEMS: (Item | "divider")[] = [
     id: "github",
     label: "GitHub",
     href: "https://github.com/adrielpax",
-    tile: "linear-gradient(180deg,#2b2d33,#0d0e10)",
+    tile: TILE,
     icon: <path d="M9 18l-5-6 5-6M15 6l5 6-5 6" {...stroke} />,
   },
   {
     id: "links",
     label: "Links",
     href: "/links",
-    tile: "linear-gradient(180deg,#e9e9ee,#b9bac2)",
-    icon: <path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" {...stroke} stroke="#1d1d1f" />,
+    tile: TILE,
+    icon: <path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" {...stroke} />,
   },
 ];
 

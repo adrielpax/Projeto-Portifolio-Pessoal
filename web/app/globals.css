@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  /* display em pixel (com minúsculas reais) + texto em Barlow (família DIN, sinalização industrial) */
-  --font-pixel: "Pixelify Sans", system-ui, sans-serif;
+  /* display condensada (linha aeroespacial/industrial) + texto em Barlow (família DIN) */
+  --font-display: "Barlow Condensed", system-ui, sans-serif;
   --font-mono: "Barlow", system-ui, sans-serif;
 
   /* preto e branco puros; as únicas cores pertencem aos personagens */
@@ -118,15 +118,15 @@ body {
 }
 
 .display {
-  font-family: var(--font-pixel);
+  font-family: var(--font-display);
   font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -0.01em;
-  font-size: 44px;
+  line-height: 0.92;
+  letter-spacing: -0.015em;
+  font-size: 48px;
 }
 @media (min-width: 768px) {
   .display {
-    font-size: 88px;
+    font-size: 84px;
   }
 }
 
@@ -261,7 +261,7 @@ body {
   gap: 4px;
 }
 .layer-label__title {
-  font-family: var(--font-pixel);
+  font-family: var(--font-display);
   font-size: 18px;
   color: var(--color-paper);
 }

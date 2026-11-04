@@ -65,7 +65,7 @@ function MiniChat({ def, open, onClose, id }: { def: AgentDef; open: boolean; on
       }`}
     >
       <div className="flex items-center justify-between px-4 pb-1 pt-3">
-        <span className="flex items-center gap-2 font-pixel text-[16px]">
+        <span className="flex items-center gap-2 font-display text-[16px]">
           <span className="h-2 w-2 rounded-full" style={{ background: def.accent }} />
           {def.name}
         </span>
@@ -141,11 +141,6 @@ export function Agent({ def }: { def: AgentDef }) {
               <div className="absolute" style={{ left: def.laptop.x * def.px, top: def.laptop.y * def.px }}>
                 <PixelSprite sprite={def.laptop.sprite} px={def.px * def.laptop.scale} />
               </div>
-              <span
-                className="pointer-events-none absolute inset-x-2 -bottom-3 h-3 rounded-full opacity-50 blur-lg"
-                style={{ background: def.accent }}
-                aria-hidden
-              />
             </div>
 
             {/* botão flutuante de chat */}
@@ -164,7 +159,7 @@ export function Agent({ def }: { def: AgentDef }) {
               </svg>
             </button>
 
-            <div className="mt-4 text-center font-pixel text-[14px] text-dim">{def.name}</div>
+            <div className="mt-4 text-center font-display text-[14px] text-dim">{def.name}</div>
           </div>
         </div>
       </div>

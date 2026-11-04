@@ -22,7 +22,7 @@ export function HeroCard({ go }: { go: (id: SectionId) => void }) {
             </div>
           </div>
           <div className="hero-copy min-w-0 pb-1">
-            <h1 className="intro font-pixel text-[38px] font-semibold leading-[0.9] sm:text-[60px] md:text-[72px]">
+            <h1 className="intro font-display text-[38px] font-semibold leading-[0.9] sm:text-[60px] md:text-[72px]">
               {profile.name}
             </h1>
           </div>

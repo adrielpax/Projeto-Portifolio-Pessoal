@@ -19,7 +19,7 @@ export function Stack() {
             <ul className="mb-4 grid grid-cols-2 gap-x-4 gap-y-2 md:hidden">
               {stackLayers.map((l) => (
                 <li key={l.code} className="text-[14px] leading-tight">
-                  <span className="font-pixel text-[16px]">{l.name}</span>
+                  <span className="font-display text-[16px]">{l.name}</span>
                   <span className="block text-dim">{l.items.slice(0, 2).join(", ")}</span>
                 </li>
               ))}

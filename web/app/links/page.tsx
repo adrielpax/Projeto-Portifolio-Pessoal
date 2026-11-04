@@ -27,7 +27,7 @@ export default function LinksPage() {
               </div>
             </div>
           </div>
-          <h1 className="mt-6 font-pixel text-[40px] font-semibold leading-none">{profile.name}</h1>
+          <h1 className="mt-6 font-display text-[40px] font-semibold leading-none">{profile.name}</h1>
           <p className="mt-3 text-[18px] leading-snug text-dim">{profile.headline}</p>
         </header>
 
@@ -36,7 +36,7 @@ export default function LinksPage() {
             const external = l.href.startsWith("http") || l.href.startsWith("mailto");
             const inner = (
               <>
-                <span className="font-pixel text-[24px] font-semibold leading-none">{l.label}</span>
+                <span className="font-display text-[24px] font-semibold leading-none">{l.label}</span>
                 <span className="text-[15px] text-dim">{l.note}</span>
               </>
             );
