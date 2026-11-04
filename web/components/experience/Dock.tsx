@@ -38,13 +38,6 @@ const ITEMS: (Item | "divider")[] = [
     ),
   },
   {
-    id: "blog",
-    label: "Log",
-    section: "blog",
-    tile: TILE,
-    icon: <path d="M7 4h7l4 4v12H7zM14 4v4h4M9.5 12h6M9.5 15.5h6" {...stroke} />,
-  },
-  {
     id: "contact",
     label: "Contato",
     section: "contact",
@@ -90,7 +83,7 @@ export function Dock({ active, go }: { active: SectionId; go: (id: SectionId) =>
   return (
     <nav
       aria-label="Dock"
-      className="nav-chrome dock glass invisible fixed bottom-3 left-1/2 z-50 hidden -translate-x-1/2 items-end gap-2 px-2.5 pb-2 pt-2.5 opacity-0 md:flex"
+      className="nav-chrome dock glass glass-dark invisible fixed bottom-3 left-1/2 z-50 hidden -translate-x-1/2 items-end gap-2 px-2.5 pb-2 pt-2.5 opacity-0 md:flex"
       onPointerMove={(e) => magnify(e.clientX)}
       onPointerLeave={() => magnify(null)}
     >

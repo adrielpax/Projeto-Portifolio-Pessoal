@@ -123,7 +123,9 @@ export function Agent({ def }: { def: AgentDef }) {
           st.a = wrapped * (1 - Math.min(1, dt * 5));
         }
         el.style.transform = `translate3d(${st.x.toFixed(1)}px, ${st.y.toFixed(1)}px, 0)`;
-        b.style.transform = `rotate(${st.a.toFixed(2)}deg)`;
+        // no celular os personagens ficam menores para não cobrir o texto
+        const k = window.innerWidth < 768 ? 0.58 : 1;
+        b.style.transform = `rotate(${st.a.toFixed(2)}deg) scale(${k})`;
       }
       raf = requestAnimationFrame(loop);
     };

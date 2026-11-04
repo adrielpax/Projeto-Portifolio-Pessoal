@@ -3,12 +3,13 @@
  * É um objeto mutável de propósito: a cena lê a cada frame sem causar re-render.
  */
 export const stage = {
-  /** tempo da timeline mestre em "unidades de seção" (0 = hero ... 5 = contato) */
+  /** progresso da abertura: 0 = hero, 1 = card já virou navbar */
   t: 0,
+  /** a cena 3D só anima enquanto o fundo está visível */
+  sceneVisible: true,
   /** ponteiro normalizado de -1 a 1 */
   mouseX: 0,
   mouseY: 0,
   reducedMotion: false,
 };
 
-export const TIMELINE_UNITS = 5;

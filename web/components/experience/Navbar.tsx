@@ -1,36 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { navLinks, profile, type SectionId } from "@/lib/content";
 import { ProfilePhoto } from "@/components/ProfilePhoto";
 import { NavLinkText, navLinkClass } from "./NavLinkText";
 
-const LED_ON = "#3ddc84";
-
-function useClock() {
-  const [time, setTime] = useState("");
-  useEffect(() => {
-    const tick = () =>
-      setTime(new Date().toLocaleTimeString("pt-BR", { timeZone: "America/Sao_Paulo", hour12: false }));
-    tick();
-    const id = window.setInterval(tick, 1000);
-    return () => window.clearInterval(id);
-  }, []);
-  return time;
-}
+const LED_ON = "#ff6a13";
 
 /**
- * Navbar como uma IHM industrial de nova geração: seletor de telas em vidro com
- * "thumb" deslizante, LEDs de estado por tela, barra de processo (progresso do
- * scroll) e bloco de status do sistema.
+ * Navbar como uma IHM industrial de nova geração: seletor de telas em vidro escuro
+ * com "thumb" deslizante, LED na tela ativa e barra de progresso da página.
  *
  * Ela começa "vazia": avatar e links ficam invisíveis até o card do hero chegar
  * voando. Os .nav-slot servem de alvo de medição e depois assumem o lugar.
  * Os LEDs ficam em posição absoluta para não mudar onde o texto cai.
  */
 export function Navbar({ active, go }: { active: SectionId; go: (id: SectionId) => void }) {
-  const time = useClock();
   const slots = useRef<Record<string, HTMLButtonElement | null>>({});
   const [thumb, setThumb] = useState<{ left: number; width: number } | null>(null);
 
@@ -48,23 +34,20 @@ export function Navbar({ active, go }: { active: SectionId; go: (id: SectionId) 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50 h-[64px] md:h-[76px]">
       <div className="flex h-full items-center justify-between gap-4 px-3 md:px-6">
-        {/* identificação + status do sistema */}
-        <button type="button" onClick={() => go("hero")} className="pointer-events-auto flex items-center gap-3" aria-label="Voltar ao início">
-          <div className="nav-avatar-slot invisible h-[38px] w-[38px] opacity-0">
+        {/* identificação */}
+        <button type="button" onClick={() => go("hero")} className="pointer-events-auto relative flex items-center gap-3 p-1.5 pr-4" aria-label="Voltar ao início">
+          <span className="nav-chrome glass glass-dark cut-sm invisible absolute inset-0 -z-10 opacity-0" aria-hidden />
+          <div className="nav-avatar-slot invisible h-[36px] w-[36px] opacity-0">
             <ProfilePhoto className="h-full w-full" alt="" />
           </div>
-          <div className="nav-chrome invisible hidden text-left opacity-0 lg:block">
-            <div className="font-display text-[18px] font-semibold leading-none">{profile.name}</div>
-            <div className="mt-1 flex items-center gap-1.5 text-[12px] text-dim">
-              <span className="led" style={{ ["--led" as string]: LED_ON }} aria-hidden />
-              Online em Betim <span className="tabular-nums text-paper/80">{time}</span>
-            </div>
-          </div>
+          <span className="nav-chrome invisible hidden font-display text-[19px] font-semibold uppercase leading-none text-white opacity-0 sm:block">
+            {profile.name}
+          </span>
         </button>
 
         {/* seletor de telas */}
         <nav className="relative flex items-center gap-5 px-5 py-3 sm:gap-7 md:gap-9 md:px-7" aria-label="Navegação principal">
-          <span className="nav-chrome glass cut invisible absolute inset-0 -z-10 opacity-0" aria-hidden />
+          <span className="nav-chrome glass glass-dark cut invisible absolute inset-0 -z-10 opacity-0" aria-hidden />
           {thumb && (
             <span
               aria-hidden
@@ -84,7 +67,7 @@ export function Navbar({ active, go }: { active: SectionId; go: (id: SectionId) 
                 onClick={() => go(l.id)}
                 aria-current={on ? "true" : undefined}
                 className={`nav-slot pointer-events-auto invisible relative opacity-0 transition-colors ${navLinkClass} ${
-                  on ? "text-paper" : "text-dim hover:text-paper"
+                  on ? "text-white" : "text-white/60 hover:text-white"
                 }`}
               >
                 <span
@@ -98,7 +81,7 @@ export function Navbar({ active, go }: { active: SectionId; go: (id: SectionId) 
           })}
           <Link
             href="/links"
-            className="nav-chrome pointer-events-auto invisible para ml-1 hidden bg-paper px-5 py-1.5 text-[15px] font-medium text-ink opacity-0 transition-opacity hover:opacity-80 md:inline-block"
+            className="nav-chrome pointer-events-auto invisible para ml-1 hidden bg-safety px-5 py-1.5 text-[15px] font-semibold text-white opacity-0 transition-opacity hover:opacity-85 md:inline-block"
           >
             Links
           </Link>

@@ -1,6 +1,6 @@
 /**
- * Segundo hero: aparece na primeira rolada, dentro da janela "aberta"
- * (sem vidro), com o grafo e os triângulos visíveis ao fundo.
+ * Primeira faixa da página normal: transparente, com o grafo e os triângulos
+ * visíveis ao fundo. Diz o que eu faço em uma frase e três frentes.
  */
 const PILLARS = [
   { title: "Integrações e APIs", text: "Sistemas, marketplaces, planilhas e webhooks conversando sem retrabalho." },
@@ -10,22 +10,19 @@ const PILLARS = [
 
 export function Intro() {
   return (
-    <section className="sec sec-intro frame-inset invisible opacity-0" aria-labelledby="intro-title">
-      <div className="flex h-full flex-col justify-center p-6 md:px-14">
-        <h2 id="intro-title" tabIndex={-1} className="max-w-[16ch] font-display text-[44px] font-semibold uppercase leading-[0.9] outline-none md:text-[76px]">
+    <section id="sec-intro" className="relative flex min-h-[100svh] items-center py-28 text-white" aria-labelledby="intro-title">
+      <div className="container-page">
+        <h2 id="intro-title" className="reveal max-w-[16ch] font-display text-[46px] font-semibold uppercase leading-[0.9] md:text-[80px]">
           Do processo manual ao sistema que roda sozinho.
         </h2>
-        <p className="mt-5 max-w-[46ch] text-[16px] leading-snug text-paper/75 md:text-[18px]">
+        <p className="reveal mt-6 max-w-[46ch] text-[17px] leading-snug text-white/75 md:text-[19px]">
           Mapeio o processo, integro os sistemas e coloco IA onde ela realmente economiza tempo.
         </p>
-        <ul className="mt-10 grid max-w-[980px] gap-6 md:grid-cols-3">
-          {PILLARS.map((p) => (
-            <li key={p.title} className="border-t border-white/25 pt-4">
-              <span className="flex items-center gap-2 font-display text-[18px] font-semibold uppercase">
-                <span className="led" style={{ ["--led" as string]: "#3ddc84" }} aria-hidden />
-                {p.title}
-              </span>
-              <span className="mt-2 block text-[14px] leading-snug text-paper/65">{p.text}</span>
+        <ul className="mt-12 grid max-w-[1000px] gap-8 md:grid-cols-3">
+          {PILLARS.map((p, i) => (
+            <li key={p.title} className="reveal border-t-2 border-safety pt-4" style={{ transitionDelay: `${i * 80}ms` }}>
+              <span className="font-display text-[20px] font-semibold uppercase">{p.title}</span>
+              <span className="mt-2 block text-[15px] leading-snug text-white/70">{p.text}</span>
             </li>
           ))}
         </ul>

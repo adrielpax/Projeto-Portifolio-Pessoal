@@ -13,6 +13,14 @@
   --color-claude: #d97757;
   --color-codex: #8fa2ff;
   --color-signal: #ffffff;
+
+  /* paleta de software industrial (página) */
+  --color-concrete: #e4e6e8;
+  --color-concrete-2: #d7dade;
+  --color-graphite: #16191e;
+  --color-slate: #5b6470;
+  --color-safety: #ff6a13;
+  --color-steel: #2f5d8a;
 }
 
 /* ------------------------------------------------------------------ base */
@@ -695,4 +703,135 @@ body {
   50% {
     opacity: 0.55;
   }
+}
+
+
+/* =====================================================================
+   PÁGINA NORMAL (depois da abertura)
+   ===================================================================== */
+
+/* superfície clara que sobe por cima do fundo */
+.page-surface {
+  position: relative;
+  background: var(--color-concrete);
+  color: var(--color-graphite);
+  border-radius: 28px 0 0 0;
+  corner-shape: bevel;
+  box-shadow: 0 -30px 80px rgba(0, 0, 0, 0.35);
+}
+/* grade técnica bem leve, como papel milimetrado */
+.page-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(22, 25, 30, 0.045) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, rgba(22, 25, 30, 0.045) 1px, transparent 1px) 0 0 / 32px 32px;
+  border-radius: inherit;
+  corner-shape: bevel;
+}
+
+.container-page {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1180px;
+  padding: 0 20px;
+}
+@media (min-width: 768px) {
+  .container-page {
+    padding: 0 40px;
+  }
+}
+
+/* vidro escuro: legível sobre a página clara */
+.glass-dark {
+  background: linear-gradient(160deg, rgba(30, 34, 41, 0.86), rgba(16, 18, 22, 0.8));
+}
+
+/* entrada das seções: rápida e barata (só opacidade e um deslocamento curto) */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+.a11y-reduce-motion .reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* rótulo pequeno de seção, laranja de segurança */
+.tag-safety {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-safety);
+}
+.tag-safety::before {
+  content: "";
+  width: 18px;
+  height: 3px;
+  background: currentColor;
+}
+
+/* cartão claro (projetos, stack) */
+.card-light {
+  position: relative;
+  background: #f4f5f6;
+  border: 1px solid var(--color-concrete-2);
+  border-radius: 14px 0 14px 0;
+  corner-shape: bevel;
+  transition:
+    transform 0.25s ease-out,
+    box-shadow 0.25s ease-out,
+    border-color 0.25s;
+}
+.card-light:hover {
+  transform: translateY(-3px);
+  border-color: #b9bec5;
+  box-shadow: 0 14px 30px -18px rgba(22, 25, 30, 0.45);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--color-steel);
+  background: rgba(47, 93, 138, 0.09);
+  border-radius: 5px 0 5px 0;
+  corner-shape: bevel;
+}
+
+/* campos do formulário sobre o painel escuro */
+.field-dark {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 12px 14px;
+  font-size: 15px;
+  color: #fff;
+  border-radius: 8px 0 8px 0;
+  corner-shape: bevel;
+}
+.field-dark::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+.field-dark:focus {
+  outline: none;
+  border-color: var(--color-safety);
 }

@@ -58,6 +58,14 @@ A primeira versão caiu em padrões típicos de página gerada por IA (preto azu
 - **SEO**: título e descrição com o posicionamento, Open Graph/Twitter, imagem de compartilhamento gerada (`app/opengraph-image.tsx`), `robots.txt`, `sitemap.xml` e dados estruturados `Person`.
 - **Falta (depende do Adriel)**: 2 a 3 estudos de caso reais, link de WhatsApp/Calendly, email público, LinkedIn e depoimentos.
 
+### Revisão: página normal depois da abertura
+- A abertura (card com a foto → navbar) dura 1 tela de rolagem. Depois disso é uma **página normal**, com rolagem nativa e efeitos baratos (fade + deslocamento curto via IntersectionObserver), para não travar no celular.
+- Primeira faixa ("Do processo manual ao sistema que roda sozinho.") é transparente: o grafo e os triângulos aparecem. As seções seguintes sobem numa **superfície cinza-concreto** com grade técnica leve.
+- **Paleta industrial**: concreto `#E4E6E8`, grafite `#16191E`, laranja de segurança `#FF6A13` (ações e destaques), azul-aço `#2F5D8A` (chips e links secundários).
+- Navbar só com foto + "Adriel Lucas" e o seletor de seções em vidro escuro. Seções: Projetos, Stack, Contato (o Log virou "Outros repositórios" dentro de Projetos).
+- Claude e Codex em vetor, soltos pela página: flutuam, giram, quicam nas bordas, podem ser arrastados; clique abre chat/voz.
+- A cena 3D para de renderizar quando o fundo sai de vista; no celular, sem WebGL.
+
 ## 3. Arquitetura da experiência
 
 O scroll **não** rola a página. Ele move uma linha do tempo.

@@ -25,23 +25,12 @@ export const profile = {
   email: "", // TODO: preencher
 };
 
-export type SectionId = "hero" | "intro" | "projects" | "stack" | "blog" | "contact";
-
-/** Rótulos da timeline mestre: cada unidade = uma "parada" do scroll. */
-export const timelineLabels: { label: string; section: SectionId }[] = [
-  { label: "hero", section: "hero" },
-  { label: "intro", section: "intro" },
-  { label: "projects", section: "projects" },
-  { label: "stack", section: "stack" },
-  { label: "blog", section: "blog" },
-  { label: "contact", section: "contact" },
-];
+export type SectionId = "hero" | "intro" | "projects" | "stack" | "contact";
 
 export const navLinks: { id: SectionId; label: string; index: string }[] = [
   { id: "projects", label: "Projetos", index: "01" },
   { id: "stack", label: "Stack", index: "02" },
-  { id: "blog", label: "Log", index: "03" },
-  { id: "contact", label: "Contato", index: "04" },
+  { id: "contact", label: "Contato", index: "03" },
 ];
 
 export const socials = [
@@ -90,7 +79,7 @@ export const projects: Project[] = [
   {
     repo: "Projeto-Portifolio-Pessoal",
     title: "Portfólio pessoal",
-    description: "Este site: cena 3D, agentes em pixel art e navegação guiada pelo scroll.",
+    description: "Este site: abertura animada, grafo 3D de fundo e os agentes Claude e Codex soltos pela tela.",
     pushed: "2026-11-02",
     language: "TypeScript",
     tags: ["Next.js", "Three.js", "GSAP"],

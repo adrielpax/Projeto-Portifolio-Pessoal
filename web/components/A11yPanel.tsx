@@ -74,7 +74,7 @@ export function A11yPanel() {
         role="region"
         aria-label="Opções de acessibilidade"
         hidden={!open}
-        className="glass glass-sm absolute bottom-full left-0 mb-3 w-[280px] p-2"
+        className="glass glass-dark glass-sm absolute bottom-full left-0 mb-3 w-[280px] p-2 text-white"
       >
         {OPTIONS.map((o) => (
           <button
@@ -107,7 +107,7 @@ export function A11yPanel() {
         aria-expanded={open}
         aria-controls={panelId}
         aria-label="Acessibilidade"
-        className="glass glass-pill relative flex h-10 items-center gap-2 px-3 text-[14px] font-medium sm:h-11 sm:px-4"
+        className="glass glass-dark glass-pill relative flex h-10 items-center gap-2 px-3 text-[14px] font-medium text-white sm:h-11 sm:px-4"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
           <circle cx="12" cy="4.5" r="2" fill="currentColor" />

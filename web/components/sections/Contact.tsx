@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { profile, socials } from "@/lib/content";
-import { SectionHeader } from "./SectionHeader";
 
 export function Contact() {
   const [opened, setOpened] = useState(false);
@@ -29,61 +28,53 @@ export function Contact() {
   };
 
   return (
-    <section className="sec sec-contact frame-inset invisible opacity-0" aria-labelledby="contact-title">
-      <div className="flex h-full flex-col overflow-y-auto p-4 md:px-8 md:pb-6 md:pt-5">
-        <SectionHeader code="Tela 04" title="Contato" id="contact-title" meta={<>{profile.location}<br />{profile.status}</>} />
-        <div className="mt-6 flex flex-1 flex-col justify-center gap-6 lg:grid lg:grid-cols-2 lg:items-center lg:gap-14">
-        <div>
-          <p className="max-w-[24ch] font-display text-[34px] font-semibold uppercase leading-[0.95] md:text-[44px]">Vamos construir algo que funcione.</p>
-          <p className="mt-4 max-w-[38ch] text-[15px] leading-snug text-paper/70">
-            Tem um produto para tirar do papel ou um processo que come o dia do seu time? Me conta.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-[14px]">
-            {socials.map((s) => (
-              <a
-                key={s.id}
-                href={s.href}
-                target={s.href.startsWith("http") ? "_blank" : undefined}
-                rel="noreferrer"
-                className="text-dim transition-colors hover:text-paper"
-              >
-                {s.label}
-              </a>
-            ))}
+    <section id="sec-contact" className="relative py-20 md:py-28" aria-labelledby="contact-title">
+      <div className="container-page">
+        <div className="reveal cut grid gap-10 bg-graphite p-7 text-white md:grid-cols-[1.1fr_1fr] md:p-12">
+          <div>
+            <span className="tag-safety">Contato</span>
+            <h2 id="contact-title" tabIndex={-1} className="mt-3 font-display text-[40px] font-semibold uppercase leading-[0.92] outline-none md:text-[56px]">
+              Vamos construir algo que funcione
+            </h2>
+            <p className="mt-4 max-w-[40ch] text-[16px] leading-snug text-white/70">
+              Tem um processo que come o dia do seu time ou um produto para tirar do papel? Me conta o cenário.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-4">
+              {profile.cta.href && (
+                <a href={profile.cta.href} target="_blank" rel="noreferrer" className="para bg-safety px-6 py-3 text-[15px] font-semibold text-white hover:opacity-90">
+                  {profile.cta.label}
+                </a>
+              )}
+              {socials.map((s) => (
+                <a
+                  key={s.id}
+                  href={s.href}
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer"
+                  className="text-[15px] font-semibold text-white/80 underline-offset-4 hover:text-white hover:underline"
+                >
+                  {s.label}
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {profile.email ? (
-        <form onSubmit={onSubmit} className="contact-form glass relative w-full overflow-hidden">
-          <div className="grid grid-cols-1 sm:grid-cols-2">
-            <label className="field sm:border-r">
-              <span>Nome</span>
-              <input name="name" required autoComplete="name" />
-            </label>
-            <label className="field border-t sm:border-t-0">
-              <span>Email</span>
-              <input name="email" type="email" required autoComplete="email" />
-            </label>
-          </div>
-          <label className="field border-t">
-            <span>Sobre o projeto</span>
-            <textarea ref={messageRef} name="message" required rows={3} />
-          </label>
-          <button
-            type="submit"
-            className="para m-2 w-[calc(100%-1rem)] bg-paper px-6 py-3.5 text-left text-[15px] font-semibold text-ink transition-opacity hover:opacity-85"
-          >
-            {opened ? "Seu app de email abriu com a mensagem. Só enviar." : "Escrever email"}
-          </button>
-        </form>
-        ) : (
-          <a href="https://github.com/adrielpax" target="_blank" rel="noreferrer" className="glass relative block p-6 text-[15px]">
-            <span className="font-display text-[22px] font-semibold uppercase">github.com/adrielpax</span>
-            <span className="mt-1 block text-paper/65">Enquanto o email público não está configurado, o contato é pelo GitHub.</span>
-          </a>
-        )}
+          {profile.email ? (
+            <form onSubmit={onSubmit} className="grid gap-3 self-start">
+              <input name="name" required autoComplete="name" placeholder="Seu nome" className="field-dark" />
+              <input name="email" type="email" required autoComplete="email" placeholder="Seu email" className="field-dark" />
+              <textarea ref={messageRef} name="message" required rows={4} placeholder="Sobre o projeto" className="field-dark resize-none" />
+              <button type="submit" className="para bg-safety px-6 py-3 text-left text-[15px] font-semibold text-white hover:opacity-90">
+                {opened ? "Seu app de email abriu com a mensagem. Só enviar." : "Escrever email"}
+              </button>
+            </form>
+          ) : (
+            <div className="self-start border-l-2 border-safety pl-5">
+              <p className="font-display text-[22px] font-semibold uppercase">github.com/adrielpax</p>
+              <p className="mt-1 text-[15px] text-white/65">O email público ainda não foi configurado. Por enquanto, o contato é pelo GitHub.</p>
+            </div>
+          )}
         </div>
-        <p className="mt-4 text-[12px] text-faint">© {new Date().getFullYear()} {profile.name}</p>
       </div>
     </section>
   );

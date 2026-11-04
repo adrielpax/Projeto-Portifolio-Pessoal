@@ -43,11 +43,12 @@ function Overlay() {
   );
 }
 
-export default function Scene() {
+export default function Scene({ active = true }: { active?: boolean }) {
   return (
     <>
       <Canvas
         dpr={[1, 1.5]}
+        frameloop={active ? "always" : "never"}
         camera={{ position: [0, 0, 9], fov: 45, near: 0.1, far: 60 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         style={{ position: "absolute", inset: 0 }}

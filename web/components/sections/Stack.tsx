@@ -1,36 +1,32 @@
 import { stackLayers } from "@/lib/content";
-import { SectionHeader } from "./SectionHeader";
 
 export function Stack() {
-  const total = stackLayers.reduce((n, l) => n + l.items.length, 0);
   return (
-    <section className="sec sec-stack frame-inset invisible opacity-0" aria-labelledby="stack-title">
-      <div className="flex h-full flex-col p-4 md:px-8 md:pb-6 md:pt-5">
-        <SectionHeader
-          code="Tela 02"
-          title="Stack"
-          id="stack-title"
-          meta={
-            <>
-              {stackLayers.length} camadas, {total} tecnologias
-              <br />
-              da interface à infraestrutura
-            </>
-          }
-        />
-        <div className="mt-4 flex min-h-0 flex-1 flex-col">
-          <p className="stack-desc max-w-[38ch] text-[14px] leading-snug text-paper/70">
-            As ferramentas que uso no dia a dia, organizadas por camada.
-          </p>
-          {/* lista completa, sempre legível (os rótulos 3D são o reforço visual) */}
-          <ul className="mt-6 grid grid-cols-1 gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
-            {stackLayers.map((l) => (
-              <li key={l.code} className="flex items-baseline justify-between gap-3 border-t border-white/8 py-1.5 text-[12.5px]">
-                <span className="font-display text-[15px] font-semibold uppercase">{l.name}</span>
-                <span className="truncate text-right text-paper/60">{l.items.join(", ")}</span>
-              </li>
-            ))}
-          </ul>
+    <section id="sec-stack" className="relative border-t border-concrete-2 pb-8 pt-20 md:pb-10 md:pt-28" aria-labelledby="stack-title">
+      <div className="container-page">
+        <div className="reveal max-w-[640px]">
+          <span className="tag-safety">Stack</span>
+          <h2 id="stack-title" tabIndex={-1} className="mt-3 font-display text-[40px] font-semibold uppercase leading-[0.92] outline-none md:text-[58px]">
+            Ferramentas por camada
+          </h2>
+          <p className="mt-4 text-[16px] leading-snug text-slate">Da interface à infraestrutura, o que uso para colocar sistemas de pé.</p>
+        </div>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {stackLayers.map((l, i) => (
+            <div key={l.code} className="card-light reveal p-5" style={{ transitionDelay: `${(i % 3) * 70}ms` }}>
+              <div className="flex items-center justify-between">
+                <h3 className="font-display text-[22px] font-semibold uppercase leading-none">{l.name}</h3>
+                <span className="font-mono text-[12px] text-slate">{l.code}</span>
+              </div>
+              <div className="mt-4 flex flex-wrap gap-1.5">
+                {l.items.map((t) => (
+                  <span key={t} className="chip">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
