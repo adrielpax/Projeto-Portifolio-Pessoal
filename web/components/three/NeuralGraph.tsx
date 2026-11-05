@@ -41,7 +41,7 @@ const pointsFragment = /* glsl */ `
     float glow = smoothstep(0.5, 0.0, d) * 0.45;
     float a = (core + glow) * vAlpha * uOpacity;
     if (a < 0.004) discard;
-    vec3 col = mix(vColor, vec3(1.0), core * 0.25);
+    vec3 col = mix(vColor * 1.15, vec3(1.0), core * 0.15);
     gl_FragColor = vec4(col, a);
   }
 `;
@@ -67,7 +67,7 @@ const linesFragment = /* glsl */ `
   varying float vFade;
   varying vec3 vColor;
   void main() {
-    float a = (0.16 + vGlow * 0.6) * uOpacity * vFade;
+    float a = (0.3 + vGlow * 0.7) * uOpacity * vFade;
     gl_FragColor = vec4(mix(vColor, vec3(1.0), vGlow * 0.5), a);
   }
 `;
@@ -182,7 +182,7 @@ export function NeuralGraph() {
     g.nodes.forEach((n, i) => {
       n.p.toArray(p, i * 3);
       sizes[i] = n.named ? 7 + Math.min(5, g.adj[i].length) * 0.6 : 2.6 + g.rand() * 1.4;
-      alpha[i] = n.named ? 0.95 : 0.55;
+      alpha[i] = n.named ? 1.0 : 0.75;
       n.color.toArray(col, i * 3);
     });
     geo.setAttribute("position", new THREE.BufferAttribute(p, 3));
@@ -277,7 +277,7 @@ export function NeuralGraph() {
       grp.rotation.y += dt * (stage.reducedMotion ? 0.01 : 0.04);
       grp.rotation.x = THREE.MathUtils.damp(grp.rotation.x, stage.mouseY * 0.12, 2, dt);
     }
-    const opacity = kf(t, [1, 0.8, 0.5, 0.5, 0.5, 0.8]);
+    const opacity = kf(t, [1, 0.9, 0.6, 0.6, 0.6, 0.85]);
     uniforms.points.uOpacity.value = opacity;
     uniforms.pulses.uOpacity.value = opacity;
     uniforms.lines.uOpacity.value = opacity;

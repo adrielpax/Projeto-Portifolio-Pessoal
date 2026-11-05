@@ -14,7 +14,6 @@ import { HeroCard } from "./HeroCard";
 import { Navbar } from "./Navbar";
 import { Dock } from "./Dock";
 import { Triangles } from "./Triangles";
-import { Intro } from "@/components/sections/Intro";
 import { Projects } from "@/components/sections/Projects";
 import { Stack } from "@/components/sections/Stack";
 import { Contact } from "@/components/sections/Contact";
@@ -104,7 +103,7 @@ export default function Experience() {
 
   // seção ativa (navbar/Dock), entrada das seções e pausa da cena 3D
   useEffect(() => {
-    const ids: SectionId[] = ["intro", "projects", "stack", "contact"];
+    const ids: SectionId[] = ["projects", "stack", "contact"];
     const spy = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -276,7 +275,7 @@ export default function Experience() {
       </a>
 
       {/* fundo fixo: grafo 3D (ou estático), vinheta e triângulos */}
-      <div className="fixed inset-0 z-0 bg-graphite" aria-hidden>
+      <div className="fixed inset-0 z-0 bg-black" aria-hidden>
         {lite ? <div className="lite-bg absolute inset-0" /> : <Scene active={sceneOn} />}
         <div className="vignette pointer-events-none absolute inset-0" />
         <Triangles />
@@ -294,13 +293,10 @@ export default function Experience() {
       <div ref={track} className="h-[100svh]" aria-hidden />
 
       <main className="relative z-30">
-        <Intro />
-        <div className="page-surface">
-          <Projects />
-          <Stack />
-          <Contact />
-          <Footer />
-        </div>
+        <Projects />
+        <Stack />
+        <Contact />
+        <Footer />
       </main>
 
       {/* agentes soltos pela tela */}

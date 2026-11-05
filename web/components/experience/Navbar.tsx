@@ -6,7 +6,7 @@ import { navLinks, profile, type SectionId } from "@/lib/content";
 import { ProfilePhoto } from "@/components/ProfilePhoto";
 import { NavLinkText, navLinkClass } from "./NavLinkText";
 
-const LED_ON = "#ff6a13";
+const LED_ON = "#ffffff";
 
 /**
  * Navbar como uma IHM industrial de nova geração: seletor de telas em vidro escuro
@@ -81,7 +81,7 @@ export function Navbar({ active, go }: { active: SectionId; go: (id: SectionId) 
           })}
           <Link
             href="/links"
-            className="nav-chrome pointer-events-auto invisible para ml-1 hidden bg-safety px-5 py-1.5 text-[15px] font-semibold text-white opacity-0 transition-opacity hover:opacity-85 md:inline-block"
+            className="nav-chrome pointer-events-auto invisible para ml-1 hidden bg-white px-5 py-1.5 text-[15px] font-semibold text-black opacity-0 transition-opacity hover:opacity-85 md:inline-block"
           >
             Links
           </Link>

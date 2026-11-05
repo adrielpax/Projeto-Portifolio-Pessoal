@@ -114,17 +114,39 @@ export const projects: Project[] = [
  * Preencha com fatos e números verdadeiros; enquanto vazio, a vitrine mostra só os repositórios.
  */
 export type CaseStudy = {
-  client: string; // ex.: "Indústria de autopeças (NDA)"
+  client: string;
   title: string;
+  role: string;
+  year: string;
   problem: string;
   solution: string;
-  /** resultado mensurável e verdadeiro, ex.: "-12 h/semana de digitação" */
+  /** resultado verdadeiro, em uma frase */
   result: string;
   stack: string[];
   image?: string;
+  link?: string;
+  /** cores da marca (gradiente atrás do logo) */
+  brand?: [string, string];
 };
 
-export const cases: CaseStudy[] = [];
+/** Projeto em destaque (dados do próprio Adriel, branch vanguard) */
+export const cases: CaseStudy[] = [
+  {
+    client: "Produto próprio",
+    title: "Meu Barbeiro",
+    role: "Fundador e desenvolvedor full stack",
+    year: "2025",
+    problem:
+      "Barbeiros perdem horas por dia respondendo mensagens repetidas no WhatsApp para marcar, confirmar e remarcar horários. Sem agenda centralizada, aparecem furos, esquecimentos e horários duplicados.",
+    solution:
+      "Uma plataforma web que centraliza a agenda e automatiza a conversa de agendamento: o cliente marca sozinho, recebe confirmação automática e o barbeiro acompanha tudo num painel.",
+    result: "Agendamento sem conversa manual, em produção e em uso real. Registro de propriedade intelectual no INPI.",
+    stack: ["Next.js", "TypeScript", "React", "Tailwind CSS", "PostgreSQL"],
+    image: "/images/projects/meu-barbeiro.png",
+    link: "https://barberboost.vercel.app/",
+    brand: ["#5ce0e6", "#004aad"],
+  },
+];
 
 /** Repositórios menores e estudos, mostrados no registro de atividade */
 export const archive = [

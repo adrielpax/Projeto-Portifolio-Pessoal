@@ -30,9 +30,9 @@ export function Contact() {
   return (
     <section id="sec-contact" className="relative py-20 md:py-28" aria-labelledby="contact-title">
       <div className="container-page">
-        <div className="reveal cut grid gap-10 bg-graphite p-7 text-white md:grid-cols-[1.1fr_1fr] md:p-12">
+        <div className="reveal glass relative grid gap-10 p-7 text-white md:grid-cols-[1.1fr_1fr] md:p-12">
           <div>
-            <span className="tag-safety">Contato</span>
+            <span className="kicker-line">Contato</span>
             <h2 id="contact-title" tabIndex={-1} className="mt-3 font-display text-[40px] font-semibold uppercase leading-[0.92] outline-none md:text-[56px]">
               Vamos construir algo que funcione
             </h2>
@@ -41,7 +41,7 @@ export function Contact() {
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-4">
               {profile.cta.href && (
-                <a href={profile.cta.href} target="_blank" rel="noreferrer" className="para bg-safety px-6 py-3 text-[15px] font-semibold text-white hover:opacity-90">
+                <a href={profile.cta.href} target="_blank" rel="noreferrer" className="para bg-white px-6 py-3 text-[15px] font-semibold text-black hover:opacity-85">
                   {profile.cta.label}
                 </a>
               )}
@@ -64,12 +64,12 @@ export function Contact() {
               <input name="name" required autoComplete="name" placeholder="Seu nome" className="field-dark" />
               <input name="email" type="email" required autoComplete="email" placeholder="Seu email" className="field-dark" />
               <textarea ref={messageRef} name="message" required rows={4} placeholder="Sobre o projeto" className="field-dark resize-none" />
-              <button type="submit" className="para bg-safety px-6 py-3 text-left text-[15px] font-semibold text-white hover:opacity-90">
+              <button type="submit" className="para bg-white px-6 py-3 text-left text-[15px] font-semibold text-black hover:opacity-85">
                 {opened ? "Seu app de email abriu com a mensagem. Só enviar." : "Escrever email"}
               </button>
             </form>
           ) : (
-            <div className="self-start border-l-2 border-safety pl-5">
+            <div className="self-start border-l-2 border-white pl-5">
               <p className="font-display text-[22px] font-semibold uppercase">github.com/adrielpax</p>
               <p className="mt-1 text-[15px] text-white/65">O email público ainda não foi configurado. Por enquanto, o contato é pelo GitHub.</p>
             </div>

@@ -835,3 +835,72 @@ body {
   outline: none;
   border-color: var(--color-safety);
 }
+
+/* =====================================================================
+   FUNDO PRETO: rótulos, etiquetas e triângulos de vidro
+   ===================================================================== */
+
+.kicker-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.75);
+}
+.kicker-line::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: #fff;
+}
+
+.chip-glass {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 5px 0 5px 0;
+  corner-shape: bevel;
+}
+
+/* triângulo de vidro: desfoque do que está atrás + brilho na borda */
+.tri-glass {
+  position: absolute;
+  bottom: -25vh;
+  will-change: transform;
+  animation: tri-rise var(--dur) linear var(--delay) infinite;
+}
+.tri-glass > i {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+/* aro claro */
+.tri-glass > i:first-child {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.08) 45%, rgba(255, 255, 255, 0.3));
+}
+/* corpo de vidro, 1.5px para dentro */
+.tri-glass > i:last-child {
+  inset: 2px 2px 1.5px 2px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.03) 60%);
+  -webkit-backdrop-filter: blur(8px) saturate(160%);
+  backdrop-filter: blur(8px) saturate(160%);
+}
+.a11y-reduce-motion .tri-glass {
+  display: none;
+}
+
+/* vidro bem translúcido do card principal */
+.glass-clear {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.025) 55%, rgba(255, 255, 255, 0.05));
+  -webkit-backdrop-filter: blur(16px) saturate(170%);
+  backdrop-filter: blur(16px) saturate(170%);
+}

@@ -66,6 +66,13 @@ A primeira versão caiu em padrões típicos de página gerada por IA (preto azu
 - Claude e Codex em vetor, soltos pela página: flutuam, giram, quicam nas bordas, podem ser arrastados; clique abre chat/voz.
 - A cena 3D para de renderizar quando o fundo sai de vista; no celular, sem WebGL.
 
+### Revisão: preto, vidro e um projeto só
+- Fundo **preto** em todo o site; sem superfície cinza e sem segundo hero.
+- Card principal **translúcido**: o degradê termina no vidro. No celular a foto fica em cima (rosto visível) e o texto embaixo.
+- **Branco** é a única cor sólida (botões e destaques). As cores ficam na rede neural (mais viva) e nos personagens.
+- **Triângulos de vidro** de verdade: desfoque do fundo + aro claro, subindo devagar.
+- Projetos: **só o Meu Barbeiro** (BarberBoost), com logo e estudo de caso real (dados da branch `vanguard`).
+
 ## 3. Arquitetura da experiência
 
 O scroll **não** rola a página. Ele move uma linha do tempo.

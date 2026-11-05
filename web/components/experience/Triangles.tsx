@@ -1,37 +1,31 @@
 import type { CSSProperties } from "react";
 import { mulberry32 } from "@/lib/math";
 
-/** poucos triângulos bem claros subindo devagar atrás do conteúdo */
+/** poucos triângulos de vidro subindo devagar, com desfoque do fundo */
 const rand = mulberry32(42);
-const TRIS = Array.from({ length: 8 }, (_, i) => {
-  const size = 28 + rand() * 110;
-  return {
-    i,
-    size,
-    left: rand() * 100,
-    dur: 26 + rand() * 30,
-    delay: -rand() * 50,
-    dx: (rand() - 0.5) * 120,
-    r0: rand() * 360,
-    r1: rand() * 360 + 120,
-    filled: rand() > 0.7,
-    alpha: 0.03 + rand() * 0.035,
-  };
-});
+const TRIS = Array.from({ length: 7 }, (_, i) => ({
+  i,
+  size: 56 + rand() * 120,
+  left: 4 + rand() * 88,
+  dur: 30 + rand() * 26,
+  delay: -rand() * 56,
+  dx: (rand() - 0.5) * 140,
+  r0: rand() * 360,
+  r1: rand() * 360 + 140,
+}));
 
 export function Triangles() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
       {TRIS.map((t) => (
-        <svg
+        <span
           key={t.i}
-          className="tri"
-          width={t.size}
-          height={t.size}
-          viewBox="0 0 100 100"
+          className="tri-glass"
           style={
             {
               left: `${t.left}%`,
+              width: t.size,
+              height: t.size * 0.88,
               "--dur": `${t.dur}s`,
               "--delay": `${t.delay}s`,
               "--dx": `${t.dx}px`,
@@ -40,14 +34,9 @@ export function Triangles() {
             } as CSSProperties
           }
         >
-          <polygon
-            points="50,6 96,92 4,92"
-            fill={t.filled ? `rgba(255,255,255,${t.alpha})` : "none"}
-            stroke={`rgba(255,255,255,${t.alpha * 2.2})`}
-            strokeWidth="1.5"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <i />
+          <i />
+        </span>
       ))}
     </div>
   );
