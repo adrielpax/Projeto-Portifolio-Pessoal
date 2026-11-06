@@ -73,6 +73,12 @@ A primeira versão caiu em padrões típicos de página gerada por IA (preto azu
 - **Triângulos de vidro** de verdade: desfoque do fundo + aro claro, subindo devagar.
 - Projetos: **só o Meu Barbeiro** (BarberBoost), com logo e estudo de caso real (dados da branch `vanguard`).
 
+### Sinótico 3D: linha de produção
+- Seção própria logo após o hero (`components/sections/Synoptic.tsx` + `components/three/ProductionLine.tsx`).
+- Esteira com taliscas, alimentador, robô de montagem, pórtico de inspeção a laser (pisca verde/vermelho), expulsor de refugo, caçambas e armário do CLP com LEDs.
+- Painel SCADA ao lado: produzidas, refugo, ritmo (pç/min), qualidade e estado de cada estação. É uma simulação (deixado claro na seção).
+- Feito com as skills de Three.js instaladas em `.claude/skills/` (CloudAI-X/threejs-skills, MIT): animação por ref no `useFrame`, instanciamento para peças e taliscas, sombras "percentage", render só com a seção visível; no celular sem sombras e com dpr 1.
+
 ## 3. Arquitetura da experiência
 
 O scroll **não** rola a página. Ele move uma linha do tempo.

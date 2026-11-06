@@ -14,6 +14,7 @@ import { HeroCard } from "./HeroCard";
 import { Navbar } from "./Navbar";
 import { Dock } from "./Dock";
 import { Triangles } from "./Triangles";
+import { Synoptic } from "@/components/sections/Synoptic";
 import { Projects } from "@/components/sections/Projects";
 import { Stack } from "@/components/sections/Stack";
 import { Contact } from "@/components/sections/Contact";
@@ -133,7 +134,7 @@ export default function Experience() {
     const onScroll = () => {
       const y = window.scrollY;
       if (y < window.innerHeight * 0.5) setActive("hero");
-      const visible = y < window.innerHeight * 2.4;
+      const visible = y < window.innerHeight * 1.15;
       stage.sceneVisible = visible;
       setSceneOn(visible);
     };
@@ -293,6 +294,7 @@ export default function Experience() {
       <div ref={track} className="h-[100svh]" aria-hidden />
 
       <main className="relative z-30">
+        <Synoptic />
         <Projects />
         <Stack />
         <Contact />
